@@ -1,0 +1,4 @@
+add_library(
+        ast STATIC
+        ast.cc
+)

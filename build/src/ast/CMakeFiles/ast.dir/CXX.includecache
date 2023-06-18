@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/ast/ast.hpp
+vector
+-
+memory
+-
+iostream
+-
+
+/home/axz/桌面/SysY2020/myself_v3.0/src/ast/ast.cc
+ast.hpp
+/home/axz/桌面/SysY2020/myself_v3.0/src/ast/ast.hpp
+iostream
+-
+string
+-
+

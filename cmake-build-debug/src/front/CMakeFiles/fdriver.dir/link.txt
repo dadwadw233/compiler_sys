@@ -1,0 +1,2 @@
+/usr/bin/ar qc libfdriver.a CMakeFiles/fdriver.dir/fdriver.cc.o
+/usr/bin/ranlib libfdriver.a

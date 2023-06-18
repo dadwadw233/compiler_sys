@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmonkey.a  CMakeFiles/monkey.dir/runParser.cc.o
+/usr/bin/ranlib libmonkey.a
