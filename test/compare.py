@@ -23,7 +23,7 @@ def deleteSpaceLines(dirname):
             f2.write(''.join(txt))
             f2.close()
 def Comparetxt(dirname):
-    for maindir, subdir, file_name_list in os.walk(dirnamie):
+    for maindir, subdir, file_name_list in os.walk(dirname):
         for filename in tqdm(file_name_list):
             path = os.path.join(maindir, filename)
             if(os.path.splitext(path)[1]!='.out'):
