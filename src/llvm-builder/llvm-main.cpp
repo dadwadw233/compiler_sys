@@ -22,14 +22,18 @@
 #include "llvm/Support/TargetSelect.h"
 #include "llvm/Support/ToolOutputFile.h"
 #include "llvm/Target/TargetMachine.h"
+#include "llvm/InitializePasses.h"
+#include "llvm/Option/Option.h"
+
 
 using namespace std;
 using namespace std::literals::string_literals;
 
 int main(int argc, char **argv) {
     string input_path = argv[1];
+    std::cout<<input_path<<std::endl;
     string target_path = input_path.substr(0, input_path.size() - 3);
-    bool showAst = false;
+    bool showAst = true;
     bool showLLVM = true;
     bool showFinal = true;
 
@@ -50,31 +54,42 @@ int main(int argc, char **argv) {
     mod->setSourceFileName(input_path);
 
     error_code error_msg;
-    llvm::InitializeAllTargets();
-    llvm::InitializeAllTargetMCs();
-    llvm::InitializeAllAsmParsers();
-    llvm::InitializeAllAsmPrinters();
+
+    //llvm::InitializeAllTargets();
+    //llvm::InitializeAllTargetMCs();
+    //llvm::InitializeAllAsmParsers();
+    //llvm::InitializeAllAsmPrinters();
+    LLVMInitializeRISCVTarget();
+    LLVMInitializeRISCVTargetInfo();
+    LLVMInitializeRISCVTargetMC();
+    LLVMInitializeRISCVAsmPrinter();
+
 
     llvm::PassRegistry *Registry = llvm::PassRegistry::getPassRegistry();
     initializeCore(*Registry);
     initializeCodeGen(*Registry);
     initializeScalarOpts(*Registry);
 
-    llvm::Triple TheTriple;
-    TheTriple.setTriple(llvm::sys::getDefaultTargetTriple());
+    llvm::Triple TheTriple("riscv64-unknown-unknown-elf");
+    //TheTriple.setTriple(llvm::sys::getDefaultTargetTriple());
+
     string Error;
     const llvm::Target *TheTarget = llvm::TargetRegistry::lookupTarget("", TheTriple, Error);
 
-    string CPUStr = getCPUStr(), FeaturesStr = getFeaturesStr();
+    string CPUStr = "", FeaturesStr = getFeaturesStr();
+
     CodeGenOpt::Level OLvl = CodeGenOpt::None;
     TargetOptions Options = InitTargetOptionsFromCodeGenFlags();
+    Options.PrintMachineCode = false;
     unique_ptr<TargetMachine> Target(TheTarget->createTargetMachine(
             TheTriple.getTriple(), CPUStr, FeaturesStr, Options, getRelocModel(), getCodeModel(), OLvl)
         );
     assert(Target);
 
-    legacy::PassManager PM;
+    cout<<"DEBUG"<<endl;
+    cout<<CPUStr<<endl;
 
+    legacy::PassManager PM;
     llvm::TargetLibraryInfoImpl TLII(Triple(mod->getTargetTriple()));
     PM.add(new TargetLibraryInfoWrapperPass(TLII));
     mod->setDataLayout(Target->createDataLayout());
@@ -82,16 +97,16 @@ int main(int argc, char **argv) {
     setFunctionAttributes(CPUStr, FeaturesStr, *mod);
 
     llvm::LLVMTargetMachine &LLVMTM = static_cast<LLVMTargetMachine&>(*Target);
-    MachineModuleInfo *MMI = new MachineModuleInfo(&LLVMTM);
+    llvm::MachineModuleInfoWrapperPass *MMI = new MachineModuleInfoWrapperPass(&LLVMTM);
     TargetPassConfig &TPC = *LLVMTM.createPassConfig(PM);
 
     TPC.setDisableVerify(true);
     PM.add(&TPC);
     PM.add(MMI);
-
+    cout<<static_cast<string>(Target->getTargetCPU())<<endl;
     if (showLLVM) {
         string target_llvm = target_path + ".ll";
-        auto output_file = llvm::make_unique<llvm::ToolOutputFile>(
+        auto output_file = make_unique<llvm::ToolOutputFile>(
             target_llvm, error_msg, llvm::sys::fs::F_None
         );
         auto output_ostream = &output_file->os();
@@ -102,7 +117,7 @@ int main(int argc, char **argv) {
 
     if(showFinal) {
         auto obj_file_name = target_path + ".o";
-        auto obj_file = llvm::make_unique<llvm::ToolOutputFile>(
+        auto obj_file = make_unique<llvm::ToolOutputFile>(
             obj_file_name, error_msg, llvm::sys::fs::F_None
         );
 
@@ -110,18 +125,15 @@ int main(int argc, char **argv) {
         TPC.addISelPasses();
         TPC.addMachinePasses();
         TPC.setInitialized();
-        LLVMTM.addAsmPrinter(
-            PM, 
-            *obj_ostream, 
-            nullptr, 
-            TargetMachine::CGFT_ObjectFile, 
-            MMI->getContext()
-        );
+        LLVMTM.addPassesToEmitFile(PM, *obj_ostream, nullptr, llvm::CGFT_ObjectFile);
+
         PM.add(createFreeMachineFunctionPass());
         PM.run(*mod);
         obj_file->keep();
 
-        auto command_string = string("clang -w ") + target_path + ".o -o " + target_path + " -L. -lsysy_io";
+        auto command_string = string("clang -w -v --target=riscv64-unknown-elf ") + target_path + ".o -o " + target_path + " -L. -lsysy_io";
+        //auto command_string = string("clang -w -v --target=riscv64-unknown-elf ") + target_path + ".o -o " + target_path ;
+        cout<<command_string<<endl;
         system(command_string.c_str());
     }
     cout << "all right" << endl;

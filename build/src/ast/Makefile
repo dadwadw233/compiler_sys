@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/axz/桌面/SysY2020/myself_v3.0
+CMAKE_SOURCE_DIR = /home/yyh/course/compilation/workplace
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/axz/桌面/SysY2020/myself_v3.0/build
+CMAKE_BINARY_DIR = /home/yyh/course/compilation/workplace/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -126,14 +126,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/axz/桌面/SysY2020/myself_v3.0/build/CMakeFiles /home/axz/桌面/SysY2020/myself_v3.0/build/src/ast/CMakeFiles/progress.marks
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/ast/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/axz/桌面/SysY2020/myself_v3.0/build/CMakeFiles 0
+	cd /home/yyh/course/compilation/workplace/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/yyh/course/compilation/workplace/build/CMakeFiles /home/yyh/course/compilation/workplace/build/src/ast/CMakeFiles/progress.marks
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/ast/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yyh/course/compilation/workplace/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/ast/clean
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/ast/clean
 .PHONY : clean
 
 # The main clean target
@@ -143,22 +143,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/ast/preinstall
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/ast/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/ast/preinstall
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/ast/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/yyh/course/compilation/workplace/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/ast/CMakeFiles/ast.dir/rule:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/ast/CMakeFiles/ast.dir/rule
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/ast/CMakeFiles/ast.dir/rule
 .PHONY : src/ast/CMakeFiles/ast.dir/rule
 
 # Convenience name for target.
@@ -168,7 +168,7 @@ ast: src/ast/CMakeFiles/ast.dir/rule
 
 # fast build rule for target.
 ast/fast:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/ast/CMakeFiles/ast.dir/build.make src/ast/CMakeFiles/ast.dir/build
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/ast/CMakeFiles/ast.dir/build.make src/ast/CMakeFiles/ast.dir/build
 .PHONY : ast/fast
 
 ast.o: ast.cc.o
@@ -177,7 +177,7 @@ ast.o: ast.cc.o
 
 # target to build an object file
 ast.cc.o:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/ast/CMakeFiles/ast.dir/build.make src/ast/CMakeFiles/ast.dir/ast.cc.o
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/ast/CMakeFiles/ast.dir/build.make src/ast/CMakeFiles/ast.dir/ast.cc.o
 .PHONY : ast.cc.o
 
 ast.i: ast.cc.i
@@ -186,7 +186,7 @@ ast.i: ast.cc.i
 
 # target to preprocess a source file
 ast.cc.i:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/ast/CMakeFiles/ast.dir/build.make src/ast/CMakeFiles/ast.dir/ast.cc.i
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/ast/CMakeFiles/ast.dir/build.make src/ast/CMakeFiles/ast.dir/ast.cc.i
 .PHONY : ast.cc.i
 
 ast.s: ast.cc.s
@@ -195,7 +195,7 @@ ast.s: ast.cc.s
 
 # target to generate assembly for a file
 ast.cc.s:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/ast/CMakeFiles/ast.dir/build.make src/ast/CMakeFiles/ast.dir/ast.cc.s
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/ast/CMakeFiles/ast.dir/build.make src/ast/CMakeFiles/ast.dir/ast.cc.s
 .PHONY : ast.cc.s
 
 # Help Target
@@ -225,6 +225,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/yyh/course/compilation/workplace/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -4,16 +4,16 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/axz/桌面/SysY2020/myself_v3.0/src/llvm-builder/sylib.c" "/home/axz/桌面/SysY2020/myself_v3.0/build/src/llvm-builder/CMakeFiles/sysy_io.dir/sylib.c.o"
+  "/home/yyh/course/compilation/workplace/src/llvm-builder/sylib.c" "/home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/sysy_io.dir/sylib.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
-  "/usr/lib/llvm-8/include"
+  "/usr/lib/llvm-10/include"
   "../include/front"
-  "../include/llvm-builder"
   "../include/ast"
+  "../include/llvm-builder"
   )
 
 # Targets to which this target links.

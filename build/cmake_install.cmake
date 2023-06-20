@@ -1,4 +1,4 @@
-# Install script for directory: /home/axz/桌面/SysY2020/myself_v3.0
+# Install script for directory: /home/yyh/course/compilation/workplace
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,17 +39,17 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/axz/桌面/SysY2020/myself_v3.0/build/src/front/cmake_install.cmake")
+  include("/home/yyh/course/compilation/workplace/build/src/front/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/axz/桌面/SysY2020/myself_v3.0/build/src/llvm-builder/cmake_install.cmake")
+  include("/home/yyh/course/compilation/workplace/build/src/ast/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/axz/桌面/SysY2020/myself_v3.0/build/src/ast/cmake_install.cmake")
+  include("/home/yyh/course/compilation/workplace/build/src/llvm-builder/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -60,5 +60,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/axz/桌面/SysY2020/myself_v3.0/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/yyh/course/compilation/workplace/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

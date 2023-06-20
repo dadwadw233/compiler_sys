@@ -3,4 +3,4 @@
 
 src/llvm-builder/CMakeFiles/sysy_io.dir/sylib.c.o
  ../include/llvm-builder/sylib.h
- /home/axz/桌面/SysY2020/myself_v3.0/src/llvm-builder/sylib.c
+ /home/yyh/course/compilation/workplace/src/llvm-builder/sylib.c

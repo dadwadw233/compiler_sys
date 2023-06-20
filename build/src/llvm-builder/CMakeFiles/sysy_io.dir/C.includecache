@@ -6,21 +6,3 @@
 
 #IncludeRegexTransform: 
 
-../include/llvm-builder/sylib.h
-stdio.h
--
-stdarg.h
--
-sys/time.h
--
-
-/home/axz/桌面/SysY2020/myself_v3.0/src/llvm-builder/sylib.c
-stdio.h
--
-stdarg.h
--
-sys/time.h
--
-sylib.h
-/home/axz/桌面/SysY2020/myself_v3.0/src/llvm-builder/sylib.h
-

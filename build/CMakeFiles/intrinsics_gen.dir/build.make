@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/axz/桌面/SysY2020/myself_v3.0
+CMAKE_SOURCE_DIR = /home/yyh/course/compilation/workplace
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/axz/桌面/SysY2020/myself_v3.0/build
+CMAKE_BINARY_DIR = /home/yyh/course/compilation/workplace/build
 
 # Utility rule file for intrinsics_gen.
 
@@ -67,6 +67,6 @@ CMakeFiles/intrinsics_gen.dir/clean:
 .PHONY : CMakeFiles/intrinsics_gen.dir/clean
 
 CMakeFiles/intrinsics_gen.dir/depend:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/axz/桌面/SysY2020/myself_v3.0 /home/axz/桌面/SysY2020/myself_v3.0 /home/axz/桌面/SysY2020/myself_v3.0/build /home/axz/桌面/SysY2020/myself_v3.0/build /home/axz/桌面/SysY2020/myself_v3.0/build/CMakeFiles/intrinsics_gen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/yyh/course/compilation/workplace/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/yyh/course/compilation/workplace /home/yyh/course/compilation/workplace /home/yyh/course/compilation/workplace/build /home/yyh/course/compilation/workplace/build /home/yyh/course/compilation/workplace/build/CMakeFiles/intrinsics_gen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/intrinsics_gen.dir/depend
 

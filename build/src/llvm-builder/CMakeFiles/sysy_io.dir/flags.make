@@ -6,5 +6,5 @@ C_FLAGS = -g   -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D_
 
 C_DEFINES = 
 
-C_INCLUDES = -I/usr/lib/llvm-8/include -I/home/axz/桌面/SysY2020/myself_v3.0/include/front -I/home/axz/桌面/SysY2020/myself_v3.0/include/llvm-builder -I/home/axz/桌面/SysY2020/myself_v3.0/include/ast 
+C_INCLUDES = -I/usr/lib/llvm-10/include -I/home/yyh/course/compilation/workplace/include/front -I/home/yyh/course/compilation/workplace/include/ast -I/home/yyh/course/compilation/workplace/include/llvm-builder 
 

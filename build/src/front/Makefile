@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/axz/桌面/SysY2020/myself_v3.0
+CMAKE_SOURCE_DIR = /home/yyh/course/compilation/workplace
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/axz/桌面/SysY2020/myself_v3.0/build
+CMAKE_BINARY_DIR = /home/yyh/course/compilation/workplace/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -126,14 +126,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/axz/桌面/SysY2020/myself_v3.0/build/CMakeFiles /home/axz/桌面/SysY2020/myself_v3.0/build/src/front/CMakeFiles/progress.marks
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/front/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/axz/桌面/SysY2020/myself_v3.0/build/CMakeFiles 0
+	cd /home/yyh/course/compilation/workplace/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/yyh/course/compilation/workplace/build/CMakeFiles /home/yyh/course/compilation/workplace/build/src/front/CMakeFiles/progress.marks
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/front/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yyh/course/compilation/workplace/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/front/clean
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/front/clean
 .PHONY : clean
 
 # The main clean target
@@ -143,22 +143,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/front/preinstall
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/front/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/front/preinstall
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/front/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/yyh/course/compilation/workplace/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/front/CMakeFiles/parser.dir/rule:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/front/CMakeFiles/parser.dir/rule
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/front/CMakeFiles/parser.dir/rule
 .PHONY : src/front/CMakeFiles/parser.dir/rule
 
 # Convenience name for target.
@@ -168,12 +168,12 @@ parser: src/front/CMakeFiles/parser.dir/rule
 
 # fast build rule for target.
 parser/fast:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/front/CMakeFiles/parser.dir/build.make src/front/CMakeFiles/parser.dir/build
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/parser.dir/build.make src/front/CMakeFiles/parser.dir/build
 .PHONY : parser/fast
 
 # Convenience name for target.
 src/front/CMakeFiles/scan.dir/rule:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/front/CMakeFiles/scan.dir/rule
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/front/CMakeFiles/scan.dir/rule
 .PHONY : src/front/CMakeFiles/scan.dir/rule
 
 # Convenience name for target.
@@ -183,12 +183,12 @@ scan: src/front/CMakeFiles/scan.dir/rule
 
 # fast build rule for target.
 scan/fast:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/front/CMakeFiles/scan.dir/build.make src/front/CMakeFiles/scan.dir/build
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/scan.dir/build.make src/front/CMakeFiles/scan.dir/build
 .PHONY : scan/fast
 
 # Convenience name for target.
 src/front/CMakeFiles/fdriver.dir/rule:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/front/CMakeFiles/fdriver.dir/rule
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/front/CMakeFiles/fdriver.dir/rule
 .PHONY : src/front/CMakeFiles/fdriver.dir/rule
 
 # Convenience name for target.
@@ -198,7 +198,7 @@ fdriver: src/front/CMakeFiles/fdriver.dir/rule
 
 # fast build rule for target.
 fdriver/fast:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/front/CMakeFiles/fdriver.dir/build.make src/front/CMakeFiles/fdriver.dir/build
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/fdriver.dir/build.make src/front/CMakeFiles/fdriver.dir/build
 .PHONY : fdriver/fast
 
 fdriver.o: fdriver.cc.o
@@ -207,7 +207,7 @@ fdriver.o: fdriver.cc.o
 
 # target to build an object file
 fdriver.cc.o:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/front/CMakeFiles/fdriver.dir/build.make src/front/CMakeFiles/fdriver.dir/fdriver.cc.o
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/fdriver.dir/build.make src/front/CMakeFiles/fdriver.dir/fdriver.cc.o
 .PHONY : fdriver.cc.o
 
 fdriver.i: fdriver.cc.i
@@ -216,7 +216,7 @@ fdriver.i: fdriver.cc.i
 
 # target to preprocess a source file
 fdriver.cc.i:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/front/CMakeFiles/fdriver.dir/build.make src/front/CMakeFiles/fdriver.dir/fdriver.cc.i
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/fdriver.dir/build.make src/front/CMakeFiles/fdriver.dir/fdriver.cc.i
 .PHONY : fdriver.cc.i
 
 fdriver.s: fdriver.cc.s
@@ -225,7 +225,7 @@ fdriver.s: fdriver.cc.s
 
 # target to generate assembly for a file
 fdriver.cc.s:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/front/CMakeFiles/fdriver.dir/build.make src/front/CMakeFiles/fdriver.dir/fdriver.cc.s
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/fdriver.dir/build.make src/front/CMakeFiles/fdriver.dir/fdriver.cc.s
 .PHONY : fdriver.cc.s
 
 parser.o: parser.cc.o
@@ -234,7 +234,7 @@ parser.o: parser.cc.o
 
 # target to build an object file
 parser.cc.o:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/front/CMakeFiles/parser.dir/build.make src/front/CMakeFiles/parser.dir/parser.cc.o
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/parser.dir/build.make src/front/CMakeFiles/parser.dir/parser.cc.o
 .PHONY : parser.cc.o
 
 parser.i: parser.cc.i
@@ -243,7 +243,7 @@ parser.i: parser.cc.i
 
 # target to preprocess a source file
 parser.cc.i:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/front/CMakeFiles/parser.dir/build.make src/front/CMakeFiles/parser.dir/parser.cc.i
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/parser.dir/build.make src/front/CMakeFiles/parser.dir/parser.cc.i
 .PHONY : parser.cc.i
 
 parser.s: parser.cc.s
@@ -252,7 +252,7 @@ parser.s: parser.cc.s
 
 # target to generate assembly for a file
 parser.cc.s:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/front/CMakeFiles/parser.dir/build.make src/front/CMakeFiles/parser.dir/parser.cc.s
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/parser.dir/build.make src/front/CMakeFiles/parser.dir/parser.cc.s
 .PHONY : parser.cc.s
 
 scan.o: scan.cc.o
@@ -261,7 +261,7 @@ scan.o: scan.cc.o
 
 # target to build an object file
 scan.cc.o:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/front/CMakeFiles/scan.dir/build.make src/front/CMakeFiles/scan.dir/scan.cc.o
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/scan.dir/build.make src/front/CMakeFiles/scan.dir/scan.cc.o
 .PHONY : scan.cc.o
 
 scan.i: scan.cc.i
@@ -270,7 +270,7 @@ scan.i: scan.cc.i
 
 # target to preprocess a source file
 scan.cc.i:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/front/CMakeFiles/scan.dir/build.make src/front/CMakeFiles/scan.dir/scan.cc.i
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/scan.dir/build.make src/front/CMakeFiles/scan.dir/scan.cc.i
 .PHONY : scan.cc.i
 
 scan.s: scan.cc.s
@@ -279,7 +279,7 @@ scan.s: scan.cc.s
 
 # target to generate assembly for a file
 scan.cc.s:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/front/CMakeFiles/scan.dir/build.make src/front/CMakeFiles/scan.dir/scan.cc.s
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/scan.dir/build.make src/front/CMakeFiles/scan.dir/scan.cc.s
 .PHONY : scan.cc.s
 
 # Help Target
@@ -317,6 +317,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/yyh/course/compilation/workplace/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

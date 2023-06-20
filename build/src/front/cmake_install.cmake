@@ -1,4 +1,4 @@
-# Install script for directory: /home/axz/桌面/SysY2020/myself_v3.0/src/front
+# Install script for directory: /home/yyh/course/compilation/workplace/src/front
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

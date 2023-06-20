@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/axz/桌面/SysY2020/myself_v3.0
+CMAKE_SOURCE_DIR = /home/yyh/course/compilation/workplace
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/axz/桌面/SysY2020/myself_v3.0/build
+CMAKE_BINARY_DIR = /home/yyh/course/compilation/workplace/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -126,9 +126,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/axz/桌面/SysY2020/myself_v3.0/build/CMakeFiles /home/axz/桌面/SysY2020/myself_v3.0/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yyh/course/compilation/workplace/build/CMakeFiles /home/yyh/course/compilation/workplace/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/axz/桌面/SysY2020/myself_v3.0/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yyh/course/compilation/workplace/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -209,17 +209,17 @@ fdriver/fast:
 .PHONY : fdriver/fast
 
 #=============================================================================
-# Target rules for targets named sysy_io
+# Target rules for targets named ast
 
 # Build rule for target.
-sysy_io: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 sysy_io
-.PHONY : sysy_io
+ast: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ast
+.PHONY : ast
 
 # fast build rule for target.
-sysy_io/fast:
-	$(MAKE) -f src/llvm-builder/CMakeFiles/sysy_io.dir/build.make src/llvm-builder/CMakeFiles/sysy_io.dir/build
-.PHONY : sysy_io/fast
+ast/fast:
+	$(MAKE) -f src/ast/CMakeFiles/ast.dir/build.make src/ast/CMakeFiles/ast.dir/build
+.PHONY : ast/fast
 
 #=============================================================================
 # Target rules for targets named monkey
@@ -247,19 +247,6 @@ llvm-sysyc/fast:
 	$(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build
 .PHONY : llvm-sysyc/fast
 
-#=============================================================================
-# Target rules for targets named ast
-
-# Build rule for target.
-ast: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ast
-.PHONY : ast
-
-# fast build rule for target.
-ast/fast:
-	$(MAKE) -f src/ast/CMakeFiles/ast.dir/build.make src/ast/CMakeFiles/ast.dir/build
-.PHONY : ast/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -276,10 +263,9 @@ help:
 	@echo "... parser"
 	@echo "... scan"
 	@echo "... fdriver"
-	@echo "... sysy_io"
+	@echo "... ast"
 	@echo "... monkey"
 	@echo "... llvm-sysyc"
-	@echo "... ast"
 .PHONY : help
 
 

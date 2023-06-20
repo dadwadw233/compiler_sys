@@ -8,4 +8,4 @@ src/front/CMakeFiles/parser.dir/parser.cc.o
  ../include/front/location.hh
  ../include/front/parser.hh
  ../include/front/syFlexLexer.hh
- /home/axz/桌面/SysY2020/myself_v3.0/src/front/parser.cc
+ /home/yyh/course/compilation/workplace/src/front/parser.cc

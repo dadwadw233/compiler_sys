@@ -6,5 +6,5 @@ CXX_FLAGS =  -O0 -Wall -g2 -ggdb -g   -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D_
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/lib/llvm-8/include -I/home/axz/桌面/SysY2020/myself_v3.0/include/front -I/home/axz/桌面/SysY2020/myself_v3.0/include/llvm-builder -I/home/axz/桌面/SysY2020/myself_v3.0/include/ast 
+CXX_INCLUDES = -I/usr/lib/llvm-10/include -I/home/yyh/course/compilation/workplace/include/front -I/home/yyh/course/compilation/workplace/include/ast -I/home/yyh/course/compilation/workplace/include/llvm-builder 
 

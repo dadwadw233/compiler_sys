@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/axz/桌面/SysY2020/myself_v3.0
+CMAKE_SOURCE_DIR = /home/yyh/course/compilation/workplace
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/axz/桌面/SysY2020/myself_v3.0/build
+CMAKE_BINARY_DIR = /home/yyh/course/compilation/workplace/build
 
 # Include any dependencies generated for this target.
 include src/llvm-builder/CMakeFiles/llvm-sysyc.dir/depend.make
@@ -59,29 +59,29 @@ include src/llvm-builder/CMakeFiles/llvm-sysyc.dir/flags.make
 
 src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.o: src/llvm-builder/CMakeFiles/llvm-sysyc.dir/flags.make
 src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.o: ../src/llvm-builder/llvm-main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/axz/桌面/SysY2020/myself_v3.0/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.o"
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build/src/llvm-builder && /usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.o -c /home/axz/桌面/SysY2020/myself_v3.0/src/llvm-builder/llvm-main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/yyh/course/compilation/workplace/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.o"
+	cd /home/yyh/course/compilation/workplace/build/src/llvm-builder && /usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.o -c /home/yyh/course/compilation/workplace/src/llvm-builder/llvm-main.cpp
 
 src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.i"
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build/src/llvm-builder && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/axz/桌面/SysY2020/myself_v3.0/src/llvm-builder/llvm-main.cpp > CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.i
+	cd /home/yyh/course/compilation/workplace/build/src/llvm-builder && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/yyh/course/compilation/workplace/src/llvm-builder/llvm-main.cpp > CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.i
 
 src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.s"
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build/src/llvm-builder && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/axz/桌面/SysY2020/myself_v3.0/src/llvm-builder/llvm-main.cpp -o CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.s
+	cd /home/yyh/course/compilation/workplace/build/src/llvm-builder && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/yyh/course/compilation/workplace/src/llvm-builder/llvm-main.cpp -o CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.s
 
 src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.o: src/llvm-builder/CMakeFiles/llvm-sysyc.dir/flags.make
 src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.o: ../src/llvm-builder/llvmBuilder.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/axz/桌面/SysY2020/myself_v3.0/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.o"
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build/src/llvm-builder && /usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.o -c /home/axz/桌面/SysY2020/myself_v3.0/src/llvm-builder/llvmBuilder.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/yyh/course/compilation/workplace/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.o"
+	cd /home/yyh/course/compilation/workplace/build/src/llvm-builder && /usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.o -c /home/yyh/course/compilation/workplace/src/llvm-builder/llvmBuilder.cpp
 
 src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.i"
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build/src/llvm-builder && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/axz/桌面/SysY2020/myself_v3.0/src/llvm-builder/llvmBuilder.cpp > CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.i
+	cd /home/yyh/course/compilation/workplace/build/src/llvm-builder && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/yyh/course/compilation/workplace/src/llvm-builder/llvmBuilder.cpp > CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.i
 
 src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.s"
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build/src/llvm-builder && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/axz/桌面/SysY2020/myself_v3.0/src/llvm-builder/llvmBuilder.cpp -o CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.s
+	cd /home/yyh/course/compilation/workplace/build/src/llvm-builder && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/yyh/course/compilation/workplace/src/llvm-builder/llvmBuilder.cpp -o CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.s
 
 # Object files for target llvm-sysyc
 llvm__sysyc_OBJECTS = \
@@ -97,12 +97,12 @@ src/llvm-builder/llvm-sysyc: src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.ma
 src/llvm-builder/llvm-sysyc: src/llvm-builder/libmonkey.a
 src/llvm-builder/llvm-sysyc: src/front/libfdriver.a
 src/llvm-builder/llvm-sysyc: src/ast/libast.a
-src/llvm-builder/llvm-sysyc: /usr/lib/llvm-8/lib/libLLVM-8.so.1
+src/llvm-builder/llvm-sysyc: /usr/lib/llvm-10/lib/libLLVM-10.so.1
 src/llvm-builder/llvm-sysyc: src/front/libparser.a
 src/llvm-builder/llvm-sysyc: src/front/libscan.a
 src/llvm-builder/llvm-sysyc: src/llvm-builder/CMakeFiles/llvm-sysyc.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/axz/桌面/SysY2020/myself_v3.0/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable llvm-sysyc"
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build/src/llvm-builder && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/llvm-sysyc.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/yyh/course/compilation/workplace/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable llvm-sysyc"
+	cd /home/yyh/course/compilation/workplace/build/src/llvm-builder && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/llvm-sysyc.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build: src/llvm-builder/llvm-sysyc
@@ -110,10 +110,10 @@ src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build: src/llvm-builder/llvm-sysyc
 .PHONY : src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build
 
 src/llvm-builder/CMakeFiles/llvm-sysyc.dir/clean:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build/src/llvm-builder && $(CMAKE_COMMAND) -P CMakeFiles/llvm-sysyc.dir/cmake_clean.cmake
+	cd /home/yyh/course/compilation/workplace/build/src/llvm-builder && $(CMAKE_COMMAND) -P CMakeFiles/llvm-sysyc.dir/cmake_clean.cmake
 .PHONY : src/llvm-builder/CMakeFiles/llvm-sysyc.dir/clean
 
 src/llvm-builder/CMakeFiles/llvm-sysyc.dir/depend:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/axz/桌面/SysY2020/myself_v3.0 /home/axz/桌面/SysY2020/myself_v3.0/src/llvm-builder /home/axz/桌面/SysY2020/myself_v3.0/build /home/axz/桌面/SysY2020/myself_v3.0/build/src/llvm-builder /home/axz/桌面/SysY2020/myself_v3.0/build/src/llvm-builder/CMakeFiles/llvm-sysyc.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/yyh/course/compilation/workplace/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/yyh/course/compilation/workplace /home/yyh/course/compilation/workplace/src/llvm-builder /home/yyh/course/compilation/workplace/build /home/yyh/course/compilation/workplace/build/src/llvm-builder /home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/llvm-sysyc.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : src/llvm-builder/CMakeFiles/llvm-sysyc.dir/depend
 

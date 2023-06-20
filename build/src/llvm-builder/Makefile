@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/axz/桌面/SysY2020/myself_v3.0
+CMAKE_SOURCE_DIR = /home/yyh/course/compilation/workplace
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/axz/桌面/SysY2020/myself_v3.0/build
+CMAKE_BINARY_DIR = /home/yyh/course/compilation/workplace/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -126,14 +126,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/axz/桌面/SysY2020/myself_v3.0/build/CMakeFiles /home/axz/桌面/SysY2020/myself_v3.0/build/src/llvm-builder/CMakeFiles/progress.marks
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/axz/桌面/SysY2020/myself_v3.0/build/CMakeFiles 0
+	cd /home/yyh/course/compilation/workplace/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/yyh/course/compilation/workplace/build/CMakeFiles /home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/progress.marks
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yyh/course/compilation/workplace/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/clean
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/clean
 .PHONY : clean
 
 # The main clean target
@@ -143,37 +143,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/preinstall
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/preinstall
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/yyh/course/compilation/workplace/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
-src/llvm-builder/CMakeFiles/sysy_io.dir/rule:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/CMakeFiles/sysy_io.dir/rule
-.PHONY : src/llvm-builder/CMakeFiles/sysy_io.dir/rule
-
-# Convenience name for target.
-sysy_io: src/llvm-builder/CMakeFiles/sysy_io.dir/rule
-
-.PHONY : sysy_io
-
-# fast build rule for target.
-sysy_io/fast:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/llvm-builder/CMakeFiles/sysy_io.dir/build.make src/llvm-builder/CMakeFiles/sysy_io.dir/build
-.PHONY : sysy_io/fast
-
-# Convenience name for target.
 src/llvm-builder/CMakeFiles/monkey.dir/rule:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/CMakeFiles/monkey.dir/rule
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/CMakeFiles/monkey.dir/rule
 .PHONY : src/llvm-builder/CMakeFiles/monkey.dir/rule
 
 # Convenience name for target.
@@ -183,12 +168,12 @@ monkey: src/llvm-builder/CMakeFiles/monkey.dir/rule
 
 # fast build rule for target.
 monkey/fast:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/llvm-builder/CMakeFiles/monkey.dir/build.make src/llvm-builder/CMakeFiles/monkey.dir/build
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/monkey.dir/build.make src/llvm-builder/CMakeFiles/monkey.dir/build
 .PHONY : monkey/fast
 
 # Convenience name for target.
 src/llvm-builder/CMakeFiles/llvm-sysyc.dir/rule:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/CMakeFiles/llvm-sysyc.dir/rule
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/CMakeFiles/llvm-sysyc.dir/rule
 .PHONY : src/llvm-builder/CMakeFiles/llvm-sysyc.dir/rule
 
 # Convenience name for target.
@@ -198,7 +183,7 @@ llvm-sysyc: src/llvm-builder/CMakeFiles/llvm-sysyc.dir/rule
 
 # fast build rule for target.
 llvm-sysyc/fast:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build
 .PHONY : llvm-sysyc/fast
 
 llvm-main.o: llvm-main.cpp.o
@@ -207,7 +192,7 @@ llvm-main.o: llvm-main.cpp.o
 
 # target to build an object file
 llvm-main.cpp.o:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.o
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.o
 .PHONY : llvm-main.cpp.o
 
 llvm-main.i: llvm-main.cpp.i
@@ -216,7 +201,7 @@ llvm-main.i: llvm-main.cpp.i
 
 # target to preprocess a source file
 llvm-main.cpp.i:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.i
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.i
 .PHONY : llvm-main.cpp.i
 
 llvm-main.s: llvm-main.cpp.s
@@ -225,7 +210,7 @@ llvm-main.s: llvm-main.cpp.s
 
 # target to generate assembly for a file
 llvm-main.cpp.s:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.s
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.s
 .PHONY : llvm-main.cpp.s
 
 llvmBuilder.o: llvmBuilder.cpp.o
@@ -234,7 +219,7 @@ llvmBuilder.o: llvmBuilder.cpp.o
 
 # target to build an object file
 llvmBuilder.cpp.o:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.o
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.o
 .PHONY : llvmBuilder.cpp.o
 
 llvmBuilder.i: llvmBuilder.cpp.i
@@ -243,7 +228,7 @@ llvmBuilder.i: llvmBuilder.cpp.i
 
 # target to preprocess a source file
 llvmBuilder.cpp.i:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.i
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.i
 .PHONY : llvmBuilder.cpp.i
 
 llvmBuilder.s: llvmBuilder.cpp.s
@@ -252,7 +237,7 @@ llvmBuilder.s: llvmBuilder.cpp.s
 
 # target to generate assembly for a file
 llvmBuilder.cpp.s:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.s
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.s
 .PHONY : llvmBuilder.cpp.s
 
 runParser.o: runParser.cc.o
@@ -261,7 +246,7 @@ runParser.o: runParser.cc.o
 
 # target to build an object file
 runParser.cc.o:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/llvm-builder/CMakeFiles/monkey.dir/build.make src/llvm-builder/CMakeFiles/monkey.dir/runParser.cc.o
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/monkey.dir/build.make src/llvm-builder/CMakeFiles/monkey.dir/runParser.cc.o
 .PHONY : runParser.cc.o
 
 runParser.i: runParser.cc.i
@@ -270,7 +255,7 @@ runParser.i: runParser.cc.i
 
 # target to preprocess a source file
 runParser.cc.i:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/llvm-builder/CMakeFiles/monkey.dir/build.make src/llvm-builder/CMakeFiles/monkey.dir/runParser.cc.i
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/monkey.dir/build.make src/llvm-builder/CMakeFiles/monkey.dir/runParser.cc.i
 .PHONY : runParser.cc.i
 
 runParser.s: runParser.cc.s
@@ -279,35 +264,8 @@ runParser.s: runParser.cc.s
 
 # target to generate assembly for a file
 runParser.cc.s:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/llvm-builder/CMakeFiles/monkey.dir/build.make src/llvm-builder/CMakeFiles/monkey.dir/runParser.cc.s
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/monkey.dir/build.make src/llvm-builder/CMakeFiles/monkey.dir/runParser.cc.s
 .PHONY : runParser.cc.s
-
-sylib.o: sylib.c.o
-
-.PHONY : sylib.o
-
-# target to build an object file
-sylib.c.o:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/llvm-builder/CMakeFiles/sysy_io.dir/build.make src/llvm-builder/CMakeFiles/sysy_io.dir/sylib.c.o
-.PHONY : sylib.c.o
-
-sylib.i: sylib.c.i
-
-.PHONY : sylib.i
-
-# target to preprocess a source file
-sylib.c.i:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/llvm-builder/CMakeFiles/sysy_io.dir/build.make src/llvm-builder/CMakeFiles/sysy_io.dir/sylib.c.i
-.PHONY : sylib.c.i
-
-sylib.s: sylib.c.s
-
-.PHONY : sylib.s
-
-# target to generate assembly for a file
-sylib.c.s:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(MAKE) -f src/llvm-builder/CMakeFiles/sysy_io.dir/build.make src/llvm-builder/CMakeFiles/sysy_io.dir/sylib.c.s
-.PHONY : sylib.c.s
 
 # Help Target
 help:
@@ -318,7 +276,6 @@ help:
 	@echo "... install/strip"
 	@echo "... install/local"
 	@echo "... edit_cache"
-	@echo "... sysy_io"
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
@@ -333,9 +290,6 @@ help:
 	@echo "... runParser.o"
 	@echo "... runParser.i"
 	@echo "... runParser.s"
-	@echo "... sylib.o"
-	@echo "... sylib.i"
-	@echo "... sylib.s"
 .PHONY : help
 
 
@@ -347,6 +301,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/axz/桌面/SysY2020/myself_v3.0/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/yyh/course/compilation/workplace/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
