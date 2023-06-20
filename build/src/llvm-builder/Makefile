@@ -80,17 +80,6 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -123,6 +112,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -157,34 +157,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-src/llvm-builder/CMakeFiles/monkey.dir/rule:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/CMakeFiles/monkey.dir/rule
-.PHONY : src/llvm-builder/CMakeFiles/monkey.dir/rule
+src/llvm-builder/CMakeFiles/naive-compiler.dir/rule:
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/CMakeFiles/naive-compiler.dir/rule
+.PHONY : src/llvm-builder/CMakeFiles/naive-compiler.dir/rule
 
 # Convenience name for target.
-monkey: src/llvm-builder/CMakeFiles/monkey.dir/rule
+naive-compiler: src/llvm-builder/CMakeFiles/naive-compiler.dir/rule
 
-.PHONY : monkey
+.PHONY : naive-compiler
 
 # fast build rule for target.
-monkey/fast:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/monkey.dir/build.make src/llvm-builder/CMakeFiles/monkey.dir/build
-.PHONY : monkey/fast
-
-# Convenience name for target.
-src/llvm-builder/CMakeFiles/llvm-sysyc.dir/rule:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/CMakeFiles/llvm-sysyc.dir/rule
-.PHONY : src/llvm-builder/CMakeFiles/llvm-sysyc.dir/rule
-
-# Convenience name for target.
-llvm-sysyc: src/llvm-builder/CMakeFiles/llvm-sysyc.dir/rule
-
-.PHONY : llvm-sysyc
-
-# fast build rule for target.
-llvm-sysyc/fast:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build
-.PHONY : llvm-sysyc/fast
+naive-compiler/fast:
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/naive-compiler.dir/build.make src/llvm-builder/CMakeFiles/naive-compiler.dir/build
+.PHONY : naive-compiler/fast
 
 llvm-main.o: llvm-main.cpp.o
 
@@ -192,7 +177,7 @@ llvm-main.o: llvm-main.cpp.o
 
 # target to build an object file
 llvm-main.cpp.o:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.o
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/naive-compiler.dir/build.make src/llvm-builder/CMakeFiles/naive-compiler.dir/llvm-main.cpp.o
 .PHONY : llvm-main.cpp.o
 
 llvm-main.i: llvm-main.cpp.i
@@ -201,7 +186,7 @@ llvm-main.i: llvm-main.cpp.i
 
 # target to preprocess a source file
 llvm-main.cpp.i:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.i
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/naive-compiler.dir/build.make src/llvm-builder/CMakeFiles/naive-compiler.dir/llvm-main.cpp.i
 .PHONY : llvm-main.cpp.i
 
 llvm-main.s: llvm-main.cpp.s
@@ -210,7 +195,7 @@ llvm-main.s: llvm-main.cpp.s
 
 # target to generate assembly for a file
 llvm-main.cpp.s:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.s
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/naive-compiler.dir/build.make src/llvm-builder/CMakeFiles/naive-compiler.dir/llvm-main.cpp.s
 .PHONY : llvm-main.cpp.s
 
 llvmBuilder.o: llvmBuilder.cpp.o
@@ -219,7 +204,7 @@ llvmBuilder.o: llvmBuilder.cpp.o
 
 # target to build an object file
 llvmBuilder.cpp.o:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.o
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/naive-compiler.dir/build.make src/llvm-builder/CMakeFiles/naive-compiler.dir/llvmBuilder.cpp.o
 .PHONY : llvmBuilder.cpp.o
 
 llvmBuilder.i: llvmBuilder.cpp.i
@@ -228,7 +213,7 @@ llvmBuilder.i: llvmBuilder.cpp.i
 
 # target to preprocess a source file
 llvmBuilder.cpp.i:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.i
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/naive-compiler.dir/build.make src/llvm-builder/CMakeFiles/naive-compiler.dir/llvmBuilder.cpp.i
 .PHONY : llvmBuilder.cpp.i
 
 llvmBuilder.s: llvmBuilder.cpp.s
@@ -237,35 +222,8 @@ llvmBuilder.s: llvmBuilder.cpp.s
 
 # target to generate assembly for a file
 llvmBuilder.cpp.s:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.s
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/naive-compiler.dir/build.make src/llvm-builder/CMakeFiles/naive-compiler.dir/llvmBuilder.cpp.s
 .PHONY : llvmBuilder.cpp.s
-
-runParser.o: runParser.cc.o
-
-.PHONY : runParser.o
-
-# target to build an object file
-runParser.cc.o:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/monkey.dir/build.make src/llvm-builder/CMakeFiles/monkey.dir/runParser.cc.o
-.PHONY : runParser.cc.o
-
-runParser.i: runParser.cc.i
-
-.PHONY : runParser.i
-
-# target to preprocess a source file
-runParser.cc.i:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/monkey.dir/build.make src/llvm-builder/CMakeFiles/monkey.dir/runParser.cc.i
-.PHONY : runParser.cc.i
-
-runParser.s: runParser.cc.s
-
-.PHONY : runParser.s
-
-# target to generate assembly for a file
-runParser.cc.s:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/llvm-builder/CMakeFiles/monkey.dir/build.make src/llvm-builder/CMakeFiles/monkey.dir/runParser.cc.s
-.PHONY : runParser.cc.s
 
 # Help Target
 help:
@@ -275,21 +233,17 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... monkey"
-	@echo "... llvm-sysyc"
+	@echo "... edit_cache"
+	@echo "... naive-compiler"
 	@echo "... llvm-main.o"
 	@echo "... llvm-main.i"
 	@echo "... llvm-main.s"
 	@echo "... llvmBuilder.o"
 	@echo "... llvmBuilder.i"
 	@echo "... llvmBuilder.s"
-	@echo "... runParser.o"
-	@echo "... runParser.i"
-	@echo "... runParser.s"
 .PHONY : help
 
 

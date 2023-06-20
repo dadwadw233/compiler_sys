@@ -1,30 +1,29 @@
 add_executable(
-        llvm-sysyc
+        naive-compiler
         llvm-main.cpp
         llvmBuilder.cpp
 )
 
-add_library(
-        monkey
-        runParser.cc
-)
+#add_library(
+ #       monkey
+ #       runParser.cc
+#)
 
 #SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
-target_compile_options(
-        llvm-sysyc
-        PRIVATE "-fno-rtti"
-)
+#target_compile_options(
+ #       naive-compiler
+  #      PRIVATE "-fno-rtti"
+#)
 
 target_link_libraries(
-        llvm-sysyc
-        monkey
+        naive-compiler
         fdriver
         ast
         LLVM
 )
 
 install(
-        TARGETS llvm-sysyc
+        TARGETS naive-compiler
         RUNTIME DESTINATION bin
 )
 

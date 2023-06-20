@@ -1,6 +1,9 @@
 #include <iostream>
 #include "llvmBuilder.hpp"
+#include "fdriver.hh"
 #include "ast.hpp"
+
+
 
 #include "llvm/ADT/Triple.h"
 #include "llvm/Analysis/TargetLibraryInfo.h"
@@ -28,6 +31,8 @@
 
 using namespace std;
 using namespace std::literals::string_literals;
+// definition of function "runParser"
+//TreeNodeTopLevel *runParser(string filename);
 
 int main(int argc, char **argv) {
     string input_path = argv[1];
@@ -38,8 +43,11 @@ int main(int argc, char **argv) {
     bool showFinal = true;
 
     TreeNodeTopLevel *root;
-    extern TreeNodeTopLevel *runParser(const string filename);
-    root = runParser(input_path);
+
+    // start parsing process, get the root of AST
+    fdriver driver;
+    root = driver.parse(input_path);
+    //root = runParser(input_path);
     auto tree = astRoot(root);
     
     if(showAst) {
@@ -55,6 +63,7 @@ int main(int argc, char **argv) {
 
     error_code error_msg;
 
+    //todo support other target structure
     //llvm::InitializeAllTargets();
     //llvm::InitializeAllTargetMCs();
     //llvm::InitializeAllAsmParsers();

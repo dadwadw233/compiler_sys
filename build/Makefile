@@ -222,30 +222,17 @@ ast/fast:
 .PHONY : ast/fast
 
 #=============================================================================
-# Target rules for targets named monkey
+# Target rules for targets named naive-compiler
 
 # Build rule for target.
-monkey: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 monkey
-.PHONY : monkey
+naive-compiler: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 naive-compiler
+.PHONY : naive-compiler
 
 # fast build rule for target.
-monkey/fast:
-	$(MAKE) -f src/llvm-builder/CMakeFiles/monkey.dir/build.make src/llvm-builder/CMakeFiles/monkey.dir/build
-.PHONY : monkey/fast
-
-#=============================================================================
-# Target rules for targets named llvm-sysyc
-
-# Build rule for target.
-llvm-sysyc: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 llvm-sysyc
-.PHONY : llvm-sysyc
-
-# fast build rule for target.
-llvm-sysyc/fast:
-	$(MAKE) -f src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build.make src/llvm-builder/CMakeFiles/llvm-sysyc.dir/build
-.PHONY : llvm-sysyc/fast
+naive-compiler/fast:
+	$(MAKE) -f src/llvm-builder/CMakeFiles/naive-compiler.dir/build.make src/llvm-builder/CMakeFiles/naive-compiler.dir/build
+.PHONY : naive-compiler/fast
 
 # Help Target
 help:
@@ -264,8 +251,7 @@ help:
 	@echo "... scan"
 	@echo "... fdriver"
 	@echo "... ast"
-	@echo "... monkey"
-	@echo "... llvm-sysyc"
+	@echo "... naive-compiler"
 .PHONY : help
 
 

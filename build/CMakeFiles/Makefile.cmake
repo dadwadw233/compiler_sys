@@ -63,6 +63,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "src/front/CMakeFiles/scan.dir/DependInfo.cmake"
   "src/front/CMakeFiles/fdriver.dir/DependInfo.cmake"
   "src/ast/CMakeFiles/ast.dir/DependInfo.cmake"
-  "src/llvm-builder/CMakeFiles/monkey.dir/DependInfo.cmake"
-  "src/llvm-builder/CMakeFiles/llvm-sysyc.dir/DependInfo.cmake"
+  "src/llvm-builder/CMakeFiles/naive-compiler.dir/DependInfo.cmake"
   )

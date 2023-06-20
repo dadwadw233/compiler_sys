@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/llvm-sysyc" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/llvm-sysyc")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/naive-compiler" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/naive-compiler")
     file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/llvm-sysyc"
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/naive-compiler"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/yyh/course/compilation/workplace/build/src/llvm-builder/llvm-sysyc")
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/llvm-sysyc" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/llvm-sysyc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/yyh/course/compilation/workplace/build/src/llvm-builder/naive-compiler")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/naive-compiler" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/naive-compiler")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/llvm-sysyc")
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/naive-compiler")
     endif()
   endif()
 endif()

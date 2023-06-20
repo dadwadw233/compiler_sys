@@ -23,9 +23,8 @@
 /home/yyh/course/compilation/workplace/build/src/ast/CMakeFiles/ast.dir
 /home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/install/strip.dir
 /home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/install/local.dir
-/home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/edit_cache.dir
 /home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/install.dir
 /home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/list_install_components.dir
 /home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/rebuild_cache.dir
-/home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/monkey.dir
-/home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/llvm-sysyc.dir
+/home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/edit_cache.dir
+/home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/naive-compiler.dir
