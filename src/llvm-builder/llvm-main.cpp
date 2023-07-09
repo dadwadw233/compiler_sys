@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
     std::cout<<input_path<<std::endl;
     string target_path = input_path.substr(0, input_path.size() - 3);
     bool showAst = false;
-    bool showLLVM = true;
+    bool showLLVM = false;
     bool showFinal = true;
 
     TreeNodeTopLevel *root;
@@ -73,8 +73,8 @@ int main(int argc, char **argv) {
     TheTriple.setArch(llvm::Triple::riscv64);
     TheTriple.setObjectFormat(llvm::Triple::ObjectFormatType::ELF);
     TheTriple.setEnvironment(llvm::Triple::EnvironmentType::Simulator);
-    TheTriple.setOS(llvm::Triple::OSType::UnknownOS);
-    TheTriple.setVendor(llvm::Triple::VendorType::UnknownVendor);
+    //TheTriple.setOS(llvm::Triple::OSType::UnknownOS);
+    //TheTriple.setVendor(llvm::Triple::VendorType::UnknownVendor);
 
     string Error;
     const llvm::Target *TheTarget = llvm::TargetRegistry::lookupTarget("", TheTriple, Error);
@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
     string CPUStr = "";
     llvm::StringRef FeaturesStr;
 
-    llvm::CodeGenOpt::Level OLvl = llvm::CodeGenOpt::None;
+    llvm::CodeGenOpt::Level OLvl = llvm::CodeGenOpt::Aggressive;
     llvm::TargetOptions Options = llvm::TargetOptions();
 
     unique_ptr<llvm::TargetMachine> Target(TheTarget->createTargetMachine(
@@ -139,12 +139,12 @@ int main(int argc, char **argv) {
         );
 
         auto obj_ostream = &obj_file->os();
-        TPC.addISelPasses();
-        TPC.addMachinePasses();
-        TPC.setInitialized();
+        //TPC.addISelPasses();
+        //TPC.addMachinePasses();
+        //TPC.setInitialized();
         LLVMTM.addPassesToEmitFile(PM, *obj_ostream, nullptr, llvm::CGFT_ObjectFile);
 
-        PM.add(llvm::createFreeMachineFunctionPass());
+        //PM.add(llvm::createFreeMachineFunctionPass());
         PM.run(*mod);
         obj_file->keep();
 

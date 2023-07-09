@@ -28,7 +28,7 @@ entry:
   store i64 0, i64* %4
   br label %5
 
-5:                                                ; preds = %30, %entry
+5:                                                ; preds = %29, %entry
   %6 = load i64, i64* %2
   %7 = icmp slt i64 %6, 5
   %8 = zext i1 %7 to i64
@@ -47,28 +47,27 @@ entry:
   %15 = icmp slt i64 %14, 5
   %16 = zext i1 %15 to i64
   %17 = icmp ne i64 %16, 0
-  br i1 %17, label %18, label %30
+  br i1 %17, label %18, label %29
 
 18:                                               ; preds = %13
   %19 = load i64, i64* %4
   %20 = load i64*, i64** %1
   %21 = load i64, i64* %2
-  %22 = mul i64 %21, 5
-  %23 = getelementptr i64, i64* %20, i64 %22
-  %24 = load i64, i64* %3
-  %25 = getelementptr i64, i64* %20, i64 %24
-  %26 = load i64, i64* %25
-  %27 = add i64 %19, %26
-  store i64 %27, i64* %4
-  %28 = load i64, i64* %3
-  %29 = add i64 %28, 1
-  store i64 %29, i64* %3
+  %22 = getelementptr i64, i64* %20, i64 %21
+  %23 = load i64, i64* %3
+  %24 = getelementptr i64, i64* %20, i64 %23
+  %25 = load i64, i64* %24
+  %26 = add i64 %19, %25
+  store i64 %26, i64* %4
+  %27 = load i64, i64* %3
+  %28 = add i64 %27, 1
+  store i64 %28, i64* %3
   br label %13
 
-30:                                               ; preds = %13
-  %31 = load i64, i64* %2
-  %32 = add i64 %31, 1
-  store i64 %32, i64* %2
+29:                                               ; preds = %13
+  %30 = load i64, i64* %2
+  %31 = add i64 %30, 1
+  store i64 %31, i64* %2
   br label %5
 }
 

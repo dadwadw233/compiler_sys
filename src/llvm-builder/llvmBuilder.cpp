@@ -447,9 +447,9 @@ void LLVMBuilder::visit(TreeNodeFuncDef &node) {
   llvm::Type *ret_type;
   vector<llvm::Type *> param_types;
   cout<<"func debug"<<endl;
-  auto TyInt64 = llvm::Type::getInt64Ty(context);
-  auto TyVoid = llvm::Type::getVoidTy(context);
-  auto TyInt64Ptr = llvm::Type::getInt64PtrTy(context);
+  auto *TyInt64 = llvm::Type::getInt64Ty(context);
+  auto *TyVoid = llvm::Type::getVoidTy(context);
+  auto *TyInt64Ptr = llvm::Type::getInt64PtrTy(context);
           // 调研多维数组类型
 
   if (node.type==TYPE_INT) {
@@ -495,12 +495,12 @@ void LLVMBuilder::visit(TreeNodeFuncDef &node) {
       auto array_alloc = builder.CreateAlloca(TyInt64Ptr);//申请栈空间
       builder.CreateStore(args[i], array_alloc);//存入参数列表
       vector<llvm::Value *> array_params;
-      array_params.push_back(CONST(0));
+      /*array_params.push_back(CONST(0));
       for ( auto array_param : node.FuncFParamList[i]->ParamArrayExpList ){
         array_param->accept(*this);
         array_params.push_back(tmp_val);
-      }
-      //array_params.push_back(array_alloc);
+      }*/
+      array_params.push_back(array_alloc);
       cout<<array_params.size()<<endl;
       scope.push(node.FuncFParamList[i]->id, array_alloc);
       scope.push_params(node.FuncFParamList[i]->id, array_alloc,array_params);
