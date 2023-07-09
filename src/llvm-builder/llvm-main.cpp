@@ -4,10 +4,9 @@
 #include "ast.hpp"
 
 
-
 #include "llvm/ADT/Triple.h"
 #include "llvm/Analysis/TargetLibraryInfo.h"
-
+#include "llvm/CodeGen/CommandFlags.inc"
 #include "llvm/CodeGen/LinkAllCodegenComponents.h"
 #include "llvm/CodeGen/MachineModuleInfo.h"
 #include "llvm/CodeGen/Passes.h"
@@ -25,73 +24,11 @@
 #include "llvm/Support/TargetSelect.h"
 #include "llvm/Support/ToolOutputFile.h"
 #include "llvm/Target/TargetMachine.h"
-#include "llvm/InitializePasses.h"
-#include "llvm/Option/Option.h"
-
-#include <llvm/IR/LLVMContext.h>
-#include <llvm/IR/Module.h>
-#include <llvm/IR/IRBuilder.h>
-#include <llvm/IR/Type.h>
-#include <llvm/IR/Function.h>
-#include <llvm/IR/BasicBlock.h>
-#include <llvm/Support/TargetSelect.h>
-#include <llvm/Support/raw_ostream.h>
-#include <llvm/Target/TargetMachine.h>
-#include <llvm/Target/TargetOptions.h>
-
-#include <llvm/Passes/PassBuilder.h>
-#include <llvm/Passes/PassPlugin.h>
-
-#include <llvm/Analysis/TargetLibraryInfo.h>
-#include <llvm/Analysis/LazyValueInfo.h>
-#include <llvm/Analysis/AssumptionCache.h>
-
-#include <llvm/Analysis/LoopInfo.h>
-#include <llvm/Analysis/ScalarEvolution.h>
-#include <llvm/Analysis/MemorySSA.h>
-#include <llvm/Analysis/TypeBasedAliasAnalysis.h>
-#include <llvm/Analysis/ScopedNoAliasAA.h>
-#include <llvm/Analysis/BasicAliasAnalysis.h>
-#include <llvm/Analysis/AliasAnalysis.h>
-#include <llvm/Analysis/GlobalsModRef.h>
-
-#include <llvm/Analysis/BlockFrequencyInfo.h>
-#include <llvm/Analysis/BranchProbabilityInfo.h>
-#include <llvm/Analysis/CallGraph.h>
-#include <llvm/Target/TargetLoweringObjectFile.h>
-#include <llvm/Target/TargetMachine.h>
-#include <llvm/Support/FileSystem.h>
-#include <llvm/Support/ToolOutputFile.h>
-#include <llvm/Support/Host.h>
-#include <llvm/ADT/SmallString.h>
-
-#include <fstream>
-#include <string>
 
 
-
-#include "llvm/IR/LLVMContext.h"
-#include "llvm/IR/Module.h"
-#include "llvm/IR/IRBuilder.h"
-#include "llvm/IR/Type.h"
-#include "llvm/IR/Function.h"
-#include "llvm/IR/BasicBlock.h"
-#include "llvm/Support/TargetSelect.h"
-#include "llvm/Support/raw_ostream.h"
-#include "llvm/Target/TargetMachine.h"
-#include "llvm/Target/TargetOptions.h"
-#include "llvm/CodeGen/RegAllocRegistry.h"
-#include "llvm/CodeGen/RegAllocPBQP.h"
-#include "llvm/CodeGen/Passes.h"
-#include "llvm/CodeGen/TargetPassConfig.h"
-#include "llvm/CodeGen/SelectionDAGISel.h"
-#include "llvm/IR/Verifier.h"
-#include "llvm/IR/Value.h"
-#include "llvm/ADT/StringRef.h"
 using namespace std;
 using namespace std::literals::string_literals;
-// definition of function "runParser"
-//TreeNodeTopLevel *runParser(string filename);
+
 
 int main(int argc, char **argv) {
     string input_path = argv[1];
@@ -113,9 +50,9 @@ int main(int argc, char **argv) {
         TreeNodePrinter pr;
         pr.visit(*root);
     }
-    
+
     LLVMBuilder builder;
-    
+
     tree.run_visitor(builder);
     auto mod = builder.build();
     mod->setSourceFileName(input_path);
@@ -123,29 +60,20 @@ int main(int argc, char **argv) {
     error_code error_msg;
 
     //todo support other target structure
-    llvm::InitializeAllTargets();
-    llvm::InitializeAllTargetMCs();
-    llvm::InitializeAllTargetInfos();
-    llvm::InitializeAllAsmParsers();
-    llvm::InitializeAllAsmPrinters();
-    //LLVMInitializeRISCVTarget();
-    //LLVMInitializeRISCVTargetInfo();
-    //LLVMInitializeRISCVTargetMC();
-    //LLVMInitializeRISCVAsmParser();
-    //LLVMInitializeRISCVAsmPrinter();
 
+    LLVMInitializeRISCVTarget();
+    LLVMInitializeRISCVTargetInfo();
+    LLVMInitializeRISCVTargetMC();
+    LLVMInitializeRISCVAsmParser();
+    LLVMInitializeRISCVAsmPrinter();
 
-    llvm::PassRegistry *Registry = llvm::PassRegistry::getPassRegistry();
-    initializeCore(*Registry);
-    initializeCodeGen(*Registry);
-    initializeScalarOpts(*Registry);
 
     llvm::Triple TheTriple;
     //TheTriple.setTriple(llvm::sys::getDefaultTargetTriple());
     TheTriple.setArch(llvm::Triple::riscv64);
     TheTriple.setObjectFormat(llvm::Triple::ObjectFormatType::ELF);
     TheTriple.setEnvironment(llvm::Triple::EnvironmentType::Simulator);
-    TheTriple.setOS(llvm::Triple::OSType::Linux);
+    TheTriple.setOS(llvm::Triple::OSType::UnknownOS);
     TheTriple.setVendor(llvm::Triple::VendorType::UnknownVendor);
 
     string Error;
@@ -166,10 +94,10 @@ int main(int argc, char **argv) {
 
     llvm::legacy::PassManager PM;
     llvm::TargetLibraryInfoImpl TLII(llvm::Triple(mod->getTargetTriple()));
-    //PM.add(new llvm::TargetLibraryInfoWrapperPass(TLII));
+    PM.add(new llvm::TargetLibraryInfoWrapperPass(TLII));
     mod->setDataLayout(Target->createDataLayout());
     UpgradeDebugInfo(*mod);
-    //setFunctionAttributes(CPUStr, FeaturesStr, *mod);
+    setFunctionAttributes(CPUStr, FeaturesStr, *mod);
 
     llvm::LLVMTargetMachine &LLVMTM = static_cast<llvm::LLVMTargetMachine&>(*Target);
     llvm::MachineModuleInfoWrapperPass *MMI = new llvm::MachineModuleInfoWrapperPass(&LLVMTM);
@@ -180,7 +108,7 @@ int main(int argc, char **argv) {
     PM.add(MMI);
 
 
-    //PM.add(llvm::createGreedyRegisterAllocator());
+    PM.add(llvm::createGreedyRegisterAllocator());
 
 
 
