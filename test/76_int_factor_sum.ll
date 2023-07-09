@@ -1,5 +1,5 @@
 ; ModuleID = 'sysyc'
-source_filename = "../../../test/76_int_factor_sum.sy"
+source_filename = "./76_int_factor_sum.sy"
 target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
 
 @0 = global i32 zeroinitializer

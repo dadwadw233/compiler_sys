@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
     string input_path = argv[1];
     std::cout<<input_path<<std::endl;
     string target_path = input_path.substr(0, input_path.size() - 3);
-    bool showAst = true;
+    bool showAst = false;
     bool showLLVM = true;
     bool showFinal = true;
 
@@ -95,8 +95,6 @@ int main(int argc, char **argv) {
         );
     assert(Target);
 
-    cout<<"DEBUG"<<endl;
-    cout<<CPUStr<<endl;
 
     legacy::PassManager PM;
     llvm::TargetLibraryInfoImpl TLII(Triple(mod->getTargetTriple()));
@@ -140,9 +138,8 @@ int main(int argc, char **argv) {
         PM.run(*mod);
         obj_file->keep();
 
-        auto command_string = string("clang -w -v --target=riscv64-unknown-elf ") + target_path + ".o -o " + target_path + " -L. -lsysy_io";
+        auto command_string = string("clang -w --target=riscv64-unknown-elf ") + target_path + ".o -o " + target_path + " -L. -lsysy_io";
         //auto command_string = string("clang -w -v --target=riscv64-unknown-elf ") + target_path + ".o -o " + target_path ;
-        cout<<command_string<<endl;
         system(command_string.c_str());
     }
     cout << "all right" << endl;

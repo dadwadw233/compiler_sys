@@ -1,6 +1,6 @@
 ; ModuleID = 'sysyc'
-source_filename = "../../../test/01_var_defn.sy"
-target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
+source_filename = "./01_var_defn.sy"
+target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
 
 @0 = global i32 zeroinitializer
 
