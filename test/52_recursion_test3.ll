@@ -2,54 +2,54 @@
 source_filename = "./52_recursion_test3.sy"
 target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
 
-@0 = global i32 zeroinitializer
-@1 = global i32 zeroinitializer
+@0 = global i64 zeroinitializer
+@1 = global i64 zeroinitializer
 
-declare i32 @getint()
+declare i64 @getint()
 
-declare i32 @getch()
+declare i64 @getch()
 
-declare void @putint(i32)
+declare void @putint(i64)
 
-declare void @putch(i32)
+declare void @putch(i64)
 
-declare i32 @getarray(i32*)
+declare i64 @getarray(i64*)
 
-declare i32 @putarray(i32, i32*)
+declare i64 @putarray(i64, i64*)
 
-define i32 @fac(i32 %0) {
+define i64 @fac(i64 %0) {
 entry:
-  %1 = alloca i32
-  store i32 %0, i32* %1
-  %2 = load i32, i32* %1
-  %3 = icmp slt i32 %2, 2
-  %4 = zext i1 %3 to i32
-  %5 = icmp ne i32 %4, 0
+  %1 = alloca i64
+  store i64 %0, i64* %1
+  %2 = load i64, i64* %1
+  %3 = icmp slt i64 %2, 2
+  %4 = zext i1 %3 to i64
+  %5 = icmp ne i64 %4, 0
   br i1 %5, label %6, label %7
 
 6:                                                ; preds = %entry
-  ret i32 1
+  ret i64 1
 
 7:                                                ; preds = %entry
-  %8 = load i32, i32* %1
-  %9 = sub i32 %8, 1
-  store i32 %9, i32* @0
-  %10 = load i32, i32* @0
-  %11 = call i32 @fac(i32 %10)
-  store i32 %11, i32* @1
-  %12 = load i32, i32* %1
-  %13 = load i32, i32* @1
-  %14 = mul i32 %12, %13
-  store i32 %14, i32* @1
-  %15 = load i32, i32* @1
-  ret i32 %15
+  %8 = load i64, i64* %1
+  %9 = sub i64 %8, 1
+  store i64 %9, i64* @0
+  %10 = load i64, i64* @0
+  %11 = call i64 @fac(i64 %10)
+  store i64 %11, i64* @1
+  %12 = load i64, i64* %1
+  %13 = load i64, i64* @1
+  %14 = mul i64 %12, %13
+  store i64 %14, i64* @1
+  %15 = load i64, i64* @1
+  ret i64 %15
 }
 
-define i32 @main() {
+define i64 @main() {
 entry:
-  %0 = alloca i32
-  store i32 5, i32* %0
-  %1 = load i32, i32* %0
-  %2 = call i32 @fac(i32 %1)
-  ret i32 %2
+  %0 = alloca i64
+  store i64 5, i64* %0
+  %1 = load i64, i64* %0
+  %2 = call i64 @fac(i64 %1)
+  ret i64 %2
 }

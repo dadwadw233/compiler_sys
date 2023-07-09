@@ -2,44 +2,44 @@
 source_filename = "./73_exchange_value.sy"
 target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
 
-@0 = global i32 zeroinitializer
+@0 = global i64 zeroinitializer
 
-declare i32 @getint()
+declare i64 @getint()
 
-declare i32 @getch()
+declare i64 @getch()
 
-declare void @putint(i32)
+declare void @putint(i64)
 
-declare void @putch(i32)
+declare void @putch(i64)
 
-declare i32 @getarray(i32*)
+declare i64 @getarray(i64*)
 
-declare i32 @putarray(i32, i32*)
+declare i64 @putarray(i64, i64*)
 
-define i32 @main() {
+define i64 @main() {
 entry:
-  %0 = alloca i32
-  %1 = alloca i32
-  %2 = call i32 @getint()
-  store i32 %2, i32* %0
-  %3 = call i32 @getint()
-  store i32 %3, i32* %1
-  %4 = alloca i32
-  %5 = load i32, i32* %0
-  store i32 %5, i32* %4
-  %6 = load i32, i32* %1
-  store i32 %6, i32* %0
-  %7 = load i32, i32* %4
-  store i32 %7, i32* %1
-  %8 = load i32, i32* %0
-  call void @putint(i32 %8)
-  store i32 10, i32* %4
-  %9 = load i32, i32* %4
-  call void @putch(i32 %9)
-  %10 = load i32, i32* %1
-  call void @putint(i32 %10)
-  store i32 10, i32* %4
-  %11 = load i32, i32* %4
-  call void @putch(i32 %11)
-  ret i32 0
+  %0 = alloca i64
+  %1 = alloca i64
+  %2 = call i64 @getint()
+  store i64 %2, i64* %0
+  %3 = call i64 @getint()
+  store i64 %3, i64* %1
+  %4 = alloca i64
+  %5 = load i64, i64* %0
+  store i64 %5, i64* %4
+  %6 = load i64, i64* %1
+  store i64 %6, i64* %0
+  %7 = load i64, i64* %4
+  store i64 %7, i64* %1
+  %8 = load i64, i64* %0
+  call void @putint(i64 %8)
+  store i64 10, i64* %4
+  %9 = load i64, i64* %4
+  call void @putch(i64 %9)
+  %10 = load i64, i64* %1
+  call void @putint(i64 %10)
+  store i64 10, i64* %4
+  %11 = load i64, i64* %4
+  call void @putch(i64 %11)
+  ret i64 0
 }

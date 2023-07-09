@@ -2,221 +2,221 @@
 source_filename = "./58_sort_test6.sy"
 target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
 
-@0 = global i32 zeroinitializer
+@0 = global i64 zeroinitializer
 
-declare i32 @getint()
+declare i64 @getint()
 
-declare i32 @getch()
+declare i64 @getch()
 
-declare void @putint(i32)
+declare void @putint(i64)
 
-declare void @putch(i32)
+declare void @putch(i64)
 
-declare i32 @getarray(i32*)
+declare i64 @getarray(i64*)
 
-declare i32 @putarray(i32, i32*)
+declare i64 @putarray(i64, i64*)
 
-define i32 @counting_sort(i32* %0, i32* %1, i32 %2) {
+define i64 @counting_sort(i64* %0, i64* %1, i64 %2) {
 entry:
-  %3 = alloca i32*
-  store i32* %0, i32** %3
-  %4 = alloca i32*
-  store i32* %1, i32** %4
-  %5 = alloca i32
-  store i32 %2, i32* %5
-  %6 = alloca [10 x i32]
-  %7 = alloca i32
-  %8 = alloca i32
-  %9 = alloca i32
-  store i32 0, i32* %9
-  store i32 0, i32* %7
-  store i32 0, i32* %8
+  %3 = alloca i64*
+  store i64* %0, i64** %3
+  %4 = alloca i64*
+  store i64* %1, i64** %4
+  %5 = alloca i64
+  store i64 %2, i64* %5
+  %6 = alloca [10 x i64]
+  %7 = alloca i64
+  %8 = alloca i64
+  %9 = alloca i64
+  store i64 0, i64* %9
+  store i64 0, i64* %7
+  store i64 0, i64* %8
   br label %10
 
 10:                                               ; preds = %15, %entry
-  %11 = load i32, i32* %9
-  %12 = icmp slt i32 %11, 10
-  %13 = zext i1 %12 to i32
-  %14 = icmp ne i32 %13, 0
+  %11 = load i64, i64* %9
+  %12 = icmp slt i64 %11, 10
+  %13 = zext i1 %12 to i64
+  %14 = icmp ne i64 %13, 0
   br i1 %14, label %15, label %20
 
 15:                                               ; preds = %10
-  %16 = load i32, i32* %9
-  %17 = getelementptr [10 x i32], [10 x i32]* %6, i32 0, i32 %16
-  store i32 0, i32* %17
-  %18 = load i32, i32* %9
-  %19 = add i32 %18, 1
-  store i32 %19, i32* %9
+  %16 = load i64, i64* %9
+  %17 = getelementptr [10 x i64], [10 x i64]* %6, i64 0, i64 %16
+  store i64 0, i64* %17
+  %18 = load i64, i64* %9
+  %19 = add i64 %18, 1
+  store i64 %19, i64* %9
   br label %10
 
 20:                                               ; preds = %10
   br label %21
 
 21:                                               ; preds = %27, %20
-  %22 = load i32, i32* %7
-  %23 = load i32, i32* %5
-  %24 = icmp slt i32 %22, %23
-  %25 = zext i1 %24 to i32
-  %26 = icmp ne i32 %25, 0
+  %22 = load i64, i64* %7
+  %23 = load i64, i64* %5
+  %24 = icmp slt i64 %22, %23
+  %25 = zext i1 %24 to i64
+  %26 = icmp ne i64 %25, 0
   br i1 %26, label %27, label %42
 
 27:                                               ; preds = %21
-  %28 = load i32*, i32** %3
-  %29 = load i32, i32* %7
-  %30 = getelementptr i32, i32* %28, i32 %29
-  %31 = load i32, i32* %30
-  %32 = getelementptr [10 x i32], [10 x i32]* %6, i32 0, i32 %31
-  %33 = load i32*, i32** %3
-  %34 = load i32, i32* %7
-  %35 = getelementptr i32, i32* %33, i32 %34
-  %36 = load i32, i32* %35
-  %37 = getelementptr [10 x i32], [10 x i32]* %6, i32 0, i32 %36
-  %38 = load i32, i32* %37
-  %39 = add i32 %38, 1
-  store i32 %39, i32* %32
-  %40 = load i32, i32* %7
-  %41 = add i32 %40, 1
-  store i32 %41, i32* %7
+  %28 = load i64*, i64** %3
+  %29 = load i64, i64* %7
+  %30 = getelementptr i64, i64* %28, i64 %29
+  %31 = load i64, i64* %30
+  %32 = getelementptr [10 x i64], [10 x i64]* %6, i64 0, i64 %31
+  %33 = load i64*, i64** %3
+  %34 = load i64, i64* %7
+  %35 = getelementptr i64, i64* %33, i64 %34
+  %36 = load i64, i64* %35
+  %37 = getelementptr [10 x i64], [10 x i64]* %6, i64 0, i64 %36
+  %38 = load i64, i64* %37
+  %39 = add i64 %38, 1
+  store i64 %39, i64* %32
+  %40 = load i64, i64* %7
+  %41 = add i64 %40, 1
+  store i64 %41, i64* %7
   br label %21
 
 42:                                               ; preds = %21
-  store i32 1, i32* %9
+  store i64 1, i64* %9
   br label %43
 
 43:                                               ; preds = %48, %42
-  %44 = load i32, i32* %9
-  %45 = icmp slt i32 %44, 10
-  %46 = zext i1 %45 to i32
-  %47 = icmp ne i32 %46, 0
+  %44 = load i64, i64* %9
+  %45 = icmp slt i64 %44, 10
+  %46 = zext i1 %45 to i64
+  %47 = icmp ne i64 %46, 0
   br i1 %47, label %48, label %61
 
 48:                                               ; preds = %43
-  %49 = load i32, i32* %9
-  %50 = getelementptr [10 x i32], [10 x i32]* %6, i32 0, i32 %49
-  %51 = load i32, i32* %9
-  %52 = getelementptr [10 x i32], [10 x i32]* %6, i32 0, i32 %51
-  %53 = load i32, i32* %52
-  %54 = load i32, i32* %9
-  %55 = sub i32 %54, 1
-  %56 = getelementptr [10 x i32], [10 x i32]* %6, i32 0, i32 %55
-  %57 = load i32, i32* %56
-  %58 = add i32 %53, %57
-  store i32 %58, i32* %50
-  %59 = load i32, i32* %9
-  %60 = add i32 %59, 1
-  store i32 %60, i32* %9
+  %49 = load i64, i64* %9
+  %50 = getelementptr [10 x i64], [10 x i64]* %6, i64 0, i64 %49
+  %51 = load i64, i64* %9
+  %52 = getelementptr [10 x i64], [10 x i64]* %6, i64 0, i64 %51
+  %53 = load i64, i64* %52
+  %54 = load i64, i64* %9
+  %55 = sub i64 %54, 1
+  %56 = getelementptr [10 x i64], [10 x i64]* %6, i64 0, i64 %55
+  %57 = load i64, i64* %56
+  %58 = add i64 %53, %57
+  store i64 %58, i64* %50
+  %59 = load i64, i64* %9
+  %60 = add i64 %59, 1
+  store i64 %60, i64* %9
   br label %43
 
 61:                                               ; preds = %43
-  %62 = load i32, i32* %5
-  store i32 %62, i32* %8
+  %62 = load i64, i64* %5
+  store i64 %62, i64* %8
   br label %63
 
 63:                                               ; preds = %68, %61
-  %64 = load i32, i32* %8
-  %65 = icmp sgt i32 %64, 0
-  %66 = zext i1 %65 to i32
-  %67 = icmp ne i32 %66, 0
+  %64 = load i64, i64* %8
+  %65 = icmp sgt i64 %64, 0
+  %66 = zext i1 %65 to i64
+  %67 = icmp ne i64 %66, 0
   br i1 %67, label %68, label %99
 
 68:                                               ; preds = %63
-  %69 = load i32*, i32** %3
-  %70 = load i32, i32* %8
-  %71 = sub i32 %70, 1
-  %72 = getelementptr i32, i32* %69, i32 %71
-  %73 = load i32, i32* %72
-  %74 = getelementptr [10 x i32], [10 x i32]* %6, i32 0, i32 %73
-  %75 = load i32*, i32** %3
-  %76 = load i32, i32* %8
-  %77 = sub i32 %76, 1
-  %78 = getelementptr i32, i32* %75, i32 %77
-  %79 = load i32, i32* %78
-  %80 = getelementptr [10 x i32], [10 x i32]* %6, i32 0, i32 %79
-  %81 = load i32, i32* %80
-  %82 = sub i32 %81, 1
-  store i32 %82, i32* %74
-  %83 = load i32*, i32** %4
-  %84 = load i32*, i32** %3
-  %85 = load i32, i32* %8
-  %86 = sub i32 %85, 1
-  %87 = getelementptr i32, i32* %84, i32 %86
-  %88 = load i32, i32* %87
-  %89 = getelementptr [10 x i32], [10 x i32]* %6, i32 0, i32 %88
-  %90 = load i32, i32* %89
-  %91 = getelementptr i32, i32* %83, i32 %90
-  %92 = load i32*, i32** %3
-  %93 = load i32, i32* %8
-  %94 = sub i32 %93, 1
-  %95 = getelementptr i32, i32* %92, i32 %94
-  %96 = load i32, i32* %95
-  store i32 %96, i32* %91
-  %97 = load i32, i32* %8
-  %98 = sub i32 %97, 1
-  store i32 %98, i32* %8
+  %69 = load i64*, i64** %3
+  %70 = load i64, i64* %8
+  %71 = sub i64 %70, 1
+  %72 = getelementptr i64, i64* %69, i64 %71
+  %73 = load i64, i64* %72
+  %74 = getelementptr [10 x i64], [10 x i64]* %6, i64 0, i64 %73
+  %75 = load i64*, i64** %3
+  %76 = load i64, i64* %8
+  %77 = sub i64 %76, 1
+  %78 = getelementptr i64, i64* %75, i64 %77
+  %79 = load i64, i64* %78
+  %80 = getelementptr [10 x i64], [10 x i64]* %6, i64 0, i64 %79
+  %81 = load i64, i64* %80
+  %82 = sub i64 %81, 1
+  store i64 %82, i64* %74
+  %83 = load i64*, i64** %4
+  %84 = load i64*, i64** %3
+  %85 = load i64, i64* %8
+  %86 = sub i64 %85, 1
+  %87 = getelementptr i64, i64* %84, i64 %86
+  %88 = load i64, i64* %87
+  %89 = getelementptr [10 x i64], [10 x i64]* %6, i64 0, i64 %88
+  %90 = load i64, i64* %89
+  %91 = getelementptr i64, i64* %83, i64 %90
+  %92 = load i64*, i64** %3
+  %93 = load i64, i64* %8
+  %94 = sub i64 %93, 1
+  %95 = getelementptr i64, i64* %92, i64 %94
+  %96 = load i64, i64* %95
+  store i64 %96, i64* %91
+  %97 = load i64, i64* %8
+  %98 = sub i64 %97, 1
+  store i64 %98, i64* %8
   br label %63
 
 99:                                               ; preds = %63
-  ret i32 0
+  ret i64 0
 }
 
-define i32 @main() {
+define i64 @main() {
 entry:
-  store i32 10, i32* @0
-  %0 = alloca [10 x i32]
-  %1 = getelementptr [10 x i32], [10 x i32]* %0, i32 0, i32 0
-  store i32 4, i32* %1
-  %2 = getelementptr [10 x i32], [10 x i32]* %0, i32 0, i32 1
-  store i32 3, i32* %2
-  %3 = getelementptr [10 x i32], [10 x i32]* %0, i32 0, i32 2
-  store i32 9, i32* %3
-  %4 = getelementptr [10 x i32], [10 x i32]* %0, i32 0, i32 3
-  store i32 2, i32* %4
-  %5 = getelementptr [10 x i32], [10 x i32]* %0, i32 0, i32 4
-  store i32 0, i32* %5
-  %6 = getelementptr [10 x i32], [10 x i32]* %0, i32 0, i32 5
-  store i32 1, i32* %6
-  %7 = getelementptr [10 x i32], [10 x i32]* %0, i32 0, i32 6
-  store i32 6, i32* %7
-  %8 = getelementptr [10 x i32], [10 x i32]* %0, i32 0, i32 7
-  store i32 5, i32* %8
-  %9 = getelementptr [10 x i32], [10 x i32]* %0, i32 0, i32 8
-  store i32 7, i32* %9
-  %10 = getelementptr [10 x i32], [10 x i32]* %0, i32 0, i32 9
-  store i32 8, i32* %10
-  %11 = alloca i32
-  store i32 0, i32* %11
-  %12 = alloca [10 x i32]
-  %13 = getelementptr [10 x i32], [10 x i32]* %0, i32 0, i32 0
-  %14 = getelementptr [10 x i32], [10 x i32]* %12, i32 0, i32 0
-  %15 = load i32, i32* @0
-  %16 = call i32 @counting_sort(i32* %13, i32* %14, i32 %15)
-  store i32 %16, i32* %11
+  store i64 10, i64* @0
+  %0 = alloca [10 x i64]
+  %1 = getelementptr [10 x i64], [10 x i64]* %0, i64 0, i64 0
+  store i64 4, i64* %1
+  %2 = getelementptr [10 x i64], [10 x i64]* %0, i64 0, i64 1
+  store i64 3, i64* %2
+  %3 = getelementptr [10 x i64], [10 x i64]* %0, i64 0, i64 2
+  store i64 9, i64* %3
+  %4 = getelementptr [10 x i64], [10 x i64]* %0, i64 0, i64 3
+  store i64 2, i64* %4
+  %5 = getelementptr [10 x i64], [10 x i64]* %0, i64 0, i64 4
+  store i64 0, i64* %5
+  %6 = getelementptr [10 x i64], [10 x i64]* %0, i64 0, i64 5
+  store i64 1, i64* %6
+  %7 = getelementptr [10 x i64], [10 x i64]* %0, i64 0, i64 6
+  store i64 6, i64* %7
+  %8 = getelementptr [10 x i64], [10 x i64]* %0, i64 0, i64 7
+  store i64 5, i64* %8
+  %9 = getelementptr [10 x i64], [10 x i64]* %0, i64 0, i64 8
+  store i64 7, i64* %9
+  %10 = getelementptr [10 x i64], [10 x i64]* %0, i64 0, i64 9
+  store i64 8, i64* %10
+  %11 = alloca i64
+  store i64 0, i64* %11
+  %12 = alloca [10 x i64]
+  %13 = getelementptr [10 x i64], [10 x i64]* %0, i64 0, i64 0
+  %14 = getelementptr [10 x i64], [10 x i64]* %12, i64 0, i64 0
+  %15 = load i64, i64* @0
+  %16 = call i64 @counting_sort(i64* %13, i64* %14, i64 %15)
+  store i64 %16, i64* %11
   br label %17
 
 17:                                               ; preds = %23, %entry
-  %18 = load i32, i32* %11
-  %19 = load i32, i32* @0
-  %20 = icmp slt i32 %18, %19
-  %21 = zext i1 %20 to i32
-  %22 = icmp ne i32 %21, 0
+  %18 = load i64, i64* %11
+  %19 = load i64, i64* @0
+  %20 = icmp slt i64 %18, %19
+  %21 = zext i1 %20 to i64
+  %22 = icmp ne i64 %21, 0
   br i1 %22, label %23, label %32
 
 23:                                               ; preds = %17
-  %24 = alloca i32
-  %25 = load i32, i32* %11
-  %26 = getelementptr [10 x i32], [10 x i32]* %12, i32 0, i32 %25
-  %27 = load i32, i32* %26
-  store i32 %27, i32* %24
-  %28 = load i32, i32* %24
-  call void @putint(i32 %28)
-  store i32 10, i32* %24
-  %29 = load i32, i32* %24
-  call void @putch(i32 %29)
-  %30 = load i32, i32* %11
-  %31 = add i32 %30, 1
-  store i32 %31, i32* %11
+  %24 = alloca i64
+  %25 = load i64, i64* %11
+  %26 = getelementptr [10 x i64], [10 x i64]* %12, i64 0, i64 %25
+  %27 = load i64, i64* %26
+  store i64 %27, i64* %24
+  %28 = load i64, i64* %24
+  call void @putint(i64 %28)
+  store i64 10, i64* %24
+  %29 = load i64, i64* %24
+  call void @putch(i64 %29)
+  %30 = load i64, i64* %11
+  %31 = add i64 %30, 1
+  store i64 %31, i64* %11
   br label %17
 
 32:                                               ; preds = %17
-  ret i32 0
+  ret i64 0
 }

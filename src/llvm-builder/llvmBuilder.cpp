@@ -5,7 +5,7 @@
 using namespace std;
 
 #define CONST(num) \
-  llvm::ConstantInt::get(context, llvm::APInt(32, num))
+  llvm::ConstantInt::get(context, llvm::APInt(64, num))
 
 #define _DEBUG_IRBUILDER(str) {\
   cerr << "Debug in IRBuilder. "\
@@ -28,9 +28,9 @@ int tmp_int = 0;
 bool use_int = false;
 
 // 转换为ConstArray
-llvm::Constant* ToConstArray(vector<int32_t> &array_bounds,vector<llvm::Value*> &array_init, llvm::Type* TyInt32){
+llvm::Constant* ToConstArray(vector<int64_t> &array_bounds,vector<llvm::Value*> &array_init, llvm::Type* TyInt64){
   auto cur_bnd = array_bounds[0];
-  vector<int32_t> bounds;
+  vector<int64_t> bounds;
   bounds.assign(array_bounds.begin()+1 , array_bounds.end());
   vector<llvm::Constant*> init_list;
   
@@ -48,11 +48,11 @@ llvm::Constant* ToConstArray(vector<int32_t> &array_bounds,vector<llvm::Value*> 
     {
       vector<llvm::Value*> init;
       init.assign(array_init.begin()+d_length*i,array_init.begin()+d_length*(i+1));
-      auto const_array = ToConstArray(bounds, init, TyInt32);
+      auto const_array = ToConstArray(bounds, init, TyInt64);
       init_list.push_back(const_array);
     }
   }
-  llvm::Type* TyArray = TyInt32;
+  llvm::Type* TyArray = TyInt64;
   for (int i = (array_bounds.size()-1); i>=0; i--){
     TyArray=llvm::ArrayType::get(TyArray,static_cast<uint64_t>(array_bounds[i]));
   }
@@ -85,7 +85,7 @@ void LLVMBuilder::visit(TreeNodeConstDecl &node) {
 // 常量定义 ConstDef
 // 操作节点
 void LLVMBuilder::visit(TreeNodeConstDef &node) {
-  auto *TyInt32 = llvm::Type::getInt32Ty(context);
+  auto *TyInt64 = llvm::Type::getInt64Ty(context);
   // 非数组
   if (node.ArrayConstExpList.size() == 0) {
       if(node.ConstInitVal!=nullptr){
@@ -99,8 +99,8 @@ void LLVMBuilder::visit(TreeNodeConstDef &node) {
   }
   //数组
   else {
-    llvm::Type* TyArray=TyInt32;
-    vector<int32_t> array_bounds; //用一个纽带连接起来
+    llvm::Type* TyArray=TyInt64;
+    vector<int64_t> array_bounds; //用一个纽带连接起来
     // 获取数组值
     for ( int i=0 ; i<node.ArrayConstExpList.size() ; i++){   
       auto array_const_exp=node.ArrayConstExpList[i]; //取数组常量
@@ -119,7 +119,7 @@ void LLVMBuilder::visit(TreeNodeConstDef &node) {
         node.ConstInitVal->bounds.assign(array_bounds.begin(), array_bounds.end());
         node.ConstInitVal->accept(*this);
         //将此初始化数组转化为llvm数组
-        auto initializer = ToConstArray(array_bounds, array_init, TyInt32);
+        auto initializer = ToConstArray(array_bounds, array_init, TyInt64);
         //此数组存入全局变量表
         auto var = new llvm::GlobalVariable(
             *module,
@@ -172,7 +172,7 @@ void LLVMBuilder::visit(TreeNodeConstDef &node) {
 // 常量初值
 // 
 void LLVMBuilder::visit(TreeNodeConstInitVal &node) {
-  auto *TyInt32 = llvm::Type::getInt32Ty(context);
+  auto *TyInt64 = llvm::Type::getInt64Ty(context);
   if(node.ConstExp!=nullptr && node.bounds.size()==0){
     node.ConstExp->accept(*this);
     // tmp_val返回值
@@ -234,7 +234,7 @@ void LLVMBuilder::visit(TreeNodeVarDecl &node) {
 
 void LLVMBuilder::visit(TreeNodeVarDef &node) {
   //_DEBUG_IRBUILDER("VarDef");
-    auto *TyInt32 = llvm::Type::getInt32Ty(context);
+    auto *TyInt64 = llvm::Type::getInt64Ty(context);
   if (node.ArrayConstExpList.size() == 0) {
     if (scope.in_global()) {
       if(node.InitVal!=nullptr){
@@ -243,7 +243,7 @@ void LLVMBuilder::visit(TreeNodeVarDef &node) {
         auto var =
           new llvm::GlobalVariable(
             *module,
-            TyInt32,
+            TyInt64,
             false,
             llvm::GlobalVariable::LinkageTypes::ExternalLinkage,
             initializer);
@@ -251,18 +251,18 @@ void LLVMBuilder::visit(TreeNodeVarDef &node) {
       }
       else
       {
-        auto initializer = llvm::ConstantAggregateZero::get(TyInt32);
+        auto initializer = llvm::ConstantAggregateZero::get(TyInt64);
         auto var =
           new llvm::GlobalVariable(
             *module,
-            TyInt32,
+            TyInt64,
             false,
             llvm::GlobalVariable::LinkageTypes::ExternalLinkage,
             initializer);
         scope.push(node.id, var);
       }
     } else {
-      auto val_alloc = builder.CreateAlloca(TyInt32);
+      auto val_alloc = builder.CreateAlloca(TyInt64);
       scope.push(node.id, val_alloc);
       if(node.InitVal!=nullptr){//assign
         node.InitVal->accept(*this);
@@ -270,8 +270,8 @@ void LLVMBuilder::visit(TreeNodeVarDef &node) {
       }
     }
   } else {
-    llvm::Type* TyArray=TyInt32;
-    vector<int32_t> array_bounds;
+    llvm::Type* TyArray=TyInt64;
+    vector<int64_t> array_bounds;
     for ( int i=0 ; i<node.ArrayConstExpList.size() ; i++){   
       auto array_const_exp=node.ArrayConstExpList[i];
       array_const_exp->accept(*this);
@@ -285,7 +285,7 @@ void LLVMBuilder::visit(TreeNodeVarDef &node) {
       if (node.InitVal!=nullptr){
         node.InitVal->bounds.assign(array_bounds.begin(), array_bounds.end());
         node.InitVal->accept(*this); 
-        auto initializer = ToConstArray(array_bounds, array_init, TyInt32);
+        auto initializer = ToConstArray(array_bounds, array_init, TyInt64);
         auto var =
           new llvm::GlobalVariable(
             *module,
@@ -335,7 +335,7 @@ void LLVMBuilder::visit(TreeNodeVarDef &node) {
 void LLVMBuilder::visit(TreeNodeInitVal &node) {
   //_DEBUG_IRBUILDER("InitVal");
   //递归的思路。
-  // auto *TyInt32 = llvm::Type::getInt32Ty(context);
+  // auto *TyInt64 = llvm::Type::getInt64Ty(context);
   // if(node.Exp!=nullptr && node.bounds.size()==0){
   //   node.Exp->accept(*this);
   //   // tmp_val返回值
@@ -356,7 +356,7 @@ void LLVMBuilder::visit(TreeNodeInitVal &node) {
   //     init_val->accept(*this);
   //     init_list.push_back( static_cast<llvm::Constant*>(tmp_val));
   //   }
-  //   llvm::Type* TyArray=TyInt32;
+  //   llvm::Type* TyArray=TyInt64;
   //   for (int i = (node.bounds.size()-1); i>=0; i--){
   //     TyArray=llvm::ArrayType::get(TyArray,static_cast<uint64_t>(node.bounds[i]));
   //   }//get array type
@@ -387,7 +387,7 @@ void LLVMBuilder::visit(TreeNodeInitVal &node) {
   //     init_val->accept(*this);
   //     init_list.push_back( static_cast<llvm::Constant*>(tmp_val));
   //   }
-  //   llvm::Type* TyArray=TyInt32;
+  //   llvm::Type* TyArray=TyInt64;
   //   for (int i = (node.bounds.size()-1); i>=0; i--){
   //     TyArray=llvm::ArrayType::get(TyArray,static_cast<uint64_t>(node.bounds[i]));
   //   }//get array type
@@ -396,7 +396,7 @@ void LLVMBuilder::visit(TreeNodeInitVal &node) {
   //   tmp_val = static_cast<llvm::Value*>(array_init_val);
   
   // 拍平成一维数组的方法
-  auto *TyInt32 = llvm::Type::getInt32Ty(context);
+  auto *TyInt64 = llvm::Type::getInt64Ty(context);
   if(node.Exp!=nullptr && node.bounds.size()==0){
     
     node.Exp->accept(*this);
@@ -440,26 +440,28 @@ void LLVMBuilder::visit(TreeNodeInitVal &node) {
 }
 
 void LLVMBuilder::visit(TreeNodeFuncDef &node) {
+
   //_DEBUG_IRBUILDER("FuncDef");
   //_DEBUG_IRBUILDER(node.id);
   llvm::FunctionType *fun_type;
   llvm::Type *ret_type;
   vector<llvm::Type *> param_types;
-  auto *TyInt32 = llvm::Type::getInt32Ty(context);
-  auto *TyVoid = llvm::Type::getVoidTy(context);
-  auto *TyInt32Ptr = llvm::Type::getInt32PtrTy(context);
+  cout<<"func debug"<<endl;
+  auto TyInt64 = llvm::Type::getInt64Ty(context);
+  auto TyVoid = llvm::Type::getVoidTy(context);
+  auto TyInt64Ptr = llvm::Type::getInt64PtrTy(context);
           // 调研多维数组类型
 
   if (node.type==TYPE_INT) {
-    ret_type = TyInt32;
+    ret_type = TyInt64;
   } else {
     ret_type = TyVoid;
   }
   for (auto& param : node.FuncFParamList) {
     if (param->isarray) {
-      param_types.push_back(TyInt32Ptr);
+      param_types.push_back(TyInt64Ptr);
     } else {
-      param_types.push_back(TyInt32);
+      param_types.push_back(TyInt64);
     }
   }
   // //_DEBUG_IRBUILDER("FuncDef2");
@@ -489,7 +491,8 @@ void LLVMBuilder::visit(TreeNodeFuncDef &node) {
   // //_DEBUG_IRBUILDER("FuncDef5");
   for (int i = 0; i < node.FuncFParamList.size(); ++i) {
     if (node.FuncFParamList[i]->isarray) {
-      auto array_alloc = builder.CreateAlloca(TyInt32Ptr);//申请栈空间
+        cout<<"func array param"<<endl;
+      auto array_alloc = builder.CreateAlloca(TyInt64Ptr);//申请栈空间
       builder.CreateStore(args[i], array_alloc);//存入参数列表
       vector<llvm::Value *> array_params;
       array_params.push_back(CONST(0));
@@ -497,11 +500,12 @@ void LLVMBuilder::visit(TreeNodeFuncDef &node) {
         array_param->accept(*this);
         array_params.push_back(tmp_val);
       }
-      // cout<<array_params.size()<<endl;
+      //array_params.push_back(array_alloc);
+      cout<<array_params.size()<<endl;
       scope.push(node.FuncFParamList[i]->id, array_alloc);
       scope.push_params(node.FuncFParamList[i]->id, array_alloc,array_params);
     } else {
-      auto alloc = builder.CreateAlloca(TyInt32);
+      auto alloc = builder.CreateAlloca(TyInt64);
       builder.CreateStore(args[i], alloc);
       scope.push(node.FuncFParamList[i]->id, alloc);
     }
@@ -568,7 +572,7 @@ void LLVMBuilder::visit(TreeNodeAssignStmt &node) {
 
 void LLVMBuilder::visit(TreeNodeIfStmt &node) {
   //_DEBUG_IRBUILDER("SelectStmt");
-  auto *TyInt32 = llvm::Type::getInt32Ty(context);
+  auto *TyInt64 = llvm::Type::getInt64Ty(context);
   auto *TyInt1 = llvm::Type::getInt1Ty(context);
   node.Cond->accept(*this);
   auto cond_val = tmp_val;
@@ -603,7 +607,7 @@ void LLVMBuilder::visit(TreeNodeIfStmt &node) {
 
 void LLVMBuilder::visit(TreeNodeWhileStmt &node) {
   //_DEBUG_IRBUILDER("IterationStmt");
-  auto *TyInt32 = llvm::Type::getInt32Ty(context);
+  auto *TyInt64 = llvm::Type::getInt64Ty(context);
   auto *TyInt1 = llvm::Type::getInt1Ty(context);
   //初始化exprBB
   auto exprBB = llvm::BasicBlock::Create(context, "", cur_fun);
@@ -638,7 +642,7 @@ void LLVMBuilder::visit(TreeNodeWhileStmt &node) {
 
 void LLVMBuilder::visit(TreeNodeReturnStmt &node) {
   //_DEBUG_IRBUILDER("ReturnStmt");
-  auto *TyInt32 = llvm::Type::getInt32Ty(context);
+  auto *TyInt64 = llvm::Type::getInt64Ty(context);
   if (node.Exp == nullptr) {
     builder.CreateRetVoid();
   } else {
@@ -652,8 +656,8 @@ void LLVMBuilder::visit(TreeNodeLVal &node) {
   //_DEBUG_IRBUILDER("LVal");
   //_DEBUG_IRBUILDER(node.id);
   // TODO(zyh) const Lval 的处理?
-  auto *TyInt32 = llvm::Type::getInt32Ty(context);
-  auto *TyInt32Ptr = llvm::Type::getInt32PtrTy(context);
+  auto *TyInt64 = llvm::Type::getInt64Ty(context);
+  auto *TyInt64Ptr = llvm::Type::getInt64PtrTy(context);
   auto var = scope.find(node.id);
   if ( var->getType()->isIntegerTy() )
   {//constant
@@ -773,7 +777,7 @@ void LLVMBuilder::visit(TreeNodeNumber &node) {
 
 void LLVMBuilder::visit(TreeNodeUnaryExp &node) {
   //_DEBUG_IRBUILDER("UnaryExp")
-  auto *TyInt32 = llvm::Type::getInt32Ty(context);
+  auto *TyInt64 = llvm::Type::getInt64Ty(context);
   
   if (use_int) {
     int val;
@@ -816,7 +820,7 @@ void LLVMBuilder::visit(TreeNodeUnaryExp &node) {
       break;
     case OP_NOT:
       val = builder.CreateICmpEQ(val, CONST(0));
-      val = builder.CreateZExt(val, TyInt32);
+      val = builder.CreateZExt(val, TyInt64);
       break;
   }
   tmp_val = val;
@@ -854,7 +858,7 @@ void LLVMBuilder::visit(TreeNodeCallee &node) {
 void LLVMBuilder::visit(TreeNodeMulExp &node) {
   //_DEBUG_IRBUILDER("MulExp");
 
-  auto *TyInt32 = llvm::Type::getInt32Ty(context);
+  auto *TyInt64 = llvm::Type::getInt64Ty(context);
   if (node.MulExp == nullptr) {
     node.UnaryExp->accept(*this);
   } else {
@@ -900,7 +904,7 @@ void LLVMBuilder::visit(TreeNodeMulExp &node) {
 
 void LLVMBuilder::visit(TreeNodeAddExp &node) {  
   //_DEBUG_IRBUILDER("AddExp");
-  auto *TyInt32 = llvm::Type::getInt32Ty(context);
+  auto *TyInt64 = llvm::Type::getInt64Ty(context);
   if (node.AddExp == nullptr) {
     node.MulExp->accept(*this);
   } else {
@@ -941,7 +945,7 @@ void LLVMBuilder::visit(TreeNodeAddExp &node) {
 void LLVMBuilder::visit(TreeNodeRelExp &node) {
   //_DEBUG_IRBUILDER("RelExp");
 
-  auto *TyInt32 = llvm::Type::getInt32Ty(context);
+  auto *TyInt64 = llvm::Type::getInt64Ty(context);
   llvm::Value *logicalVal;
   if (node.RelExp == nullptr) {
     node.AddExp->accept(*this);
@@ -964,14 +968,14 @@ void LLVMBuilder::visit(TreeNodeRelExp &node) {
         logicalVal = builder.CreateICmpSGE(lval, rval);
         break;
     }
-    tmp_val = builder.CreateZExt(logicalVal, TyInt32);
+    tmp_val = builder.CreateZExt(logicalVal, TyInt64);
   }
   //_DEBUG_IRBUILDER("RelExp_end");
 }
 
 void LLVMBuilder::visit(TreeNodeEqExp &node) {
   //_DEBUG_IRBUILDER("EqExp");
-  auto *TYInt32 = llvm::Type::getInt32Ty(context);
+  auto *TYInt64 = llvm::Type::getInt64Ty(context);
   if (node.EqExp == nullptr) {
     node.RelExp->accept(*this);
   } else {
@@ -987,7 +991,7 @@ void LLVMBuilder::visit(TreeNodeEqExp &node) {
         tmp_val = builder.CreateICmpNE(lval, rval);
         break;
     }
-    tmp_val = builder.CreateZExt(tmp_val, TYInt32);
+    tmp_val = builder.CreateZExt(tmp_val, TYInt64);
   }
   //_DEBUG_IRBUILDER("EqExp_end");
 }
@@ -996,7 +1000,7 @@ void LLVMBuilder::visit(TreeNodeLAndExp &node) {
   //_DEBUG_IRBUILDER("LAndExp");
   if (node.LAndExp == nullptr) {
     node.EqExp->accept(*this);
-    // tmp_val = builder.CreateZExt(tmp_val, TYInt32);
+    // tmp_val = builder.CreateZExt(tmp_val, TYInt64);
     tmp_val = builder.CreateICmpNE(tmp_val, CONST(0));
   } else {
     node.LAndExp->accept(*this);

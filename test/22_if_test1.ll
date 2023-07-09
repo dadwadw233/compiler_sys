@@ -2,45 +2,45 @@
 source_filename = "./22_if_test1.sy"
 target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
 
-declare i32 @getint()
+declare i64 @getint()
 
-declare i32 @getch()
+declare i64 @getch()
 
-declare void @putint(i32)
+declare void @putint(i64)
 
-declare void @putch(i32)
+declare void @putch(i64)
 
-declare i32 @getarray(i32*)
+declare i64 @getarray(i64*)
 
-declare i32 @putarray(i32, i32*)
+declare i64 @putarray(i64, i64*)
 
-define i32 @ifElse() {
+define i64 @ifElse() {
 entry:
-  %0 = alloca i32
-  store i32 5, i32* %0
-  %1 = load i32, i32* %0
-  %2 = icmp eq i32 %1, 5
-  %3 = zext i1 %2 to i32
-  %4 = icmp ne i32 %3, 0
+  %0 = alloca i64
+  store i64 5, i64* %0
+  %1 = load i64, i64* %0
+  %2 = icmp eq i64 %1, 5
+  %3 = zext i1 %2 to i64
+  %4 = icmp ne i64 %3, 0
   br i1 %4, label %5, label %6
 
 5:                                                ; preds = %entry
-  store i32 25, i32* %0
+  store i64 25, i64* %0
   br label %9
 
 6:                                                ; preds = %entry
-  %7 = load i32, i32* %0
-  %8 = mul i32 %7, 2
-  store i32 %8, i32* %0
+  %7 = load i64, i64* %0
+  %8 = mul i64 %7, 2
+  store i64 %8, i64* %0
   br label %9
 
 9:                                                ; preds = %6, %5
-  %10 = load i32, i32* %0
-  ret i32 %10
+  %10 = load i64, i64* %0
+  ret i64 %10
 }
 
-define i32 @main() {
+define i64 @main() {
 entry:
-  %0 = call i32 @ifElse()
-  ret i32 %0
+  %0 = call i64 @ifElse()
+  ret i64 %0
 }

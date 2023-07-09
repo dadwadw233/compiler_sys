@@ -2,63 +2,63 @@
 source_filename = "./02_arr_defn4.sy"
 target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
 
-declare i32 @getint()
+declare i64 @getint()
 
-declare i32 @getch()
+declare i64 @getch()
 
-declare void @putint(i32)
+declare void @putint(i64)
 
-declare void @putch(i32)
+declare void @putch(i64)
 
-declare i32 @getarray(i32*)
+declare i64 @getarray(i64*)
 
-declare i32 @putarray(i32, i32*)
+declare i64 @putarray(i64, i64*)
 
-define i32 @main() {
+define i64 @main() {
 entry:
-  %0 = alloca [4 x [2 x i32]]
-  %1 = getelementptr [4 x [2 x i32]], [4 x [2 x i32]]* %0, i32 0, i32 0
-  %2 = getelementptr [2 x i32], [2 x i32]* %1, i32 0, i32 0
-  store i32 1, i32* %2
-  %3 = getelementptr i32, i32* %2, i32 1
-  store i32 2, i32* %3
-  %4 = getelementptr i32, i32* %3, i32 1
-  store i32 3, i32* %4
-  %5 = getelementptr i32, i32* %4, i32 1
-  store i32 4, i32* %5
-  %6 = getelementptr i32, i32* %5, i32 1
-  store i32 5, i32* %6
-  %7 = getelementptr i32, i32* %6, i32 1
-  store i32 6, i32* %7
-  %8 = getelementptr i32, i32* %7, i32 1
-  store i32 7, i32* %8
-  %9 = getelementptr i32, i32* %8, i32 1
-  store i32 8, i32* %9
-  %10 = getelementptr i32, i32* %9, i32 1
-  %11 = alloca [4 x [2 x i32]]
-  %12 = getelementptr [4 x [2 x i32]], [4 x [2 x i32]]* %0, i32 0, i32 0
-  %13 = getelementptr [2 x i32], [2 x i32]* %12, i32 0, i32 0
-  %14 = load i32, i32* %13
-  %15 = getelementptr [4 x [2 x i32]], [4 x [2 x i32]]* %0, i32 0, i32 0
-  %16 = getelementptr [2 x i32], [2 x i32]* %15, i32 0, i32 1
-  %17 = load i32, i32* %16
-  %18 = getelementptr [4 x [2 x i32]], [4 x [2 x i32]]* %11, i32 0, i32 0
-  %19 = getelementptr [2 x i32], [2 x i32]* %18, i32 0, i32 0
-  store i32 %14, i32* %19
-  %20 = getelementptr i32, i32* %19, i32 1
-  store i32 %17, i32* %20
-  %21 = getelementptr i32, i32* %20, i32 1
-  store i32 3, i32* %21
-  %22 = getelementptr i32, i32* %21, i32 1
-  store i32 4, i32* %22
-  %23 = getelementptr i32, i32* %22, i32 1
-  store i32 5, i32* %23
-  %24 = getelementptr i32, i32* %23, i32 1
-  store i32 6, i32* %24
-  %25 = getelementptr i32, i32* %24, i32 1
-  store i32 7, i32* %25
-  %26 = getelementptr i32, i32* %25, i32 1
-  store i32 8, i32* %26
-  %27 = getelementptr i32, i32* %26, i32 1
-  ret i32 0
+  %0 = alloca [4 x [2 x i64]]
+  %1 = getelementptr [4 x [2 x i64]], [4 x [2 x i64]]* %0, i64 0, i64 0
+  %2 = getelementptr [2 x i64], [2 x i64]* %1, i64 0, i64 0
+  store i64 1, i64* %2
+  %3 = getelementptr i64, i64* %2, i64 1
+  store i64 2, i64* %3
+  %4 = getelementptr i64, i64* %3, i64 1
+  store i64 3, i64* %4
+  %5 = getelementptr i64, i64* %4, i64 1
+  store i64 4, i64* %5
+  %6 = getelementptr i64, i64* %5, i64 1
+  store i64 5, i64* %6
+  %7 = getelementptr i64, i64* %6, i64 1
+  store i64 6, i64* %7
+  %8 = getelementptr i64, i64* %7, i64 1
+  store i64 7, i64* %8
+  %9 = getelementptr i64, i64* %8, i64 1
+  store i64 8, i64* %9
+  %10 = getelementptr i64, i64* %9, i64 1
+  %11 = alloca [4 x [2 x i64]]
+  %12 = getelementptr [4 x [2 x i64]], [4 x [2 x i64]]* %0, i64 0, i64 0
+  %13 = getelementptr [2 x i64], [2 x i64]* %12, i64 0, i64 0
+  %14 = load i64, i64* %13
+  %15 = getelementptr [4 x [2 x i64]], [4 x [2 x i64]]* %0, i64 0, i64 0
+  %16 = getelementptr [2 x i64], [2 x i64]* %15, i64 0, i64 1
+  %17 = load i64, i64* %16
+  %18 = getelementptr [4 x [2 x i64]], [4 x [2 x i64]]* %11, i64 0, i64 0
+  %19 = getelementptr [2 x i64], [2 x i64]* %18, i64 0, i64 0
+  store i64 %14, i64* %19
+  %20 = getelementptr i64, i64* %19, i64 1
+  store i64 %17, i64* %20
+  %21 = getelementptr i64, i64* %20, i64 1
+  store i64 3, i64* %21
+  %22 = getelementptr i64, i64* %21, i64 1
+  store i64 4, i64* %22
+  %23 = getelementptr i64, i64* %22, i64 1
+  store i64 5, i64* %23
+  %24 = getelementptr i64, i64* %23, i64 1
+  store i64 6, i64* %24
+  %25 = getelementptr i64, i64* %24, i64 1
+  store i64 7, i64* %25
+  %26 = getelementptr i64, i64* %25, i64 1
+  store i64 8, i64* %26
+  %27 = getelementptr i64, i64* %26, i64 1
+  ret i64 0
 }

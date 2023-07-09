@@ -1835,9 +1835,10 @@ namespace yy {
                                            {
     yylhs.value.as < TreeNodeFuncFParam* > () = new TreeNodeFuncFParam();
     yylhs.value.as < TreeNodeFuncFParam* > ()->type = TYPE_INT;
-    yylhs.value.as < TreeNodeFuncFParam* > ()->isarray = 1;
+    yylhs.value.as < TreeNodeFuncFParam* > ()->isarray = true;
     yylhs.value.as < TreeNodeFuncFParam* > ()->id = yystack_[1].value.as < string > ();
     yylhs.value.as < TreeNodeFuncFParam* > ()->ParamArrayExpList.swap(yystack_[0].value.as < TreeNodeParamArrayExpList* > ()->list);
+    cout << "array param" << endl;
   }
 #line 1843 "parser.cc"
     break;
@@ -1848,7 +1849,7 @@ namespace yy {
     yylhs.value.as < TreeNodeFuncFParam* > () = new TreeNodeFuncFParam();
     yylhs.value.as < TreeNodeFuncFParam* > ()->type = TYPE_INT;
     yylhs.value.as < TreeNodeFuncFParam* > ()->id = yystack_[0].value.as < string > ();
-    yylhs.value.as < TreeNodeFuncFParam* > ()->isarray = 0;
+    yylhs.value.as < TreeNodeFuncFParam* > ()->isarray = false;
   }
 #line 1854 "parser.cc"
     break;

@@ -28,6 +28,7 @@ int counting_sort(int ini_arr[], int sorted_arr[], int n) {
 		sorted_arr[count_arr[ini_arr[j - 1]]] = ini_arr[j - 1];
         j = j - 1;
     }
+    //putint(sorted_arr[0]);
     return 0;
 }
 

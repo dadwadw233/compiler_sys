@@ -2,38 +2,38 @@
 source_filename = "./04_func_defn.sy"
 target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
 
-@0 = global i32 zeroinitializer
+@0 = global i64 zeroinitializer
 
-declare i32 @getint()
+declare i64 @getint()
 
-declare i32 @getch()
+declare i64 @getch()
 
-declare void @putint(i32)
+declare void @putint(i64)
 
-declare void @putch(i32)
+declare void @putch(i64)
 
-declare i32 @getarray(i32*)
+declare i64 @getarray(i64*)
 
-declare i32 @putarray(i32, i32*)
+declare i64 @putarray(i64, i64*)
 
-define i32 @func(i32 %0) {
+define i64 @func(i64 %0) {
 entry:
-  %1 = alloca i32
-  store i32 %0, i32* %1
-  %2 = load i32, i32* %1
-  %3 = sub i32 %2, 1
-  store i32 %3, i32* %1
-  %4 = load i32, i32* %1
-  ret i32 %4
+  %1 = alloca i64
+  store i64 %0, i64* %1
+  %2 = load i64, i64* %1
+  %3 = sub i64 %2, 1
+  store i64 %3, i64* %1
+  %4 = load i64, i64* %1
+  ret i64 %4
 }
 
-define i32 @main() {
+define i64 @main() {
 entry:
-  %0 = alloca i32
-  store i32 10, i32* @0
-  %1 = load i32, i32* @0
-  %2 = call i32 @func(i32 %1)
-  store i32 %2, i32* %0
-  %3 = load i32, i32* %0
-  ret i32 %3
+  %0 = alloca i64
+  store i64 10, i64* @0
+  %1 = load i64, i64* @0
+  %2 = call i64 @func(i64 %1)
+  store i64 %2, i64* %0
+  %3 = load i64, i64* %0
+  ret i64 %3
 }

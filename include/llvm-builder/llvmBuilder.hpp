@@ -114,10 +114,10 @@ public:
     LLVMBuilder(): builder(context) {
         module = std::make_unique<llvm::Module>("sysyc", context);
         auto TyVoid = llvm::Type::getVoidTy(context);
-        auto TyInt32 = llvm::Type::getInt32Ty(context);
-        auto TyPtr = llvm::Type::getInt32PtrTy(context);
+        auto TyInt64 = llvm::Type::getInt64Ty(context);
+        auto TyPtr = llvm::Type::getInt64PtrTy(context);
         
-        auto getint_type = llvm::FunctionType::get(TyInt32, false);
+        auto getint_type = llvm::FunctionType::get(TyInt64, false);
         auto getint_fun =
             llvm::Function::Create(
                 getint_type,
@@ -133,7 +133,7 @@ public:
                 module.get());
 
         vector<llvm::Type *> putint_params;
-        putint_params.push_back(TyInt32);
+        putint_params.push_back(TyInt64);
         auto putint_type = llvm::FunctionType::get(TyVoid,putint_params,false);//返回值，参数列表，是否可变长
         
         auto putint_fun =
@@ -152,7 +152,7 @@ public:
 
         vector<llvm::Type *> getarray_params;
         getarray_params.push_back(TyPtr);
-        auto getarray_type = llvm::FunctionType::get(TyInt32,getarray_params,false);
+        auto getarray_type = llvm::FunctionType::get(TyInt64,getarray_params,false);
         
         auto getarray_fun =
             llvm::Function::Create(
@@ -162,9 +162,9 @@ public:
                 module.get());
         
         vector<llvm::Type *> putarray_params;
-        putarray_params.push_back(TyInt32);
+        putarray_params.push_back(TyInt64);
         putarray_params.push_back(TyPtr);
-        auto putarray_type = llvm::FunctionType::get(TyInt32,putarray_params,false);
+        auto putarray_type = llvm::FunctionType::get(TyInt64,putarray_params,false);
         
         auto putarray_fun =
             llvm::Function::Create(
