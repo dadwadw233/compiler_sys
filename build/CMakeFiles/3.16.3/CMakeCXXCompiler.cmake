@@ -1,4 +1,4 @@
-set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
+set(CMAKE_CXX_COMPILER "/usr/bin/clang")
 set(CMAKE_CXX_COMPILER_ARG1 "")
 set(CMAKE_CXX_COMPILER_ID "Clang")
 set(CMAKE_CXX_COMPILER_VERSION "10.0.0")
@@ -83,6 +83,6 @@ endif()
 
 
 set(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES "/usr/include/c++/9;/usr/include/x86_64-linux-gnu/c++/9;/usr/include/c++/9/backward;/usr/local/include;/usr/lib/llvm-10/lib/clang/10.0.0/include;/usr/include/x86_64-linux-gnu;/usr/include")
-set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "stdc++;m;gcc_s;gcc;c;gcc_s;gcc")
+set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "gcc;gcc_s;c;gcc;gcc_s")
 set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "/usr/lib/gcc/x86_64-linux-gnu/9;/usr/lib/x86_64-linux-gnu;/usr/lib64;/lib/x86_64-linux-gnu;/lib64;/usr/lib;/usr/lib/llvm-10/lib;/lib")
 set(CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")

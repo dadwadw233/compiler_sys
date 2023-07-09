@@ -1,1 +1,0 @@
-/usr/bin/clang++   -O0 -Wall -g2 -ggdb -g   CMakeFiles/llvm-sysyc.dir/llvm-main.cpp.o CMakeFiles/llvm-sysyc.dir/llvmBuilder.cpp.o  -o llvm-sysyc  libmonkey.a ../front/libfdriver.a ../ast/libast.a /usr/lib/llvm-10/lib/libLLVM-10.so.1 ../front/libparser.a ../front/libscan.a 

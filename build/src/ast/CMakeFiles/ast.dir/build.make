@@ -60,15 +60,15 @@ include src/ast/CMakeFiles/ast.dir/flags.make
 src/ast/CMakeFiles/ast.dir/ast.cc.o: src/ast/CMakeFiles/ast.dir/flags.make
 src/ast/CMakeFiles/ast.dir/ast.cc.o: ../src/ast/ast.cc
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/yyh/course/compilation/workplace/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/ast/CMakeFiles/ast.dir/ast.cc.o"
-	cd /home/yyh/course/compilation/workplace/build/src/ast && /usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ast.dir/ast.cc.o -c /home/yyh/course/compilation/workplace/src/ast/ast.cc
+	cd /home/yyh/course/compilation/workplace/build/src/ast && /usr/bin/clang  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ast.dir/ast.cc.o -c /home/yyh/course/compilation/workplace/src/ast/ast.cc
 
 src/ast/CMakeFiles/ast.dir/ast.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ast.dir/ast.cc.i"
-	cd /home/yyh/course/compilation/workplace/build/src/ast && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/yyh/course/compilation/workplace/src/ast/ast.cc > CMakeFiles/ast.dir/ast.cc.i
+	cd /home/yyh/course/compilation/workplace/build/src/ast && /usr/bin/clang $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/yyh/course/compilation/workplace/src/ast/ast.cc > CMakeFiles/ast.dir/ast.cc.i
 
 src/ast/CMakeFiles/ast.dir/ast.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ast.dir/ast.cc.s"
-	cd /home/yyh/course/compilation/workplace/build/src/ast && /usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/yyh/course/compilation/workplace/src/ast/ast.cc -o CMakeFiles/ast.dir/ast.cc.s
+	cd /home/yyh/course/compilation/workplace/build/src/ast && /usr/bin/clang $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/yyh/course/compilation/workplace/src/ast/ast.cc -o CMakeFiles/ast.dir/ast.cc.s
 
 # Object files for target ast
 ast_OBJECTS = \

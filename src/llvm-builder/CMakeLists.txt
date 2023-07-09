@@ -9,7 +9,7 @@ add_executable(
  #       runParser.cc
 #)
 
-#SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
+# SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
 #target_compile_options(
  #       naive-compiler
   #      PRIVATE "-fno-rtti"
@@ -17,6 +17,7 @@ add_executable(
 
 target_link_libraries(
         naive-compiler
+        stdc++
         fdriver
         ast
         LLVM
