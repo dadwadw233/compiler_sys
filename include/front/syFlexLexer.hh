@@ -7,7 +7,7 @@
 #undef yyFlexLexer
 
 #include <FlexLexer.h>
-#include "parser.hh"
+#include "parser.tab.hh"
 #include "location.hh"
 
 class syFlexLexer : public yyFlexLexer {

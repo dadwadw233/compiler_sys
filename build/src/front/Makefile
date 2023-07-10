@@ -255,32 +255,32 @@ lex.yy.cc.s:
 	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/scan.dir/build.make src/front/CMakeFiles/scan.dir/lex.yy.cc.s
 .PHONY : lex.yy.cc.s
 
-parser.o: parser.cc.o
+parser.tab.o: parser.tab.cc.o
 
-.PHONY : parser.o
+.PHONY : parser.tab.o
 
 # target to build an object file
-parser.cc.o:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/parser.dir/build.make src/front/CMakeFiles/parser.dir/parser.cc.o
-.PHONY : parser.cc.o
+parser.tab.cc.o:
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/parser.dir/build.make src/front/CMakeFiles/parser.dir/parser.tab.cc.o
+.PHONY : parser.tab.cc.o
 
-parser.i: parser.cc.i
+parser.tab.i: parser.tab.cc.i
 
-.PHONY : parser.i
+.PHONY : parser.tab.i
 
 # target to preprocess a source file
-parser.cc.i:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/parser.dir/build.make src/front/CMakeFiles/parser.dir/parser.cc.i
-.PHONY : parser.cc.i
+parser.tab.cc.i:
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/parser.dir/build.make src/front/CMakeFiles/parser.dir/parser.tab.cc.i
+.PHONY : parser.tab.cc.i
 
-parser.s: parser.cc.s
+parser.tab.s: parser.tab.cc.s
 
-.PHONY : parser.s
+.PHONY : parser.tab.s
 
 # target to generate assembly for a file
-parser.cc.s:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/parser.dir/build.make src/front/CMakeFiles/parser.dir/parser.cc.s
-.PHONY : parser.cc.s
+parser.tab.cc.s:
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/parser.dir/build.make src/front/CMakeFiles/parser.dir/parser.tab.cc.s
+.PHONY : parser.tab.cc.s
 
 # Help Target
 help:
@@ -303,9 +303,9 @@ help:
 	@echo "... lex.yy.o"
 	@echo "... lex.yy.i"
 	@echo "... lex.yy.s"
-	@echo "... parser.o"
-	@echo "... parser.i"
-	@echo "... parser.s"
+	@echo "... parser.tab.o"
+	@echo "... parser.tab.i"
+	@echo "... parser.tab.s"
 .PHONY : help
 
 

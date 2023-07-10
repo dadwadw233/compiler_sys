@@ -6,14 +6,6 @@
 
 #IncludeRegexTransform: 
 
-../include/ast/ast.hpp
-vector
--
-memory
--
-iostream
--
-
 ../include/front/FlexLexer.h
 iostream
 -
@@ -25,8 +17,8 @@ string
 -
 map
 -
-parser.hh
-../include/front/parser.hh
+parser.tab.hh
+../include/front/parser.tab.hh
 syFlexLexer.hh
 ../include/front/syFlexLexer.hh
 
@@ -36,13 +28,13 @@ iostream
 string
 -
 
-../include/front/parser.hh
+../include/front/parser.tab.hh
 iostream
 -
 string
 -
-ast.hpp
-../include/front/ast.hpp
+ast.hh
+../include/front/ast.hh
 cassert
 -
 cstdlib
@@ -65,14 +57,14 @@ cassert
 ../include/front/syFlexLexer.hh
 FlexLexer.h
 -
-parser.hh
-../include/front/parser.hh
+parser.tab.hh
+../include/front/parser.tab.hh
 location.hh
 ../include/front/location.hh
 
-/home/yyh/course/compilation/workplace/src/front/parser.cc
-parser.hh
-/home/yyh/course/compilation/workplace/src/front/parser.hh
+/home/yyh/course/compilation/workplace/src/front/parser.tab.cc
+parser.tab.hh
+/home/yyh/course/compilation/workplace/src/front/parser.tab.hh
 fdriver.hh
 /home/yyh/course/compilation/workplace/src/front/fdriver.hh
 libintl.h

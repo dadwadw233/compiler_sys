@@ -546,7 +546,7 @@ static const flex_int16_t yy_rule_linenum[41] =
 #include <string>
 
 #include "fdriver.hh"
-#include "parser.hh"
+#include "parser.tab.hh"
 
 using namespace std;
 

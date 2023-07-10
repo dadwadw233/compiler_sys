@@ -57,27 +57,27 @@ include src/front/CMakeFiles/parser.dir/progress.make
 # Include the compile flags for this target's objects.
 include src/front/CMakeFiles/parser.dir/flags.make
 
-src/front/CMakeFiles/parser.dir/parser.cc.o: src/front/CMakeFiles/parser.dir/flags.make
-src/front/CMakeFiles/parser.dir/parser.cc.o: ../src/front/parser.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/yyh/course/compilation/workplace/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/front/CMakeFiles/parser.dir/parser.cc.o"
-	cd /home/yyh/course/compilation/workplace/build/src/front && /usr/bin/clang  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/parser.dir/parser.cc.o -c /home/yyh/course/compilation/workplace/src/front/parser.cc
+src/front/CMakeFiles/parser.dir/parser.tab.cc.o: src/front/CMakeFiles/parser.dir/flags.make
+src/front/CMakeFiles/parser.dir/parser.tab.cc.o: ../src/front/parser.tab.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/yyh/course/compilation/workplace/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/front/CMakeFiles/parser.dir/parser.tab.cc.o"
+	cd /home/yyh/course/compilation/workplace/build/src/front && /usr/bin/clang  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/parser.dir/parser.tab.cc.o -c /home/yyh/course/compilation/workplace/src/front/parser.tab.cc
 
-src/front/CMakeFiles/parser.dir/parser.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/parser.dir/parser.cc.i"
-	cd /home/yyh/course/compilation/workplace/build/src/front && /usr/bin/clang $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/yyh/course/compilation/workplace/src/front/parser.cc > CMakeFiles/parser.dir/parser.cc.i
+src/front/CMakeFiles/parser.dir/parser.tab.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/parser.dir/parser.tab.cc.i"
+	cd /home/yyh/course/compilation/workplace/build/src/front && /usr/bin/clang $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/yyh/course/compilation/workplace/src/front/parser.tab.cc > CMakeFiles/parser.dir/parser.tab.cc.i
 
-src/front/CMakeFiles/parser.dir/parser.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/parser.dir/parser.cc.s"
-	cd /home/yyh/course/compilation/workplace/build/src/front && /usr/bin/clang $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/yyh/course/compilation/workplace/src/front/parser.cc -o CMakeFiles/parser.dir/parser.cc.s
+src/front/CMakeFiles/parser.dir/parser.tab.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/parser.dir/parser.tab.cc.s"
+	cd /home/yyh/course/compilation/workplace/build/src/front && /usr/bin/clang $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/yyh/course/compilation/workplace/src/front/parser.tab.cc -o CMakeFiles/parser.dir/parser.tab.cc.s
 
 # Object files for target parser
 parser_OBJECTS = \
-"CMakeFiles/parser.dir/parser.cc.o"
+"CMakeFiles/parser.dir/parser.tab.cc.o"
 
 # External object files for target parser
 parser_EXTERNAL_OBJECTS =
 
-src/front/libparser.a: src/front/CMakeFiles/parser.dir/parser.cc.o
+src/front/libparser.a: src/front/CMakeFiles/parser.dir/parser.tab.cc.o
 src/front/libparser.a: src/front/CMakeFiles/parser.dir/build.make
 src/front/libparser.a: src/front/CMakeFiles/parser.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/yyh/course/compilation/workplace/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libparser.a"

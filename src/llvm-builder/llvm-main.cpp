@@ -2,7 +2,7 @@
 #include <llvm/IR/Dominators.h>
 #include "llvmBuilder.hpp"
 #include "fdriver.hh"
-#include "ast.hpp"
+#include "ast.hh"
 
 
 #include "llvm/ADT/Triple.h"

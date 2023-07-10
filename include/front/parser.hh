@@ -48,7 +48,7 @@
 
 #include <iostream>
 #include <string>
-#include "ast.hpp"
+#include "ast.hh"
 using namespace std;
 class fdriver;
 

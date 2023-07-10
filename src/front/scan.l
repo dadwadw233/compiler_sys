@@ -6,7 +6,7 @@
 #include <string>
 
 #include "fdriver.hh"
-#include "parser.hh"
+#include "parser.tab.hh"
 
 using namespace std;
 

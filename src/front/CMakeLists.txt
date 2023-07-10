@@ -15,7 +15,7 @@ add_library(
 
 add_library(
         parser STATIC
-        parser.cc
+        parser.tab.cc
 )
 
 target_link_libraries(

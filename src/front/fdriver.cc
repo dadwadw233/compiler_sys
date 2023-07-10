@@ -1,5 +1,5 @@
 #include "fdriver.hh"
-#include "parser.hh"
+#include "parser.tab.hh"
 
 fdriver::fdriver () {}
 

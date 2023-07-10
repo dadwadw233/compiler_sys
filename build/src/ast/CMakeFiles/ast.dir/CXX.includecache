@@ -6,3 +6,19 @@
 
 #IncludeRegexTransform: 
 
+../include/ast/ast.hh
+vector
+-
+memory
+-
+iostream
+-
+
+/home/yyh/course/compilation/workplace/src/ast/ast.cc
+ast.hh
+/home/yyh/course/compilation/workplace/src/ast/ast.hh
+iostream
+-
+string
+-
+

@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/yyh/course/compilation/workplace/src/front/parser.cc" "/home/yyh/course/compilation/workplace/build/src/front/CMakeFiles/parser.dir/parser.cc.o"
+  "/home/yyh/course/compilation/workplace/src/front/parser.tab.cc" "/home/yyh/course/compilation/workplace/build/src/front/CMakeFiles/parser.dir/parser.tab.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "Clang")
 

@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 #include <map>
-#include "parser.hh"
+#include "parser.tab.hh"
 #include "syFlexLexer.hh"
 
 using namespace std;
