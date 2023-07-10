@@ -1,0 +1,74 @@
+; ModuleID = 'sysyc'
+source_filename = "./15_array_test3.sy"
+target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
+
+@0 = global [5 x [5 x i64]] [[5 x i64] [i64 1, i64 2, i64 3, i64 4, i64 5], [5 x i64] zeroinitializer, [5 x i64] zeroinitializer, [5 x i64] zeroinitializer, [5 x i64] zeroinitializer]
+
+declare i64 @getint()
+
+declare i64 @getch()
+
+declare void @putint(i64)
+
+declare void @putch(i64)
+
+declare i64 @getarray(i64*)
+
+declare i64 @putarray(i64, i64*)
+
+define i64 @func(i64* %0) {
+entry:
+  store i64 0, i64* undef
+  store i64 0, i64* undef
+  store i64 0, i64* undef
+  br label %1
+
+1:                                                ; preds = %25, %entry
+  %2 = load i64, i64* undef
+  %3 = icmp slt i64 %2, 5
+  %4 = zext i1 %3 to i64
+  %5 = icmp ne i64 %4, 0
+  br i1 %5, label %6, label %7
+
+6:                                                ; preds = %1
+  br label %9
+
+7:                                                ; preds = %1
+  %8 = load i64, i64* undef
+  ret i64 %8
+
+9:                                                ; preds = %14, %6
+  %10 = load i64, i64* undef
+  %11 = icmp slt i64 %10, 5
+  %12 = zext i1 %11 to i64
+  %13 = icmp ne i64 %12, 0
+  br i1 %13, label %14, label %25
+
+14:                                               ; preds = %9
+  %15 = load i64, i64* undef
+  %16 = load i64, i64* undef
+  %17 = mul i64 %16, 5
+  %18 = getelementptr i64, i64* %0, i64 %17
+  %19 = load i64, i64* undef
+  %20 = getelementptr i64, i64* %0, i64 %19
+  %21 = load i64, i64* %20
+  %22 = add i64 %15, %21
+  store i64 %22, i64* undef
+  %23 = load i64, i64* undef
+  %24 = add i64 %23, 1
+  store i64 %24, i64* undef
+  br label %9
+
+25:                                               ; preds = %9
+  %26 = load i64, i64* undef
+  %27 = add i64 %26, 1
+  store i64 %27, i64* undef
+  br label %1
+}
+
+define i64 @main() {
+entry:
+  %0 = call i64 @func(i64* getelementptr inbounds ([5 x [5 x i64]], [5 x [5 x i64]]* @0, i64 0, i64 0, i64 0))
+  call void @putint(i64 %0)
+  ret i64 0
+}

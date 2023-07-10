@@ -1,0 +1,59 @@
+; ModuleID = 'sysyc'
+source_filename = "./45_equal_prior_logic.sy"
+target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
+
+declare i64 @getint()
+
+declare i64 @getch()
+
+declare void @putint(i64)
+
+declare void @putch(i64)
+
+declare i64 @getarray(i64*)
+
+declare i64 @putarray(i64, i64*)
+
+define i64 @main() {
+entry:
+  %0 = add i64 6, 4
+  %1 = icmp eq i64 %0, 10
+  %2 = zext i1 %1 to i64
+  %3 = icmp ne i64 %2, 0
+  %4 = sdiv i64 10, 2
+  %5 = icmp ne i64 5, %4
+  %6 = zext i1 %5 to i64
+  %7 = icmp ne i64 %6, 0
+  %8 = and i1 %3, %7
+  br i1 %8, label %9, label %13
+
+9:                                                ; preds = %entry
+  %10 = sdiv i64 4, 5
+  %11 = mul i64 %10, 2
+  %12 = add i64 6, %11
+  call void @putint(i64 %12)
+  br label %13
+
+13:                                               ; preds = %9, %entry
+  %14 = icmp slt i64 4, 0
+  %15 = zext i1 %14 to i64
+  %16 = icmp ne i64 %15, 0
+  %17 = sub i64 10, 4
+  %18 = icmp eq i64 %17, 6
+  %19 = zext i1 %18 to i64
+  %20 = icmp ne i64 %19, 0
+  %21 = mul i64 5, 2
+  %22 = icmp ne i64 10, %21
+  %23 = zext i1 %22 to i64
+  %24 = icmp ne i64 %23, 0
+  %25 = and i1 %20, %24
+  %26 = or i1 %16, %25
+  br i1 %26, label %27, label %28
+
+27:                                               ; preds = %13
+  call void @putint(i64 1)
+  br label %28
+
+28:                                               ; preds = %27, %13
+  ret i64 0
+}

@@ -1,0 +1,29 @@
+digraph "Call graph" {
+	label="Call graph";
+
+	Node0xd48a70 [shape=record,label="{external node}"];
+	Node0xd48a70 -> Node0xd48bd0;
+	Node0xd48a70 -> Node0xd46e10;
+	Node0xd48a70 -> Node0xd44c30;
+	Node0xd48a70 -> Node0xd46170;
+	Node0xd48a70 -> Node0xd46210;
+	Node0xd48a70 -> Node0xd457e0;
+	Node0xd48a70 -> Node0xd45880;
+	Node0xd48a70 -> Node0xd458f0;
+	Node0xd48bd0 [shape=record,label="{getint}"];
+	Node0xd48bd0 -> Node0xd48b10;
+	Node0xd46e10 [shape=record,label="{getch}"];
+	Node0xd46e10 -> Node0xd48b10;
+	Node0xd44c30 [shape=record,label="{putint}"];
+	Node0xd44c30 -> Node0xd48b10;
+	Node0xd46170 [shape=record,label="{putch}"];
+	Node0xd46170 -> Node0xd48b10;
+	Node0xd46210 [shape=record,label="{getarray}"];
+	Node0xd46210 -> Node0xd48b10;
+	Node0xd457e0 [shape=record,label="{putarray}"];
+	Node0xd457e0 -> Node0xd48b10;
+	Node0xd45880 [shape=record,label="{fib}"];
+	Node0xd458f0 [shape=record,label="{main}"];
+	Node0xd458f0 -> Node0xd48bd0;
+	Node0xd458f0 -> Node0xd45880;
+}

@@ -1,0 +1,85 @@
+; ModuleID = 'sysyc'
+source_filename = "./91_line_search.sy"
+target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
+
+declare i64 @getint()
+
+declare i64 @getch()
+
+declare void @putint(i64)
+
+declare void @putch(i64)
+
+declare i64 @getarray(i64*)
+
+declare i64 @putarray(i64, i64*)
+
+define i64 @main() {
+entry:
+  br label %0
+
+0:                                                ; preds = %4, %entry
+  %.0 = phi i64 [ 0, %entry ], [ %6, %4 ]
+  %1 = icmp slt i64 %.0, 10
+  %2 = zext i1 %1 to i64
+  %3 = icmp ne i64 %2, 0
+  br i1 %3, label %4, label %7
+
+4:                                                ; preds = %0
+  %5 = add i64 %.0, 1
+  %6 = add i64 %.0, 1
+  br label %0
+
+7:                                                ; preds = %0
+  %8 = call i64 @getint()
+  %9 = sub i64 10, 1
+  %10 = add i64 %9, 0
+  %11 = sdiv i64 %10, 2
+  br label %12
+
+12:                                               ; preds = %29, %7
+  %.03 = phi i64 [ 0, %7 ], [ %.14, %29 ]
+  %.01 = phi i64 [ 0, %7 ], [ %.12, %29 ]
+  %.1 = phi i64 [ 0, %7 ], [ %30, %29 ]
+  %13 = icmp slt i64 %.1, 10
+  %14 = zext i1 %13 to i64
+  %15 = icmp ne i64 %14, 0
+  %16 = icmp eq i64 %.03, 0
+  %17 = zext i1 %16 to i64
+  %18 = icmp ne i64 %17, 0
+  %19 = and i1 %15, %18
+  br i1 %19, label %20, label %24
+
+20:                                               ; preds = %12
+  %21 = icmp eq i64 <badref>, %8
+  %22 = zext i1 %21 to i64
+  %23 = icmp ne i64 %22, 0
+  br i1 %23, label %28, label %29
+
+24:                                               ; preds = %12
+  %25 = icmp eq i64 %.03, 1
+  %26 = zext i1 %25 to i64
+  %27 = icmp ne i64 %26, 0
+  br i1 %27, label %31, label %32
+
+28:                                               ; preds = %20
+  br label %29
+
+29:                                               ; preds = %28, %20
+  %.14 = phi i64 [ 1, %28 ], [ %.03, %20 ]
+  %.12 = phi i64 [ %.1, %28 ], [ %.01, %20 ]
+  %30 = add i64 %.1, 1
+  br label %12
+
+31:                                               ; preds = %24
+  call void @putint(i64 %.01)
+  br label %33
+
+32:                                               ; preds = %24
+  call void @putint(i64 0)
+  br label %33
+
+33:                                               ; preds = %32, %31
+  call void @putch(i64 10)
+  ret i64 0
+}

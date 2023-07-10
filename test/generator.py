@@ -1,6 +1,9 @@
 import os
 import subprocess
 import filecmp
+import time
+import glob
+
 from tqdm import tqdm
 
 test_root = "./"
@@ -9,17 +12,24 @@ sy_file_list = [f for f in os.listdir('./') if f.endswith('.sy')]
 pass_cnt = 0
 visual = False
 fail_list = []
+sum_time = 0
 for f in sy_file_list:
     file_name = f
     prefix = file_name.split(".")[0]
     cmd = "sudo " + compiler_root + "/./naive-compiler " + test_root + file_name
     print('-------------compiler------------')
     #subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    start_time = time.time()
     os.system(cmd)
+    end_time = time.time()
+
+    run_time = end_time - start_time
+    sum_time+=run_time
+    print("编译时间：", run_time, "秒")
     print('-------------running------------')
     # os.system("qemu-riscv64 " + prefix)
 
-    command = ["qemu-riscv64 " + prefix]
+    command = ["qemu-riscv64 " + prefix + '.sysyexe']
 
     process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                text=True, shell=True)
@@ -69,7 +79,22 @@ for f in sy_file_list:
         fail_list.append(prefix)
     print('-------------check finish------------')
 
+total_size = 0
+target_file_list = glob.glob("*.sysyexe")
+for file in target_file_list:
+    total_size += os.path.getsize(file)
 
+# 打印总大小
+print("目标文件总大小:", total_size, "bytes")
+
+total_size = 0
+target_file_list = glob.glob("*.ll")
+for file in target_file_list:
+    total_size += os.path.getsize(file)
+
+# 打印总大小
+print("IR文件总大小:", total_size, "bytes")
 print('测试样例总数：', len(sy_file_list))
 print('通过数量： ', pass_cnt)
 print('未通过列表： ', sorted(fail_list))
+print('111个测试样例总编译时间： ', sum_time, '秒')

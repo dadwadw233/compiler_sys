@@ -1,0 +1,76 @@
+; ModuleID = 'sysyc'
+source_filename = "./83_enc_dec.sy"
+target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
+
+declare i64 @getint()
+
+declare i64 @getch()
+
+declare void @putint(i64)
+
+declare void @putch(i64)
+
+declare i64 @getarray(i64*)
+
+declare i64 @putarray(i64, i64*)
+
+define i64 @enc(i64 %0) {
+entry:
+  store i64 %0, i64* undef
+  %1 = load i64, i64* undef
+  %2 = icmp sgt i64 %1, 25
+  %3 = zext i1 %2 to i64
+  %4 = icmp ne i64 %3, 0
+  br i1 %4, label %5, label %8
+
+5:                                                ; preds = %entry
+  %6 = load i64, i64* undef
+  %7 = add i64 %6, 60
+  store i64 %7, i64* undef
+  br label %11
+
+8:                                                ; preds = %entry
+  %9 = load i64, i64* undef
+  %10 = sub i64 %9, 15
+  store i64 %10, i64* undef
+  br label %11
+
+11:                                               ; preds = %8, %5
+  %12 = load i64, i64* undef
+  ret i64 %12
+}
+
+define i64 @dec(i64 %0) {
+entry:
+  store i64 %0, i64* undef
+  %1 = load i64, i64* undef
+  %2 = icmp sgt i64 %1, 85
+  %3 = zext i1 %2 to i64
+  %4 = icmp ne i64 %3, 0
+  br i1 %4, label %5, label %8
+
+5:                                                ; preds = %entry
+  %6 = load i64, i64* undef
+  %7 = sub i64 %6, 59
+  store i64 %7, i64* undef
+  br label %11
+
+8:                                                ; preds = %entry
+  %9 = load i64, i64* undef
+  %10 = add i64 %9, 14
+  store i64 %10, i64* undef
+  br label %11
+
+11:                                               ; preds = %8, %5
+  %12 = load i64, i64* undef
+  ret i64 %12
+}
+
+define i64 @main() {
+entry:
+  %0 = call i64 @enc(i64 400)
+  %1 = call i64 @dec(i64 %0)
+  call void @putint(i64 %1)
+  call void @putch(i64 10)
+  ret i64 0
+}

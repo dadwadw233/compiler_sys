@@ -234,6 +234,7 @@ void LLVMBuilder::visit(TreeNodeVarDecl &node) {
 
 void LLVMBuilder::visit(TreeNodeVarDef &node) {
   //_DEBUG_IRBUILDER("VarDef");
+
     auto *TyInt64 = llvm::Type::getInt64Ty(context);
   if (node.ArrayConstExpList.size() == 0) {
     if (scope.in_global()) {

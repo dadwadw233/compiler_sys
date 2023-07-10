@@ -1,0 +1,110 @@
+; ModuleID = 'sysyc'
+source_filename = "./28_while_test2.sy"
+target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
+
+declare i64 @getint()
+
+declare i64 @getch()
+
+declare void @putint(i64)
+
+declare void @putch(i64)
+
+declare i64 @getarray(i64*)
+
+declare i64 @putarray(i64, i64*)
+
+define i64 @FourWhile() {
+entry:
+  store i64 5, i64* undef
+  store i64 6, i64* undef
+  store i64 7, i64* undef
+  store i64 10, i64* undef
+  br label %0
+
+0:                                                ; preds = %24, %entry
+  %1 = load i64, i64* undef
+  %2 = icmp slt i64 %1, 20
+  %3 = zext i1 %2 to i64
+  %4 = icmp ne i64 %3, 0
+  br i1 %4, label %5, label %8
+
+5:                                                ; preds = %0
+  %6 = load i64, i64* undef
+  %7 = add i64 %6, 3
+  store i64 %7, i64* undef
+  br label %16
+
+8:                                                ; preds = %0
+  %9 = load i64, i64* undef
+  %10 = load i64, i64* undef
+  %11 = load i64, i64* undef
+  %12 = add i64 %10, %11
+  %13 = add i64 %9, %12
+  %14 = load i64, i64* undef
+  %15 = add i64 %13, %14
+  ret i64 %15
+
+16:                                               ; preds = %35, %5
+  %17 = load i64, i64* undef
+  %18 = icmp slt i64 %17, 10
+  %19 = zext i1 %18 to i64
+  %20 = icmp ne i64 %19, 0
+  br i1 %20, label %21, label %24
+
+21:                                               ; preds = %16
+  %22 = load i64, i64* undef
+  %23 = add i64 %22, 1
+  store i64 %23, i64* undef
+  br label %27
+
+24:                                               ; preds = %16
+  %25 = load i64, i64* undef
+  %26 = sub i64 %25, 2
+  store i64 %26, i64* undef
+  br label %0
+
+27:                                               ; preds = %46, %21
+  %28 = load i64, i64* undef
+  %29 = icmp eq i64 %28, 7
+  %30 = zext i1 %29 to i64
+  %31 = icmp ne i64 %30, 0
+  br i1 %31, label %32, label %35
+
+32:                                               ; preds = %27
+  %33 = load i64, i64* undef
+  %34 = sub i64 %33, 1
+  store i64 %34, i64* undef
+  br label %38
+
+35:                                               ; preds = %27
+  %36 = load i64, i64* undef
+  %37 = add i64 %36, 1
+  store i64 %37, i64* undef
+  br label %16
+
+38:                                               ; preds = %43, %32
+  %39 = load i64, i64* undef
+  %40 = icmp slt i64 %39, 20
+  %41 = zext i1 %40 to i64
+  %42 = icmp ne i64 %41, 0
+  br i1 %42, label %43, label %46
+
+43:                                               ; preds = %38
+  %44 = load i64, i64* undef
+  %45 = add i64 %44, 3
+  store i64 %45, i64* undef
+  br label %38
+
+46:                                               ; preds = %38
+  %47 = load i64, i64* undef
+  %48 = sub i64 %47, 1
+  store i64 %48, i64* undef
+  br label %27
+}
+
+define i64 @main() {
+entry:
+  %0 = call i64 @FourWhile()
+  ret i64 %0
+}

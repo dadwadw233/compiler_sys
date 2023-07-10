@@ -1,0 +1,56 @@
+; ModuleID = 'sysyc'
+source_filename = "./23_if_test2.sy"
+target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
+
+declare i64 @getint()
+
+declare i64 @getch()
+
+declare void @putint(i64)
+
+declare void @putch(i64)
+
+declare i64 @getarray(i64*)
+
+declare i64 @putarray(i64, i64*)
+
+define i64 @ifElseElseIf() {
+entry:
+  store i64 8923, i64* undef
+  %0 = icmp eq i64 66, 5
+  %1 = zext i1 %0 to i64
+  %2 = icmp ne i64 %1, 0
+  br i1 %2, label %3, label %4
+
+3:                                                ; preds = %entry
+  store i64 25, i64* undef
+  br label %8
+
+4:                                                ; preds = %entry
+  %5 = icmp eq i64 66, 10
+  %6 = zext i1 %5 to i64
+  %7 = icmp ne i64 %6, 0
+  br i1 %7, label %10, label %11
+
+8:                                                ; preds = %13, %3
+  %9 = load i64, i64* undef
+  ret i64 %9
+
+10:                                               ; preds = %4
+  store i64 42, i64* undef
+  br label %13
+
+11:                                               ; preds = %4
+  %12 = mul i64 66, 2
+  store i64 %12, i64* undef
+  br label %13
+
+13:                                               ; preds = %11, %10
+  br label %8
+}
+
+define i64 @main() {
+entry:
+  %0 = call i64 @ifElseElseIf()
+  ret i64 %0
+}

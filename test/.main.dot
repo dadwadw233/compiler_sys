@@ -1,0 +1,5 @@
+digraph "CFG for 'main' function" {
+	label="CFG for 'main' function";
+
+	Node0x1234600 [shape=record,label="{entry:\l  %0 = call i64 @getint()\l  store i64 %0, i64* @0\l  %1 = alloca i64\l  %2 = load i64, i64* @0\l  %3 = call i64 @fib(i64 %2)\l  store i64 %3, i64* %1\l  %4 = load i64, i64* %1\l  ret i64 %4\l}"];
+}

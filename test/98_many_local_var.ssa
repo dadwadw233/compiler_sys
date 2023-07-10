@@ -1,0 +1,99 @@
+; ModuleID = 'sysyc'
+source_filename = "./98_many_local_var.sy"
+target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
+
+@0 = global i64 zeroinitializer
+
+declare i64 @getint()
+
+declare i64 @getch()
+
+declare void @putint(i64)
+
+declare void @putch(i64)
+
+declare i64 @getarray(i64*)
+
+declare i64 @putarray(i64, i64*)
+
+define i64 @main() {
+entry:
+  %0 = call i64 @getint()
+  br label %1
+
+1:                                                ; preds = %5, %entry
+  %.0 = phi i64 [ %0, %entry ], [ %6, %5 ]
+  %2 = icmp eq i64 %.0, 5
+  %3 = zext i1 %2 to i64
+  %4 = icmp ne i64 %3, 0
+  br i1 %4, label %5, label %7
+
+5:                                                ; preds = %1
+  %6 = add i64 %.0, 1
+  br label %1
+
+7:                                                ; preds = %1
+  %8 = add i64 0, 1
+  %9 = add i64 %8, 1
+  %10 = add i64 %9, 1
+  %11 = add i64 %10, 1
+  %12 = add i64 %11, 1
+  %13 = add i64 %12, 1
+  %14 = add i64 %13, 1
+  %15 = add i64 %14, 1
+  %16 = add i64 %15, 1
+  %17 = add i64 %16, 1
+  %18 = add i64 %17, 1
+  %19 = add i64 %18, 1
+  %20 = add i64 %19, 1
+  %21 = add i64 %20, 1
+  %22 = add i64 %21, 1
+  %23 = add i64 %22, 1
+  %24 = add i64 %23, 1
+  %25 = add i64 %24, 1
+  %26 = add i64 %25, 1
+  %27 = add i64 %26, 1
+  %28 = add i64 %27, 1
+  %29 = add i64 %28, 1
+  %30 = add i64 %29, 1
+  %31 = add i64 %30, 1
+  %32 = add i64 %31, 1
+  %33 = add i64 %32, 1
+  %34 = add i64 %33, 1
+  %35 = add i64 %34, 1
+  %36 = add i64 %35, 1
+  call void @putint(i64 0)
+  call void @putint(i64 %8)
+  call void @putint(i64 %9)
+  call void @putint(i64 %10)
+  call void @putint(i64 %11)
+  call void @putint(i64 %12)
+  call void @putint(i64 %13)
+  call void @putint(i64 %14)
+  call void @putint(i64 %15)
+  call void @putint(i64 %16)
+  call void @putint(i64 %17)
+  call void @putint(i64 %18)
+  call void @putint(i64 %19)
+  call void @putint(i64 %20)
+  call void @putint(i64 %21)
+  call void @putint(i64 %22)
+  call void @putint(i64 %23)
+  call void @putint(i64 %24)
+  call void @putint(i64 %25)
+  call void @putint(i64 %26)
+  call void @putint(i64 %27)
+  call void @putint(i64 %28)
+  call void @putint(i64 %29)
+  call void @putint(i64 %30)
+  call void @putint(i64 %31)
+  call void @putint(i64 %32)
+  call void @putint(i64 %33)
+  call void @putint(i64 %34)
+  call void @putint(i64 %35)
+  call void @putint(i64 %36)
+  call void @putch(i64 10)
+  call void @putint(i64 %.0)
+  call void @putch(i64 10)
+  ret i64 %32
+}

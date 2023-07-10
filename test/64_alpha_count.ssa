@@ -1,0 +1,61 @@
+; ModuleID = 'sysyc'
+source_filename = "./64_alpha_count.sy"
+target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
+
+declare i64 @getint()
+
+declare i64 @getch()
+
+declare void @putint(i64)
+
+declare void @putch(i64)
+
+declare i64 @getarray(i64*)
+
+declare i64 @putarray(i64, i64*)
+
+define i64 @main() {
+entry:
+  br label %0
+
+0:                                                ; preds = %24, %entry
+  %.02 = phi i64 [ 0, %entry ], [ %25, %24 ]
+  %.01 = phi i64 [ 0, %entry ], [ %5, %24 ]
+  %.0 = phi i64 [ 0, %entry ], [ %.1, %24 ]
+  %1 = icmp ne i64 %.01, 10
+  %2 = zext i1 %1 to i64
+  %3 = icmp ne i64 %2, 0
+  br i1 %3, label %4, label %21
+
+4:                                                ; preds = %0
+  %5 = call i64 @getch()
+  %6 = icmp sgt i64 %5, 40
+  %7 = zext i1 %6 to i64
+  %8 = icmp ne i64 %7, 0
+  %9 = icmp slt i64 %5, 91
+  %10 = zext i1 %9 to i64
+  %11 = icmp ne i64 %10, 0
+  %12 = and i1 %8, %11
+  %13 = icmp sgt i64 %5, 96
+  %14 = zext i1 %13 to i64
+  %15 = icmp ne i64 %14, 0
+  %16 = icmp slt i64 %5, 123
+  %17 = zext i1 %16 to i64
+  %18 = icmp ne i64 %17, 0
+  %19 = and i1 %15, %18
+  %20 = or i1 %12, %19
+  br i1 %20, label %22, label %24
+
+21:                                               ; preds = %0
+  call void @putint(i64 %.0)
+  ret i64 0
+
+22:                                               ; preds = %4
+  %23 = add i64 %.0, 1
+  br label %24
+
+24:                                               ; preds = %22, %4
+  %.1 = phi i64 [ %23, %22 ], [ %.0, %4 ]
+  %25 = add i64 %.02, 1
+  br label %0
+}

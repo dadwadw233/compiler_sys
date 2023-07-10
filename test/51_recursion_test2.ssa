@@ -1,0 +1,49 @@
+; ModuleID = 'sysyc'
+source_filename = "./51_recursion_test2.sy"
+target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
+
+declare i64 @getint()
+
+declare i64 @getch()
+
+declare void @putint(i64)
+
+declare void @putch(i64)
+
+declare i64 @getarray(i64*)
+
+declare i64 @putarray(i64, i64*)
+
+define i64 @fib(i64 %0) {
+entry:
+  %1 = icmp eq i64 %0, 0
+  %2 = zext i1 %1 to i64
+  %3 = icmp ne i64 %2, 0
+  br i1 %3, label %4, label %5
+
+4:                                                ; preds = %entry
+  ret i64 0
+
+5:                                                ; preds = %entry
+  %6 = icmp eq i64 %0, 1
+  %7 = zext i1 %6 to i64
+  %8 = icmp ne i64 %7, 0
+  br i1 %8, label %9, label %10
+
+9:                                                ; preds = %5
+  ret i64 1
+
+10:                                               ; preds = %5
+  %11 = sub i64 %0, 1
+  %12 = sub i64 %0, 2
+  %13 = call i64 @fib(i64 %11)
+  %14 = call i64 @fib(i64 %12)
+  %15 = add i64 %13, %14
+  ret i64 %15
+}
+
+define i64 @main() {
+entry:
+  %0 = call i64 @fib(i64 10)
+  ret i64 %0
+}

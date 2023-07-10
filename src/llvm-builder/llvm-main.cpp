@@ -1,4 +1,5 @@
 #include <iostream>
+#include <llvm/IR/Dominators.h>
 #include "llvmBuilder.hpp"
 #include "fdriver.hh"
 #include "ast.hpp"
@@ -25,6 +26,10 @@
 #include "llvm/Support/ToolOutputFile.h"
 #include "llvm/Target/TargetMachine.h"
 
+#include "llvm/Transforms/Scalar.h"
+#include "llvm/IR/LegacyPassManager.h"
+#include "llvm/Transforms/Utils/PromoteMemToReg.h"
+
 
 using namespace std;
 using namespace std::literals::string_literals;
@@ -35,7 +40,9 @@ int main(int argc, char **argv) {
     std::cout<<input_path<<std::endl;
     string target_path = input_path.substr(0, input_path.size() - 3);
     bool showAst = false;
-    bool showLLVM = false;
+    bool showSSA = false;
+    bool showLLVM = true;
+    bool showAsm = false;
     bool showFinal = true;
 
     TreeNodeTopLevel *root;
@@ -107,8 +114,66 @@ int main(int argc, char **argv) {
     PM.add(&TPC);
     PM.add(MMI);
 
+    //控制流优化
+    //PM.add(llvm::createDeadCodeEliminationPass());
+    //PM.add(llvm::createCFGSimplificationPass());
+
+    //数据流分析
+    //PM.add(llvm::createLoopSimplifyCFGPass());
+    //循环展开优化
+    //PM.add(llvm::createLoopUnrollPass());
+
+    //活跃变量分析
+    //todo 可以继承一个Pass去实现
 
     PM.add(llvm::createGreedyRegisterAllocator());
+    //建立支配树
+    // 遍历支配树节点
+    Function* entryFunction = mod->getFunction("main");
+    DominatorTree DT(*entryFunction);
+    // 遍历支配树节点
+    for (Function::iterator it = entryFunction->begin(), end = entryFunction->end(); it != end; ++it) {
+        BasicBlock* basicBlock = &*it;
+        errs() << "Basic Block: " << basicBlock->getName() << "\n";
+
+        // 遍历支配的子节点
+        for (DomTreeNode* childNode : DT.getNode(basicBlock)->getChildren()) {
+            BasicBlock* dominatedBlock = childNode->getBlock();
+            errs() << "  Dominated Block: " << dominatedBlock->getName() << "\n";
+        }
+    }
+    cout<<"finish bb out"<<endl;
+    if(showSSA){
+        // 生成SSA形式的中间代码
+        // 创建 DominatorTree
+        Function* entryFunction = mod->getFunction("main");
+        DominatorTree DT(*entryFunction);
+
+        // 遍历每个函数并将其转换为 SSA 形式
+        for (Function& function : mod->getFunctionList()) {
+            std::vector<AllocaInst*> Allocas;
+            for (BasicBlock& basicBlock : function) {
+                for (Instruction& instruction : basicBlock) {
+                    if (auto* alloca = dyn_cast<AllocaInst>(&instruction)) {
+                        Allocas.push_back(alloca);
+                    }
+                }
+            }
+            PromoteMemToReg(Allocas, DT);
+        }
+
+        string target_ssa = target_path + ".ssa";
+        auto ssa_file = make_unique<llvm::ToolOutputFile>(
+                target_ssa, error_msg, llvm::sys::fs::F_None
+        );
+        auto ssa_ostream = &ssa_file->os();
+
+        PM.run(*mod);
+        mod->print(*ssa_ostream, nullptr);
+
+
+        ssa_file->keep();
+    }
 
 
 
@@ -130,6 +195,37 @@ int main(int argc, char **argv) {
         PM.run(*mod);
         mod->print(*output_ostream, nullptr);
         output_file->keep();
+
+
+    }
+
+    if(showAsm){
+        std::error_code ec;
+        llvm::raw_fd_ostream dest(target_path+".s", ec, llvm::sys::fs::F_None);
+
+        llvm::TargetOptions targetOptions;
+        targetOptions.PrintMachineCode = false;
+        llvm::Triple triple;
+        //TheTriple.setTriple(llvm::sys::getDefaultTargetTriple());
+        triple.setArch(llvm::Triple::riscv64);
+        triple.setObjectFormat(llvm::Triple::ObjectFormatType::ELF);
+        triple.setEnvironment(llvm::Triple::EnvironmentType::Simulator);
+        std::string error;
+        const llvm::Target* target = llvm::TargetRegistry::lookupTarget(triple.getTriple(), error);
+        llvm::TargetMachine* targetMachine = target->createTargetMachine(triple.getTriple(), "", "", targetOptions, llvm::None);
+        // 生成汇编代码
+        llvm::legacy::PassManager passManager;
+
+
+        if (targetMachine->addPassesToEmitFile(passManager, dest, nullptr, llvm::CGFT_AssemblyFile)) {
+            llvm::errs() << "TargetMachine can't emit a file of this type\n";
+            return 1;
+        }
+
+        passManager.run(*mod);
+
+        dest.flush();
+
     }
 
     if(showFinal) {
@@ -148,7 +244,7 @@ int main(int argc, char **argv) {
         PM.run(*mod);
         obj_file->keep();
 
-        auto command_string = string("clang -w --target=riscv64-unknown-elf ") + target_path + ".o -o " + target_path + " -L. -lsysy_io";
+        auto command_string = string("clang -w --target=riscv64-unknown-elf ") + target_path + ".o -o " + target_path + ".sysyexe -L. -lsysy_io";
         //auto command_string = string("clang -w -v --target=riscv64-unknown-elf ") + target_path + ".o -o " + target_path ;
         system(command_string.c_str());
     }
