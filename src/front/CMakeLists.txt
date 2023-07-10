@@ -10,7 +10,7 @@ add_library(
 
 add_library(
         scan STATIC
-        scan.cc
+        lex.yy.cc
 )
 
 add_library(

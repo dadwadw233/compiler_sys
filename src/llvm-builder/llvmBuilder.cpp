@@ -7,10 +7,6 @@ using namespace std;
 #define CONST(num) \
   llvm::ConstantInt::get(context, llvm::APInt(64, num))
 
-#define _DEBUG_IRBUILDER(str) {\
-  cerr << "Debug in IRBuilder. "\
-  << str << endl;\
-}
 
 // 存储临时变量
 llvm::Value *tmp_val = nullptr;
@@ -211,29 +207,29 @@ void LLVMBuilder::visit(TreeNodeConstInitVal &node) {
     }
     array_init.assign(init_list.begin(), init_list.end());
   }
-  //_DEBUG_IRBUILDER("ConstInitVal_end");
+  //("ConstInitVal_end");
 }
 void LLVMBuilder::visit(TreeNodeConstExp &node) {
-  //_DEBUG_IRBUILDER("ConstExp");
+  //("ConstExp");
   use_int = true;
   node.AddExp->accept(*this);
   tmp_val = CONST(tmp_int);
   // cout<<tmp_int<<endl;
   // cout<<tmp_val->getType()->isIntegerTy()<<endl;
   use_int = false;
-  //_DEBUG_IRBUILDER("ConstExp_end");
+  //("ConstExp_end");
 }
 
 void LLVMBuilder::visit(TreeNodeVarDecl &node) {
-  //_DEBUG_IRBUILDER("VarDecl");
+  //("VarDecl");
   for (auto p : node.VarDefList) {
     p->accept(*this);
   }
-  //_DEBUG_IRBUILDER("VarDecl_end");
+  //("VarDecl_end");
 }
 
 void LLVMBuilder::visit(TreeNodeVarDef &node) {
-  //_DEBUG_IRBUILDER("VarDef");
+  //("VarDef");
 
     auto *TyInt64 = llvm::Type::getInt64Ty(context);
   if (node.ArrayConstExpList.size() == 0) {
@@ -309,12 +305,12 @@ void LLVMBuilder::visit(TreeNodeVarDef &node) {
         scope.push(node.id, var);
       }
     } else {//local var
-      // //_DEBUG_IRBUILDER("VarDef_1");
+      // //("VarDef_1");
       auto array_alloc = builder.CreateAlloca(TyArray);
       scope.push(node.id, array_alloc);
       if (node.InitVal!=nullptr){
         auto alloca = scope.find(node.id);
-        // //_DEBUG_IRBUILDER("VarDef_2");
+        // //("VarDef_2");
         node.InitVal->bounds.assign(array_bounds.begin(), array_bounds.end());
         node.InitVal->accept(*this);      
 
@@ -322,7 +318,7 @@ void LLVMBuilder::visit(TreeNodeVarDef &node) {
         for (int i = 1; i < node.InitVal->bounds.size(); i++){
           Ptr = builder.CreateGEP(Ptr,{CONST(0),CONST(0)});  
         }
-        // //_DEBUG_IRBUILDER("VarDef_3");
+        // //("VarDef_3");
         for (int i =0; i < array_init.size(); i++){
           builder.CreateStore(array_init[i],Ptr);  
           Ptr = builder.CreateGEP(Ptr,CONST(1));
@@ -330,11 +326,11 @@ void LLVMBuilder::visit(TreeNodeVarDef &node) {
       }
     } //get alloc
   }
-  //_DEBUG_IRBUILDER("VarDef_end");
+  //("VarDef_end");
 }
 
 void LLVMBuilder::visit(TreeNodeInitVal &node) {
-  //_DEBUG_IRBUILDER("InitVal");
+  //("InitVal");
   //递归的思路。
   // auto *TyInt64 = llvm::Type::getInt64Ty(context);
   // if(node.Exp!=nullptr && node.bounds.size()==0){
@@ -437,13 +433,13 @@ void LLVMBuilder::visit(TreeNodeInitVal &node) {
     }
     array_init.assign(init_list.begin(), init_list.end());
   }
-  //_DEBUG_IRBUILDER("InitVal_end");
+  //("InitVal_end");
 }
 
 void LLVMBuilder::visit(TreeNodeFuncDef &node) {
 
-  //_DEBUG_IRBUILDER("FuncDef");
-  //_DEBUG_IRBUILDER(node.id);
+  //("FuncDef");
+  //(node.id);
   llvm::FunctionType *fun_type;
   llvm::Type *ret_type;
   vector<llvm::Type *> param_types;
@@ -465,7 +461,7 @@ void LLVMBuilder::visit(TreeNodeFuncDef &node) {
       param_types.push_back(TyInt64);
     }
   }
-  // //_DEBUG_IRBUILDER("FuncDef2");
+  // //("FuncDef2");
   fun_type = llvm::FunctionType::get(ret_type, param_types, false);
   auto fun =
     llvm::Function::Create(
@@ -473,23 +469,23 @@ void LLVMBuilder::visit(TreeNodeFuncDef &node) {
         llvm::GlobalValue::LinkageTypes::ExternalLinkage,
         node.id,
         module.get());
-  // //_DEBUG_IRBUILDER("FuncDef3");
+  // //("FuncDef3");
   scope.push(node.id, fun);
-  // //_DEBUG_IRBUILDER("FuncDef3.1");
+  // //("FuncDef3.1");
   cur_fun = fun;      // 当前分析的函数
 
 
   auto funBB = llvm::BasicBlock::Create(context, "entry", fun);
   builder.SetInsertPoint(funBB);
-  // //_DEBUG_IRBUILDER("FuncDef3.5");
+  // //("FuncDef3.5");
   scope.enter();
   pre_enter_scope = true;
   vector<llvm::Value*> args;
-  // //_DEBUG_IRBUILDER("FuncDef4");
+  // //("FuncDef4");
   for (auto arg = fun->arg_begin(); arg != fun->arg_end(); arg++) {
     args.push_back(arg);//参数列表
   }
-  // //_DEBUG_IRBUILDER("FuncDef5");
+  // //("FuncDef5");
   for (int i = 0; i < node.FuncFParamList.size(); ++i) {
     if (node.FuncFParamList[i]->isarray) {
         cout<<"func array param"<<endl;
@@ -521,13 +517,13 @@ void LLVMBuilder::visit(TreeNodeFuncDef &node) {
     }
   }
   scope.exit();
-  //_DEBUG_IRBUILDER("FuncDef_end");
+  //("FuncDef_end");
 }
 
 void LLVMBuilder::visit(TreeNodeFuncFParam &node) {node.ParamArrayExpList;}
 
 void LLVMBuilder::visit(TreeNodeBlock &node) {
-  //_DEBUG_IRBUILDER("Block");
+  //("Block");
   bool need_exit_scope = !pre_enter_scope;
   if (pre_enter_scope) {
     pre_enter_scope = false;
@@ -544,35 +540,35 @@ void LLVMBuilder::visit(TreeNodeBlock &node) {
   if (need_exit_scope) {
     scope.exit();
   }
-  //_DEBUG_IRBUILDER("Block_end");
+  //("Block_end");
 }
 
 void LLVMBuilder::visit(TreeNodeBreakStmt &node) {
-  //_DEBUG_IRBUILDER("BreakStmt");
+  //("BreakStmt");
   auto cur_iter = iter_cont[iter_expr.size()-1];
   builder.CreateBr(cur_iter);
-  //_DEBUG_IRBUILDER("BreakStmt_end");
+  //("BreakStmt_end");
 }
 
 void LLVMBuilder::visit(TreeNodeContinueStmt &node) {
-  //_DEBUG_IRBUILDER("ContinueStmt");
+  //("ContinueStmt");
   auto cur_iter = iter_expr[iter_expr.size()-1];
   builder.CreateBr(cur_iter);
-  //_DEBUG_IRBUILDER("ContinueStmt_end");
+  //("ContinueStmt_end");
 }
 
 void LLVMBuilder::visit(TreeNodeAssignStmt &node) {
-  //_DEBUG_IRBUILDER("AssignStmt");
+  //("AssignStmt");
   node.LVal->accept(*this);
   auto lval=tmp_val;
   node.Exp->accept(*this);
   auto rval=tmp_val;
   builder.CreateStore(rval,lval);
-  //_DEBUG_IRBUILDER("AssignStmt_end");
+  //("AssignStmt_end");
 }
 
 void LLVMBuilder::visit(TreeNodeIfStmt &node) {
-  //_DEBUG_IRBUILDER("SelectStmt");
+  //("SelectStmt");
   auto *TyInt64 = llvm::Type::getInt64Ty(context);
   auto *TyInt1 = llvm::Type::getInt1Ty(context);
   node.Cond->accept(*this);
@@ -603,11 +599,11 @@ void LLVMBuilder::visit(TreeNodeIfStmt &node) {
   }
 
   builder.SetInsertPoint(contBB);
-  //_DEBUG_IRBUILDER("SelectStmt_end");
+  //("SelectStmt_end");
 }
 
 void LLVMBuilder::visit(TreeNodeWhileStmt &node) {
-  //_DEBUG_IRBUILDER("IterationStmt");
+  //("IterationStmt");
   auto *TyInt64 = llvm::Type::getInt64Ty(context);
   auto *TyInt1 = llvm::Type::getInt1Ty(context);
   //初始化exprBB
@@ -638,11 +634,11 @@ void LLVMBuilder::visit(TreeNodeWhileStmt &node) {
 
   //contBB 控制块 什么都不做，跳出循环
   builder.SetInsertPoint(contBB);
-  //_DEBUG_IRBUILDER("IterationStmt_end");
+  //("IterationStmt_end");
 }
 
 void LLVMBuilder::visit(TreeNodeReturnStmt &node) {
-  //_DEBUG_IRBUILDER("ReturnStmt");
+  //("ReturnStmt");
   auto *TyInt64 = llvm::Type::getInt64Ty(context);
   if (node.Exp == nullptr) {
     builder.CreateRetVoid();
@@ -650,12 +646,12 @@ void LLVMBuilder::visit(TreeNodeReturnStmt &node) {
     node.Exp->accept(*this);
     builder.CreateRet(tmp_val);
   }
-  //_DEBUG_IRBUILDER("ReturnStmt_end");
+  //("ReturnStmt_end");
 }
 
 void LLVMBuilder::visit(TreeNodeLVal &node) {
-  //_DEBUG_IRBUILDER("LVal");
-  //_DEBUG_IRBUILDER(node.id);
+  //("LVal");
+  //(node.id);
   // TODO(zyh) const Lval 的处理?
   auto *TyInt64 = llvm::Type::getInt64Ty(context);
   auto *TyInt64Ptr = llvm::Type::getInt64PtrTy(context);
@@ -666,43 +662,43 @@ void LLVMBuilder::visit(TreeNodeLVal &node) {
     return;
   }
   
-  // //_DEBUG_IRBUILDER("LVal 1");
+  // //("LVal 1");
   auto is_int = var->getType()->getPointerElementType()->isIntegerTy();
-  // //_DEBUG_IRBUILDER("LVal 1");
+  // //("LVal 1");
   auto is_ptr = var->getType()->getPointerElementType()->isPointerTy();
   if(node.ArrayExpList.size()==0){
     if (is_int)
     {
-      //_DEBUG_IRBUILDER("LVal is_int");
+      //("LVal is_int");
       tmp_val=scope.find(node.id);
     }
     else if (is_ptr) {
-      //_DEBUG_IRBUILDER("LVal is_ptr");
+      //("LVal is_ptr");
       tmp_val = builder.CreateLoad(var);
     }
     else{
-      //_DEBUG_IRBUILDER("LVal else1");
+      //("LVal else1");
       tmp_val = builder.CreateGEP(var, {CONST(0), CONST(0)});
     }
   }
   else{
     
-    // //_DEBUG_IRBUILDER("LVal 1");
+    // //("LVal 1");
     llvm::Value *tmp_ptr;
     if (is_int){
-      //_DEBUG_IRBUILDER("LVal is_int");
+      //("LVal is_int");
       tmp_ptr = var;
       for ( auto exp : node.ArrayExpList) {
         exp->accept(*this);
         tmp_ptr = builder.CreateGEP(tmp_ptr, tmp_val);
       }
     } else if (is_ptr) {
-      //_DEBUG_IRBUILDER("LVal is_ptr");
+      //("LVal is_ptr");
       vector<llvm::Value *> array_params;
-      // //_DEBUG_IRBUILDER("LVal is_ptr");
+      // //("LVal is_ptr");
       scope.find_params(node.id, array_params);
       // cout<<array_params.size()<<endl;
-      // //_DEBUG_IRBUILDER("LVal is_ptr");
+      // //("LVal is_ptr");
       auto array_load = builder.CreateLoad(var);
       for ( int i = 0; i < node.ArrayExpList.size(); i++) {
         node.ArrayExpList[i]->accept(*this);
@@ -713,7 +709,7 @@ void LLVMBuilder::visit(TreeNodeLVal &node) {
         tmp_ptr = builder.CreateGEP(array_load, val);
       }
     } else {
-      //_DEBUG_IRBUILDER("LVal else");
+      //("LVal else");
       tmp_ptr = var;
       for ( auto exp : node.ArrayExpList) {
         exp->accept(*this);
@@ -722,11 +718,11 @@ void LLVMBuilder::visit(TreeNodeLVal &node) {
     }
     tmp_val = tmp_ptr;  
   }
-  //_DEBUG_IRBUILDER("LVal_end");
+  //("LVal_end");
 }
 
 void LLVMBuilder::visit(TreeNodePrimaryExp &node) {
-  //_DEBUG_IRBUILDER("PrimaryExp");
+  //("PrimaryExp");
   if (use_int) {
     if (node.Exp) { 
       node.Exp->accept(*this);
@@ -736,7 +732,7 @@ void LLVMBuilder::visit(TreeNodePrimaryExp &node) {
     } else if (node.Number) {
       node.Number->accept(*this);
     }
-    //_DEBUG_IRBUILDER("PrimaryExp_end");
+    //("PrimaryExp_end");
     return;
   }
 
@@ -745,9 +741,9 @@ void LLVMBuilder::visit(TreeNodePrimaryExp &node) {
   } else if (node.LVal) {
     node.LVal->accept(*this);
     if (require_address) {
-      //_DEBUG_IRBUILDER("PrimaryExp1");
+      //("PrimaryExp1");
       while (!tmp_val->getType()->getPointerElementType()->isIntegerTy()){
-        //_DEBUG_IRBUILDER("PrimaryExp2");
+        //("PrimaryExp2");
         tmp_val = builder.CreateGEP(tmp_val,{CONST(0), CONST(0)});
       }
     }
@@ -762,22 +758,22 @@ void LLVMBuilder::visit(TreeNodePrimaryExp &node) {
   } else if (node.Number) {
     node.Number->accept(*this);
   }
-  //_DEBUG_IRBUILDER("PrimaryExp_end");
+  //("PrimaryExp_end");
   return;
 }
 
 void LLVMBuilder::visit(TreeNodeNumber &node) {
-  //_DEBUG_IRBUILDER("Number");
+  //("Number");
   if (use_int) {
     tmp_int = node.num;
     return;
   }
   tmp_val = CONST(node.num);
-  //_DEBUG_IRBUILDER("Number_end");
+  //("Number_end");
 }
 
 void LLVMBuilder::visit(TreeNodeUnaryExp &node) {
-  //_DEBUG_IRBUILDER("UnaryExp")
+  //("UnaryExp")
   auto *TyInt64 = llvm::Type::getInt64Ty(context);
   
   if (use_int) {
@@ -800,7 +796,7 @@ void LLVMBuilder::visit(TreeNodeUnaryExp &node) {
         LLVMIRBuilderError("NOT operation in ConstExp!");
         break;
     }
-    //_DEBUG_IRBUILDER("UnaryExp_end")
+    //("UnaryExp_end")
     return;
   }
 
@@ -825,39 +821,39 @@ void LLVMBuilder::visit(TreeNodeUnaryExp &node) {
       break;
   }
   tmp_val = val;
-  //_DEBUG_IRBUILDER("UnaryExp_end")
+  //("UnaryExp_end")
 }
 
 void LLVMBuilder::visit(TreeNodeCallee &node) {
-  //_DEBUG_IRBUILDER("Callee");
+  //("Callee");
   
   auto fun = scope.find(node.id);
   vector<llvm::Value *> args;
   for (int i=0; i < node.ExpList.size(); i++) {
-    //_DEBUG_IRBUILDER("Callee_1")
+    //("Callee_1")
     auto arg = node.ExpList[i];
     // cout<<fun->getType()->getPointerElementType()->getTypeID()<<endl;
 
     auto arg_type = fun->getType()->getPointerElementType()->getFunctionParamType(i);
-    //_DEBUG_IRBUILDER("Callee_1.1")
+    //("Callee_1.1")
     if (arg_type->isIntegerTy()){
       require_address = false ;
     } else {
       require_address = true ;
     }
-    //_DEBUG_IRBUILDER("Callee_2")
+    //("Callee_2")
     arg->accept(*this);  // 调用Exp
     require_address = false ;
     args.push_back(tmp_val);
   }
-  //_DEBUG_IRBUILDER("Callee_3")
+  //("Callee_3")
 
   tmp_val = builder.CreateCall(fun, args);
-  //_DEBUG_IRBUILDER("Callee_end")
+  //("Callee_end")
 }
 
 void LLVMBuilder::visit(TreeNodeMulExp &node) {
-  //_DEBUG_IRBUILDER("MulExp");
+  //("MulExp");
 
   auto *TyInt64 = llvm::Type::getInt64Ty(context);
   if (node.MulExp == nullptr) {
@@ -880,7 +876,7 @@ void LLVMBuilder::visit(TreeNodeMulExp &node) {
           tmp_int = l_val % r_val;
           break;
       }
-      //_DEBUG_IRBUILDER("MulExp_end");
+      //("MulExp_end");
       return;
     }
 
@@ -900,11 +896,11 @@ void LLVMBuilder::visit(TreeNodeMulExp &node) {
         break;
     }
   }
-  //_DEBUG_IRBUILDER("MulExp_end");
+  //("MulExp_end");
 }
 
 void LLVMBuilder::visit(TreeNodeAddExp &node) {  
-  //_DEBUG_IRBUILDER("AddExp");
+  //("AddExp");
   auto *TyInt64 = llvm::Type::getInt64Ty(context);
   if (node.AddExp == nullptr) {
     node.MulExp->accept(*this);
@@ -923,7 +919,7 @@ void LLVMBuilder::visit(TreeNodeAddExp &node) {
           tmp_int = l_val - r_val;
           break;
       }
-      //_DEBUG_IRBUILDER("AddExp_end");
+      //("AddExp_end");
       return;
     }
 
@@ -940,11 +936,11 @@ void LLVMBuilder::visit(TreeNodeAddExp &node) {
         break;
     }
   }
-  //_DEBUG_IRBUILDER("AddExp_end");
+  //("AddExp_end");
 }
 
 void LLVMBuilder::visit(TreeNodeRelExp &node) {
-  //_DEBUG_IRBUILDER("RelExp");
+  //("RelExp");
 
   auto *TyInt64 = llvm::Type::getInt64Ty(context);
   llvm::Value *logicalVal;
@@ -971,11 +967,11 @@ void LLVMBuilder::visit(TreeNodeRelExp &node) {
     }
     tmp_val = builder.CreateZExt(logicalVal, TyInt64);
   }
-  //_DEBUG_IRBUILDER("RelExp_end");
+  //("RelExp_end");
 }
 
 void LLVMBuilder::visit(TreeNodeEqExp &node) {
-  //_DEBUG_IRBUILDER("EqExp");
+  //("EqExp");
   auto *TYInt64 = llvm::Type::getInt64Ty(context);
   if (node.EqExp == nullptr) {
     node.RelExp->accept(*this);
@@ -994,11 +990,11 @@ void LLVMBuilder::visit(TreeNodeEqExp &node) {
     }
     tmp_val = builder.CreateZExt(tmp_val, TYInt64);
   }
-  //_DEBUG_IRBUILDER("EqExp_end");
+  //("EqExp_end");
 }
 
 void LLVMBuilder::visit(TreeNodeLAndExp &node) {
-  //_DEBUG_IRBUILDER("LAndExp");
+  //("LAndExp");
   if (node.LAndExp == nullptr) {
     node.EqExp->accept(*this);
     // tmp_val = builder.CreateZExt(tmp_val, TYInt64);
@@ -1011,11 +1007,11 @@ void LLVMBuilder::visit(TreeNodeLAndExp &node) {
     // auto rval = builder.CreateICmpNE(tmp_val, CONST(0));
     tmp_val = builder.CreateAnd(lval, rval);
   }
-  //_DEBUG_IRBUILDER("LAndExp_end");
+  //("LAndExp_end");
 }//return int1;
 
 void LLVMBuilder::visit(TreeNodeLOrExp &node) {
-  //_DEBUG_IRBUILDER("LOrExp");
+  //("LOrExp");
   if (node.LOrExp == nullptr) {
     node.LAndExp->accept(*this);
   } else {
@@ -1025,5 +1021,5 @@ void LLVMBuilder::visit(TreeNodeLOrExp &node) {
     auto rval = tmp_val;
     tmp_val = builder.CreateOr(lval, rval);
   }
-  //_DEBUG_IRBUILDER("LOrExp_end");
+  //("LOrExp_end");
 }

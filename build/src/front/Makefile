@@ -228,6 +228,33 @@ fdriver.cc.s:
 	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/fdriver.dir/build.make src/front/CMakeFiles/fdriver.dir/fdriver.cc.s
 .PHONY : fdriver.cc.s
 
+lex.yy.o: lex.yy.cc.o
+
+.PHONY : lex.yy.o
+
+# target to build an object file
+lex.yy.cc.o:
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/scan.dir/build.make src/front/CMakeFiles/scan.dir/lex.yy.cc.o
+.PHONY : lex.yy.cc.o
+
+lex.yy.i: lex.yy.cc.i
+
+.PHONY : lex.yy.i
+
+# target to preprocess a source file
+lex.yy.cc.i:
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/scan.dir/build.make src/front/CMakeFiles/scan.dir/lex.yy.cc.i
+.PHONY : lex.yy.cc.i
+
+lex.yy.s: lex.yy.cc.s
+
+.PHONY : lex.yy.s
+
+# target to generate assembly for a file
+lex.yy.cc.s:
+	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/scan.dir/build.make src/front/CMakeFiles/scan.dir/lex.yy.cc.s
+.PHONY : lex.yy.cc.s
+
 parser.o: parser.cc.o
 
 .PHONY : parser.o
@@ -255,33 +282,6 @@ parser.cc.s:
 	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/parser.dir/build.make src/front/CMakeFiles/parser.dir/parser.cc.s
 .PHONY : parser.cc.s
 
-scan.o: scan.cc.o
-
-.PHONY : scan.o
-
-# target to build an object file
-scan.cc.o:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/scan.dir/build.make src/front/CMakeFiles/scan.dir/scan.cc.o
-.PHONY : scan.cc.o
-
-scan.i: scan.cc.i
-
-.PHONY : scan.i
-
-# target to preprocess a source file
-scan.cc.i:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/scan.dir/build.make src/front/CMakeFiles/scan.dir/scan.cc.i
-.PHONY : scan.cc.i
-
-scan.s: scan.cc.s
-
-.PHONY : scan.s
-
-# target to generate assembly for a file
-scan.cc.s:
-	cd /home/yyh/course/compilation/workplace/build && $(MAKE) -f src/front/CMakeFiles/scan.dir/build.make src/front/CMakeFiles/scan.dir/scan.cc.s
-.PHONY : scan.cc.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -300,12 +300,12 @@ help:
 	@echo "... fdriver.o"
 	@echo "... fdriver.i"
 	@echo "... fdriver.s"
+	@echo "... lex.yy.o"
+	@echo "... lex.yy.i"
+	@echo "... lex.yy.s"
 	@echo "... parser.o"
 	@echo "... parser.i"
 	@echo "... parser.s"
-	@echo "... scan.o"
-	@echo "... scan.i"
-	@echo "... scan.s"
 .PHONY : help
 
 

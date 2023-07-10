@@ -57,27 +57,27 @@ include src/front/CMakeFiles/scan.dir/progress.make
 # Include the compile flags for this target's objects.
 include src/front/CMakeFiles/scan.dir/flags.make
 
-src/front/CMakeFiles/scan.dir/scan.cc.o: src/front/CMakeFiles/scan.dir/flags.make
-src/front/CMakeFiles/scan.dir/scan.cc.o: ../src/front/scan.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/yyh/course/compilation/workplace/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/front/CMakeFiles/scan.dir/scan.cc.o"
-	cd /home/yyh/course/compilation/workplace/build/src/front && /usr/bin/clang  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/scan.dir/scan.cc.o -c /home/yyh/course/compilation/workplace/src/front/scan.cc
+src/front/CMakeFiles/scan.dir/lex.yy.cc.o: src/front/CMakeFiles/scan.dir/flags.make
+src/front/CMakeFiles/scan.dir/lex.yy.cc.o: ../src/front/lex.yy.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/yyh/course/compilation/workplace/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/front/CMakeFiles/scan.dir/lex.yy.cc.o"
+	cd /home/yyh/course/compilation/workplace/build/src/front && /usr/bin/clang  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/scan.dir/lex.yy.cc.o -c /home/yyh/course/compilation/workplace/src/front/lex.yy.cc
 
-src/front/CMakeFiles/scan.dir/scan.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/scan.dir/scan.cc.i"
-	cd /home/yyh/course/compilation/workplace/build/src/front && /usr/bin/clang $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/yyh/course/compilation/workplace/src/front/scan.cc > CMakeFiles/scan.dir/scan.cc.i
+src/front/CMakeFiles/scan.dir/lex.yy.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/scan.dir/lex.yy.cc.i"
+	cd /home/yyh/course/compilation/workplace/build/src/front && /usr/bin/clang $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/yyh/course/compilation/workplace/src/front/lex.yy.cc > CMakeFiles/scan.dir/lex.yy.cc.i
 
-src/front/CMakeFiles/scan.dir/scan.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/scan.dir/scan.cc.s"
-	cd /home/yyh/course/compilation/workplace/build/src/front && /usr/bin/clang $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/yyh/course/compilation/workplace/src/front/scan.cc -o CMakeFiles/scan.dir/scan.cc.s
+src/front/CMakeFiles/scan.dir/lex.yy.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/scan.dir/lex.yy.cc.s"
+	cd /home/yyh/course/compilation/workplace/build/src/front && /usr/bin/clang $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/yyh/course/compilation/workplace/src/front/lex.yy.cc -o CMakeFiles/scan.dir/lex.yy.cc.s
 
 # Object files for target scan
 scan_OBJECTS = \
-"CMakeFiles/scan.dir/scan.cc.o"
+"CMakeFiles/scan.dir/lex.yy.cc.o"
 
 # External object files for target scan
 scan_EXTERNAL_OBJECTS =
 
-src/front/libscan.a: src/front/CMakeFiles/scan.dir/scan.cc.o
+src/front/libscan.a: src/front/CMakeFiles/scan.dir/lex.yy.cc.o
 src/front/libscan.a: src/front/CMakeFiles/scan.dir/build.make
 src/front/libscan.a: src/front/CMakeFiles/scan.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/yyh/course/compilation/workplace/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libscan.a"

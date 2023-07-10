@@ -223,53 +223,7 @@ ident		[a-zA-Z_][a-zA-Z0-9_]*
 }
 
 %%
-int Dec2Dec(char temp[])						//十进制转int
-{
-    	int sum = 0;
-	for (int i = 0;i < strlen(temp);i++)
-	{
-		sum = sum * 10 + temp[i] - '0';
-	}
-	return sum;
-}
 
-int Oct2Dec(char temp[])						//八进制转十进制
-{
-	int sum = 0;
-	for (int i = 1;i < strlen(temp);i++)
-	{
-		sum = sum * 8 + temp[i] - '0';
-	}
-	return sum;
-}
-
-int Hex2Dec(char temp[])                                                //十六进制转十进制
-{
-        int sum = 0;
-        int mid[100];
-        for (int ii = 2;ii < strlen(temp);ii++)
-        {
-                if (temp[ii] == 'a' || temp[ii] == 'A')
-                        mid[ii] = 10;
-                else if (temp[ii] == 'b' || temp[ii] == 'B')
-                        mid[ii] = 11;
-                else if (temp[ii] == 'c' || temp[ii] == 'C')
-                        mid[ii] = 12;
-                else if (temp[ii] == 'd' || temp[ii] == 'D')
-                        mid[ii] = 13;
-                else if (temp[ii] == 'e' || temp[ii] == 'E')
-                        mid[ii] = 14;
-                else if (temp[ii] == 'f' || temp[ii] == 'F')
-                        mid[ii] = 15;
-                else mid[ii] = temp[ii] - '0';
-        }
-        int i;
-        for (i = 2;i < strlen(temp);i++)
-        {
-                sum = sum * 16 + mid[i];
-        }
-        return sum;
-}
 int yyFlexLexer::yylex() {
     std::cerr << "'int yyFlexLexer::yylex()' should never be called." << std::endl;
     exit(1);

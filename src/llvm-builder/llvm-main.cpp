@@ -29,7 +29,7 @@
 #include "llvm/Transforms/Scalar.h"
 #include "llvm/IR/LegacyPassManager.h"
 #include "llvm/Transforms/Utils/PromoteMemToReg.h"
-
+#include "llvm/Transforms/Utils/SSAUpdater.h"
 
 using namespace std;
 using namespace std::literals::string_literals;
@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
     string target_path = input_path.substr(0, input_path.size() - 3);
     bool showAst = false;
     bool showSSA = false;
-    bool showLLVM = true;
+    bool showLLVM = false;
     bool showAsm = false;
     bool showFinal = true;
 
@@ -126,6 +126,20 @@ int main(int argc, char **argv) {
     //活跃变量分析
     //todo 可以继承一个Pass去实现
 
+    //常量传播
+    PM.add(llvm::createConstantPropagationPass());
+
+    //常数合并
+    //todo
+
+    //代数化简与强度消减
+    //todo
+
+    //常数复写
+    //todo
+
+    //
+
     PM.add(llvm::createGreedyRegisterAllocator());
     //建立支配树
     // 遍历支配树节点
@@ -141,6 +155,7 @@ int main(int argc, char **argv) {
             BasicBlock* dominatedBlock = childNode->getBlock();
             errs() << "  Dominated Block: " << dominatedBlock->getName() << "\n";
         }
+
     }
     cout<<"finish bb out"<<endl;
     if(showSSA){
@@ -168,7 +183,6 @@ int main(int argc, char **argv) {
         );
         auto ssa_ostream = &ssa_file->os();
 
-        PM.run(*mod);
         mod->print(*ssa_ostream, nullptr);
 
 
@@ -192,7 +206,7 @@ int main(int argc, char **argv) {
             target_llvm, error_msg, llvm::sys::fs::F_None
         );
         auto output_ostream = &output_file->os();
-        PM.run(*mod);
+        //PM.run(*mod);
         mod->print(*output_ostream, nullptr);
         output_file->keep();
 

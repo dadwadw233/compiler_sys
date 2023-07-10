@@ -1,5 +1,12 @@
 digraph "CFG for 'main' function" {
 	label="CFG for 'main' function";
 
-	Node0x1234600 [shape=record,label="{entry:\l  %0 = call i64 @getint()\l  store i64 %0, i64* @0\l  %1 = alloca i64\l  %2 = load i64, i64* @0\l  %3 = call i64 @fib(i64 %2)\l  store i64 %3, i64* %1\l  %4 = load i64, i64* %1\l  ret i64 %4\l}"];
+	Node0xd4b460 [shape=record,label="{entry:\l  br label %0\l}"];
+	Node0xd4b460 -> Node0xd4b5f0;
+	Node0xd4b5f0 [shape=record,label="{%0:\l0:                                                \l  %.01 = phi i64 [ 0, %entry ], [ %5, %4 ]\l  %.0 = phi i64 [ 0, %entry ], [ %6, %4 ]\l  %1 = icmp slt i64 %.0, 21\l  %2 = zext i1 %1 to i64\l  %3 = icmp ne i64 %2, 0\l  br i1 %3, label %4, label %7\l|{<s0>T|<s1>F}}"];
+	Node0xd4b5f0:s0 -> Node0xd4bd10;
+	Node0xd4b5f0:s1 -> Node0xd4c150;
+	Node0xd4bd10 [shape=record,label="{%4:\l4:                                                \l  %5 = add i64 %.01, %.0\l  %6 = add i64 %.0, 1\l  br label %0\l}"];
+	Node0xd4bd10 -> Node0xd4b5f0;
+	Node0xd4c150 [shape=record,label="{%7:\l7:                                                \l  call void @putint(i64 %.01)\l  ret i64 0\l}"];
 }

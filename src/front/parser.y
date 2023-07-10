@@ -104,7 +104,7 @@ class fdriver;
 %start TopLevel 
 
 %%
-// 编译单元 CompUnit -> [ CompUnit ] ( Decl | FuncDef )
+//  CompUnit -> [ CompUnit ] ( Decl | FuncDef )
 // DeclDef -> Decl | FuncDef
 // END 结束
 TopLevel:TopLevel DeclDef{

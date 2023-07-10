@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/scan.dir/scan.cc.o"
+  "CMakeFiles/scan.dir/lex.yy.cc.o"
   "libscan.a"
   "libscan.pdb"
 )
