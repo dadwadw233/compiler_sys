@@ -1,0 +1,252 @@
+; ModuleID = 'sysyc'
+source_filename = "./92_matrix_add.sy"
+target datalayout = "e-m:e-p:64:64-i64:64-i128:128-n64-S128"
+
+@0 = global i64 zeroinitializer
+@1 = global i64 zeroinitializer
+@2 = global i64 zeroinitializer
+
+declare i64 @getint()
+
+declare i64 @getch()
+
+declare void @putint(i64)
+
+declare void @putch(i64)
+
+declare i64 @getarray(i64*)
+
+declare i64 @putarray(i64, i64*)
+
+define i64 @add(i64* %0, i64* %1, i64* %2, i64* %3, i64* %4, i64* %5, i64* %6, i64* %7, i64* %8) {
+entry:
+  %9 = alloca i64*
+  store i64* %0, i64** %9
+  %10 = alloca i64*
+  store i64* %1, i64** %10
+  %11 = alloca i64*
+  store i64* %2, i64** %11
+  %12 = alloca i64*
+  store i64* %3, i64** %12
+  %13 = alloca i64*
+  store i64* %4, i64** %13
+  %14 = alloca i64*
+  store i64* %5, i64** %14
+  %15 = alloca i64*
+  store i64* %6, i64** %15
+  %16 = alloca i64*
+  store i64* %7, i64** %16
+  %17 = alloca i64*
+  store i64* %8, i64** %17
+  %18 = alloca i64
+  store i64 0, i64* %18
+  br label %loop_expression
+
+loop_expression:                                  ; preds = %loop_true, %entry
+  %19 = load i64, i64* %18
+  %20 = load i64, i64* @0
+  %21 = icmp slt i64 %19, %20
+  %22 = zext i1 %21 to i64
+  %23 = icmp ne i64 %22, 0
+  br i1 %23, label %loop_true, label %loop_cont
+
+loop_true:                                        ; preds = %loop_expression
+  %24 = load i64*, i64** %15
+  %25 = load i64, i64* %18
+  %26 = getelementptr i64, i64* %24, i64 %25
+  %27 = load i64*, i64** %9
+  %28 = load i64, i64* %18
+  %29 = getelementptr i64, i64* %27, i64 %28
+  %30 = load i64, i64* %29
+  %31 = load i64*, i64** %12
+  %32 = load i64, i64* %18
+  %33 = getelementptr i64, i64* %31, i64 %32
+  %34 = load i64, i64* %33
+  %35 = add i64 %30, %34
+  store i64 %35, i64* %26
+  %36 = load i64*, i64** %16
+  %37 = load i64, i64* %18
+  %38 = getelementptr i64, i64* %36, i64 %37
+  %39 = load i64*, i64** %10
+  %40 = load i64, i64* %18
+  %41 = getelementptr i64, i64* %39, i64 %40
+  %42 = load i64, i64* %41
+  %43 = load i64*, i64** %13
+  %44 = load i64, i64* %18
+  %45 = getelementptr i64, i64* %43, i64 %44
+  %46 = load i64, i64* %45
+  %47 = add i64 %42, %46
+  store i64 %47, i64* %38
+  %48 = load i64*, i64** %17
+  %49 = load i64, i64* %18
+  %50 = getelementptr i64, i64* %48, i64 %49
+  %51 = load i64*, i64** %11
+  %52 = load i64, i64* %18
+  %53 = getelementptr i64, i64* %51, i64 %52
+  %54 = load i64, i64* %53
+  %55 = load i64*, i64** %14
+  %56 = load i64, i64* %18
+  %57 = getelementptr i64, i64* %55, i64 %56
+  %58 = load i64, i64* %57
+  %59 = add i64 %54, %58
+  store i64 %59, i64* %50
+  %60 = load i64, i64* %18
+  %61 = add i64 %60, 1
+  store i64 %61, i64* %18
+  br label %loop_expression
+
+loop_cont:                                        ; preds = %loop_expression
+  ret i64 0
+}
+
+define i64 @main() {
+entry:
+  store i64 3, i64* @2
+  store i64 3, i64* @0
+  store i64 3, i64* @1
+  %0 = alloca [3 x i64]
+  %1 = alloca [3 x i64]
+  %2 = alloca [3 x i64]
+  %3 = alloca [3 x i64]
+  %4 = alloca [3 x i64]
+  %5 = alloca [3 x i64]
+  %6 = alloca [6 x i64]
+  %7 = alloca [3 x i64]
+  %8 = alloca [3 x i64]
+  %9 = alloca i64
+  store i64 0, i64* %9
+  br label %loop_expression
+
+loop_expression:                                  ; preds = %loop_true, %entry
+  %10 = load i64, i64* %9
+  %11 = load i64, i64* @0
+  %12 = icmp slt i64 %10, %11
+  %13 = zext i1 %12 to i64
+  %14 = icmp ne i64 %13, 0
+  br i1 %14, label %loop_true, label %loop_cont
+
+loop_true:                                        ; preds = %loop_expression
+  %15 = load i64, i64* %9
+  %16 = getelementptr [3 x i64], [3 x i64]* %0, i64 0, i64 %15
+  %17 = load i64, i64* %9
+  store i64 %17, i64* %16
+  %18 = load i64, i64* %9
+  %19 = getelementptr [3 x i64], [3 x i64]* %1, i64 0, i64 %18
+  %20 = load i64, i64* %9
+  store i64 %20, i64* %19
+  %21 = load i64, i64* %9
+  %22 = getelementptr [3 x i64], [3 x i64]* %2, i64 0, i64 %21
+  %23 = load i64, i64* %9
+  store i64 %23, i64* %22
+  %24 = load i64, i64* %9
+  %25 = getelementptr [3 x i64], [3 x i64]* %3, i64 0, i64 %24
+  %26 = load i64, i64* %9
+  store i64 %26, i64* %25
+  %27 = load i64, i64* %9
+  %28 = getelementptr [3 x i64], [3 x i64]* %4, i64 0, i64 %27
+  %29 = load i64, i64* %9
+  store i64 %29, i64* %28
+  %30 = load i64, i64* %9
+  %31 = getelementptr [3 x i64], [3 x i64]* %5, i64 0, i64 %30
+  %32 = load i64, i64* %9
+  store i64 %32, i64* %31
+  %33 = load i64, i64* %9
+  %34 = add i64 %33, 1
+  store i64 %34, i64* %9
+  br label %loop_expression
+
+loop_cont:                                        ; preds = %loop_expression
+  %35 = getelementptr [3 x i64], [3 x i64]* %0, i64 0, i64 0
+  %36 = getelementptr [3 x i64], [3 x i64]* %1, i64 0, i64 0
+  %37 = getelementptr [3 x i64], [3 x i64]* %2, i64 0, i64 0
+  %38 = getelementptr [3 x i64], [3 x i64]* %3, i64 0, i64 0
+  %39 = getelementptr [3 x i64], [3 x i64]* %4, i64 0, i64 0
+  %40 = getelementptr [3 x i64], [3 x i64]* %5, i64 0, i64 0
+  %41 = getelementptr [6 x i64], [6 x i64]* %6, i64 0, i64 0
+  %42 = getelementptr [3 x i64], [3 x i64]* %7, i64 0, i64 0
+  %43 = getelementptr [3 x i64], [3 x i64]* %8, i64 0, i64 0
+  %44 = call i64 @add(i64* %35, i64* %36, i64* %37, i64* %38, i64* %39, i64* %40, i64* %41, i64* %42, i64* %43)
+  store i64 %44, i64* %9
+  %45 = alloca i64
+  br label %loop_expression1
+
+loop_expression1:                                 ; preds = %loop_true2, %loop_cont
+  %46 = load i64, i64* %9
+  %47 = load i64, i64* @2
+  %48 = icmp slt i64 %46, %47
+  %49 = zext i1 %48 to i64
+  %50 = icmp ne i64 %49, 0
+  br i1 %50, label %loop_true2, label %loop_cont3
+
+loop_true2:                                       ; preds = %loop_expression1
+  %51 = load i64, i64* %9
+  %52 = getelementptr [6 x i64], [6 x i64]* %6, i64 0, i64 %51
+  %53 = load i64, i64* %52
+  store i64 %53, i64* %45
+  %54 = load i64, i64* %45
+  call void @putint(i64 %54)
+  %55 = load i64, i64* %9
+  %56 = add i64 %55, 1
+  store i64 %56, i64* %9
+  br label %loop_expression1
+
+loop_cont3:                                       ; preds = %loop_expression1
+  store i64 10, i64* %45
+  %57 = load i64, i64* %45
+  call void @putch(i64 %57)
+  store i64 0, i64* %9
+  br label %loop_expression4
+
+loop_expression4:                                 ; preds = %loop_true5, %loop_cont3
+  %58 = load i64, i64* %9
+  %59 = load i64, i64* @2
+  %60 = icmp slt i64 %58, %59
+  %61 = zext i1 %60 to i64
+  %62 = icmp ne i64 %61, 0
+  br i1 %62, label %loop_true5, label %loop_cont6
+
+loop_true5:                                       ; preds = %loop_expression4
+  %63 = load i64, i64* %9
+  %64 = getelementptr [3 x i64], [3 x i64]* %7, i64 0, i64 %63
+  %65 = load i64, i64* %64
+  store i64 %65, i64* %45
+  %66 = load i64, i64* %45
+  call void @putint(i64 %66)
+  %67 = load i64, i64* %9
+  %68 = add i64 %67, 1
+  store i64 %68, i64* %9
+  br label %loop_expression4
+
+loop_cont6:                                       ; preds = %loop_expression4
+  store i64 10, i64* %45
+  %69 = load i64, i64* %45
+  call void @putch(i64 %69)
+  store i64 0, i64* %9
+  br label %loop_expression7
+
+loop_expression7:                                 ; preds = %loop_true8, %loop_cont6
+  %70 = load i64, i64* %9
+  %71 = load i64, i64* @2
+  %72 = icmp slt i64 %70, %71
+  %73 = zext i1 %72 to i64
+  %74 = icmp ne i64 %73, 0
+  br i1 %74, label %loop_true8, label %loop_cont9
+
+loop_true8:                                       ; preds = %loop_expression7
+  %75 = load i64, i64* %9
+  %76 = getelementptr [3 x i64], [3 x i64]* %8, i64 0, i64 %75
+  %77 = load i64, i64* %76
+  store i64 %77, i64* %45
+  %78 = load i64, i64* %45
+  call void @putint(i64 %78)
+  %79 = load i64, i64* %9
+  %80 = add i64 %79, 1
+  store i64 %80, i64* %9
+  br label %loop_expression7
+
+loop_cont9:                                       ; preds = %loop_expression7
+  store i64 10, i64* %45
+  %81 = load i64, i64* %45
+  call void @putch(i64 %81)
+  ret i64 0
+}

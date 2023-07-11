@@ -69,7 +69,7 @@ public:
 };
 
 
-// 继承TreeVisit进行方法重写
+// 继承TreeVisit进行方法重写，生成LLVM类型的IR
 class LLVMBuilder: public TreeVisit {
 private:
     // 全局状态的容器
@@ -79,7 +79,7 @@ private:
     Scope scope;
     // 模块的声明
     unique_ptr<llvm::Module> module;
-    // 使用visit遍历语法树生成LLVMIR
+    // 使用visit遍历语法树
     virtual void visit(TreeNodeConstExp &) ;
     virtual void visit(TreeNodeTopLevel &) ;
     virtual void visit(TreeNodeConstDecl &) ;
@@ -117,7 +117,8 @@ public:
         auto TyVoid = llvm::Type::getVoidTy(context);
         auto TyInt64 = llvm::Type::getInt64Ty(context);
         auto TyPtr = llvm::Type::getInt64PtrTy(context);
-        
+
+        // 定义sysy2020运行时库中的一些函数
         auto getint_type = llvm::FunctionType::get(TyInt64, false);
         auto getint_fun =
             llvm::Function::Create(

@@ -2222,7 +2222,7 @@ namespace yy {
 #line 613 "parser.y"
                    {
     yylhs.value.as < TreeNodeUnaryExp* > () = new TreeNodeUnaryExp();
-    yylhs.value.as < TreeNodeUnaryExp* > ()->op = OP_POS;
+    yylhs.value.as < TreeNodeUnaryExp* > ()->op = SYSY_POS;
     yylhs.value.as < TreeNodeUnaryExp* > ()->PrimaryExp = shared_ptr<TreeNodePrimaryExp>(yystack_[0].value.as < TreeNodePrimaryExp* > ());
     yylhs.value.as < TreeNodeUnaryExp* > ()->Callee = nullptr;
     yylhs.value.as < TreeNodeUnaryExp* > ()->UnaryExp = nullptr;
@@ -2234,7 +2234,7 @@ namespace yy {
 #line 620 "parser.y"
                 {
     yylhs.value.as < TreeNodeUnaryExp* > () = new TreeNodeUnaryExp();
-    yylhs.value.as < TreeNodeUnaryExp* > ()->op = OP_POS;
+    yylhs.value.as < TreeNodeUnaryExp* > ()->op = SYSY_POS;
     yylhs.value.as < TreeNodeUnaryExp* > ()->PrimaryExp = nullptr;
     yylhs.value.as < TreeNodeUnaryExp* > ()->Callee = shared_ptr<TreeNodeCallee>(yystack_[0].value.as < TreeNodeCallee* > ());
     yylhs.value.as < TreeNodeUnaryExp* > ()->UnaryExp = nullptr;
@@ -2275,19 +2275,19 @@ namespace yy {
 
   case 76: // UnaryOp: tADD
 #line 649 "parser.y"
-             {yylhs.value.as < unaryop > () = OP_POS;}
+             {yylhs.value.as < unaryop > () = SYSY_POS;}
 #line 2280 "parser.tab.cc"
     break;
 
   case 77: // UnaryOp: tSUB
 #line 650 "parser.y"
-              {yylhs.value.as < unaryop > () = OP_NEG;}
+              {yylhs.value.as < unaryop > () = SYSY_NEG;}
 #line 2286 "parser.tab.cc"
     break;
 
   case 78: // UnaryOp: tNOT
 #line 651 "parser.y"
-              {yylhs.value.as < unaryop > () = OP_NOT;}
+              {yylhs.value.as < unaryop > () = SYSY_NOT;}
 #line 2292 "parser.tab.cc"
     break;
 
@@ -2325,7 +2325,7 @@ namespace yy {
     yylhs.value.as < TreeNodeMulExp* > () = new TreeNodeMulExp();
     yylhs.value.as < TreeNodeMulExp* > ()->MulExp = shared_ptr<TreeNodeMulExp>(yystack_[2].value.as < TreeNodeMulExp* > ());
     yylhs.value.as < TreeNodeMulExp* > ()->UnaryExp = shared_ptr<TreeNodeUnaryExp>(yystack_[0].value.as < TreeNodeUnaryExp* > ());
-    yylhs.value.as < TreeNodeMulExp* > ()->op = OP_MUL;
+    yylhs.value.as < TreeNodeMulExp* > ()->op = SYSY_MUL;
   }
 #line 2331 "parser.tab.cc"
     break;
@@ -2336,7 +2336,7 @@ namespace yy {
     yylhs.value.as < TreeNodeMulExp* > () = new TreeNodeMulExp();
     yylhs.value.as < TreeNodeMulExp* > ()->MulExp = shared_ptr<TreeNodeMulExp>(yystack_[2].value.as < TreeNodeMulExp* > ());
     yylhs.value.as < TreeNodeMulExp* > ()->UnaryExp = shared_ptr<TreeNodeUnaryExp>(yystack_[0].value.as < TreeNodeUnaryExp* > ());
-    yylhs.value.as < TreeNodeMulExp* > ()->op = OP_DIV;
+    yylhs.value.as < TreeNodeMulExp* > ()->op = SYSY_DIV;
   }
 #line 2342 "parser.tab.cc"
     break;
@@ -2347,7 +2347,7 @@ namespace yy {
     yylhs.value.as < TreeNodeMulExp* > () = new TreeNodeMulExp();
     yylhs.value.as < TreeNodeMulExp* > ()->MulExp = shared_ptr<TreeNodeMulExp>(yystack_[2].value.as < TreeNodeMulExp* > ());
     yylhs.value.as < TreeNodeMulExp* > ()->UnaryExp = shared_ptr<TreeNodeUnaryExp>(yystack_[0].value.as < TreeNodeUnaryExp* > ());
-    yylhs.value.as < TreeNodeMulExp* > ()->op = OP_MOD;
+    yylhs.value.as < TreeNodeMulExp* > ()->op = SYSY_MOD;
   }
 #line 2353 "parser.tab.cc"
     break;
@@ -2368,7 +2368,7 @@ namespace yy {
     yylhs.value.as < TreeNodeAddExp* > () = new TreeNodeAddExp();
     yylhs.value.as < TreeNodeAddExp* > ()->AddExp = shared_ptr<TreeNodeAddExp>(yystack_[2].value.as < TreeNodeAddExp* > ());
     yylhs.value.as < TreeNodeAddExp* > ()->MulExp = shared_ptr<TreeNodeMulExp>(yystack_[0].value.as < TreeNodeMulExp* > ());
-    yylhs.value.as < TreeNodeAddExp* > ()->op = OP_PLUS;
+    yylhs.value.as < TreeNodeAddExp* > ()->op = SYSY_PLUS;
   }
 #line 2374 "parser.tab.cc"
     break;
@@ -2379,7 +2379,7 @@ namespace yy {
     yylhs.value.as < TreeNodeAddExp* > () = new TreeNodeAddExp();
     yylhs.value.as < TreeNodeAddExp* > ()->AddExp = shared_ptr<TreeNodeAddExp>(yystack_[2].value.as < TreeNodeAddExp* > ());
     yylhs.value.as < TreeNodeAddExp* > ()->MulExp = shared_ptr<TreeNodeMulExp>(yystack_[0].value.as < TreeNodeMulExp* > ());
-    yylhs.value.as < TreeNodeAddExp* > ()->op = OP_MINUS;
+    yylhs.value.as < TreeNodeAddExp* > ()->op = SYSY_MINUS;
   }
 #line 2385 "parser.tab.cc"
     break;
@@ -2400,7 +2400,7 @@ namespace yy {
     yylhs.value.as < TreeNodeRelExp* > () = new TreeNodeRelExp();
     yylhs.value.as < TreeNodeRelExp* > ()->RelExp = shared_ptr<TreeNodeRelExp>(yystack_[2].value.as < TreeNodeRelExp* > ());
     yylhs.value.as < TreeNodeRelExp* > ()->AddExp = shared_ptr<TreeNodeAddExp>(yystack_[0].value.as < TreeNodeAddExp* > ());
-    yylhs.value.as < TreeNodeRelExp* > ()->op = OP_LT;
+    yylhs.value.as < TreeNodeRelExp* > ()->op = SYSY_LT;
   }
 #line 2406 "parser.tab.cc"
     break;
@@ -2411,7 +2411,7 @@ namespace yy {
     yylhs.value.as < TreeNodeRelExp* > () = new TreeNodeRelExp();
     yylhs.value.as < TreeNodeRelExp* > ()->RelExp = shared_ptr<TreeNodeRelExp>(yystack_[2].value.as < TreeNodeRelExp* > ());
     yylhs.value.as < TreeNodeRelExp* > ()->AddExp = shared_ptr<TreeNodeAddExp>(yystack_[0].value.as < TreeNodeAddExp* > ());
-    yylhs.value.as < TreeNodeRelExp* > ()->op = OP_GT;
+    yylhs.value.as < TreeNodeRelExp* > ()->op = SYSY_GT;
   }
 #line 2417 "parser.tab.cc"
     break;
@@ -2422,7 +2422,7 @@ namespace yy {
     yylhs.value.as < TreeNodeRelExp* > () = new TreeNodeRelExp();
     yylhs.value.as < TreeNodeRelExp* > ()->RelExp = shared_ptr<TreeNodeRelExp>(yystack_[2].value.as < TreeNodeRelExp* > ());
     yylhs.value.as < TreeNodeRelExp* > ()->AddExp = shared_ptr<TreeNodeAddExp>(yystack_[0].value.as < TreeNodeAddExp* > ());
-    yylhs.value.as < TreeNodeRelExp* > ()->op = OP_LTE;
+    yylhs.value.as < TreeNodeRelExp* > ()->op = SYSY_LTE;
   }
 #line 2428 "parser.tab.cc"
     break;
@@ -2433,7 +2433,7 @@ namespace yy {
     yylhs.value.as < TreeNodeRelExp* > () = new TreeNodeRelExp();
     yylhs.value.as < TreeNodeRelExp* > ()->RelExp = shared_ptr<TreeNodeRelExp>(yystack_[2].value.as < TreeNodeRelExp* > ());
     yylhs.value.as < TreeNodeRelExp* > ()->AddExp = shared_ptr<TreeNodeAddExp>(yystack_[0].value.as < TreeNodeAddExp* > ());
-    yylhs.value.as < TreeNodeRelExp* > ()->op = OP_GTE;
+    yylhs.value.as < TreeNodeRelExp* > ()->op = SYSY_GTE;
   }
 #line 2439 "parser.tab.cc"
     break;
@@ -2454,7 +2454,7 @@ namespace yy {
     yylhs.value.as < TreeNodeEqExp* > () = new TreeNodeEqExp();
     yylhs.value.as < TreeNodeEqExp* > ()->EqExp = shared_ptr<TreeNodeEqExp>(yystack_[2].value.as < TreeNodeEqExp* > ());
     yylhs.value.as < TreeNodeEqExp* > ()->RelExp = shared_ptr<TreeNodeRelExp>(yystack_[0].value.as < TreeNodeRelExp* > ());
-    yylhs.value.as < TreeNodeEqExp* > ()->op = OP_EQ;
+    yylhs.value.as < TreeNodeEqExp* > ()->op = SYSY_EQ;
   }
 #line 2460 "parser.tab.cc"
     break;
@@ -2465,7 +2465,7 @@ namespace yy {
     yylhs.value.as < TreeNodeEqExp* > () = new TreeNodeEqExp();
     yylhs.value.as < TreeNodeEqExp* > ()->EqExp = shared_ptr<TreeNodeEqExp>(yystack_[2].value.as < TreeNodeEqExp* > ());
     yylhs.value.as < TreeNodeEqExp* > ()->RelExp = shared_ptr<TreeNodeRelExp>(yystack_[0].value.as < TreeNodeRelExp* > ());
-    yylhs.value.as < TreeNodeEqExp* > ()->op = OP_NEQ;
+    yylhs.value.as < TreeNodeEqExp* > ()->op = SYSY_NEQ;
   }
 #line 2471 "parser.tab.cc"
     break;
@@ -2486,7 +2486,7 @@ namespace yy {
     yylhs.value.as < TreeNodeLAndExp* > () = new TreeNodeLAndExp();
     yylhs.value.as < TreeNodeLAndExp* > ()->LAndExp = shared_ptr<TreeNodeLAndExp>(yystack_[2].value.as < TreeNodeLAndExp* > ());
     yylhs.value.as < TreeNodeLAndExp* > ()->EqExp = shared_ptr<TreeNodeEqExp>(yystack_[0].value.as < TreeNodeEqExp* > ());
-    yylhs.value.as < TreeNodeLAndExp* > ()->op = OP_AND;
+    yylhs.value.as < TreeNodeLAndExp* > ()->op = SYSY_AND;
   }
 #line 2492 "parser.tab.cc"
     break;
@@ -2507,7 +2507,7 @@ namespace yy {
     yylhs.value.as < TreeNodeLOrExp* > () = new TreeNodeLOrExp();
     yylhs.value.as < TreeNodeLOrExp* > ()->LOrExp = shared_ptr<TreeNodeLOrExp>(yystack_[2].value.as < TreeNodeLOrExp* > ());
     yylhs.value.as < TreeNodeLOrExp* > ()->LAndExp = shared_ptr<TreeNodeLAndExp>(yystack_[0].value.as < TreeNodeLAndExp* > ());
-    yylhs.value.as < TreeNodeLOrExp* > ()->op = OP_OR;
+    yylhs.value.as < TreeNodeLOrExp* > ()->op = SYSY_OR;
   }
 #line 2513 "parser.tab.cc"
     break;

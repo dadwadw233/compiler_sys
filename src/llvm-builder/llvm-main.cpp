@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
     string target_path = input_path.substr(0, input_path.size() - 3);
     bool showAst = false;
     bool showSSA = false;
-    bool showLLVM = false;
+    bool showLLVM = true;
     bool showAsm = false;
     bool showFinal = true;
 
@@ -127,7 +127,7 @@ int main(int argc, char **argv) {
     //todo 可以继承一个Pass去实现
 
     //常量传播
-    PM.add(llvm::createConstantPropagationPass());
+    //PM.add(llvm::createConstantPropagationPass());
 
     //常数合并
     //todo
@@ -184,7 +184,6 @@ int main(int argc, char **argv) {
         auto ssa_ostream = &ssa_file->os();
 
         mod->print(*ssa_ostream, nullptr);
-
 
         ssa_file->keep();
     }

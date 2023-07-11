@@ -347,9 +347,9 @@ void TreeNodePrinter::visit(TreeNodeUnaryExp& node) {
     else {
         showDepth(depth);
         string op;
-        if(node.op == OP_POS)
+        if(node.op == SYSY_POS)
             op = "+";
-        else if(node.op == OP_NEG)
+        else if(node.op == SYSY_NEG)
             op = "-";
         else op = "!";
         cout << op << endl;
@@ -371,9 +371,9 @@ void TreeNodePrinter::visit(TreeNodeCallee& node) {
 void TreeNodePrinter::visit(TreeNodeMulExp& node) {
     showDepth(depth);
     string op;
-    if(node.op == OP_MUL)
+    if(node.op == SYSY_MUL)
         op = "*";
-    else if(node.op == OP_DIV)
+    else if(node.op == SYSY_DIV)
         op = "/";
     else op = "%";
     // test
@@ -394,7 +394,7 @@ void TreeNodePrinter::visit(TreeNodeMulExp& node) {
 void TreeNodePrinter::visit(TreeNodeAddExp& node) {
     showDepth(depth);
     string op;
-    if(node.op == OP_PLUS)
+    if(node.op == SYSY_PLUS)
         op = "+";
     else op = "-";
     // test
@@ -415,11 +415,11 @@ void TreeNodePrinter::visit(TreeNodeAddExp& node) {
 void TreeNodePrinter::visit(TreeNodeRelExp& node) {
     showDepth(depth);
     string op;
-    if(node.op == OP_EQ) op = "==";
-    else if(node.op == OP_NEQ) op = "!=";
-    else if(node.op == OP_LT) op = "<";
-    else if(node.op == OP_GT) op = ">";
-    else if(node.op == OP_LTE) op = "<=";
+    if(node.op == SYSY_EQ) op = "==";
+    else if(node.op == SYSY_NEQ) op = "!=";
+    else if(node.op == SYSY_LT) op = "<";
+    else if(node.op == SYSY_GT) op = ">";
+    else if(node.op == SYSY_LTE) op = "<=";
     else op = ">=";
     // test
     if(node.RelExp && node.AddExp)
@@ -439,11 +439,11 @@ void TreeNodePrinter::visit(TreeNodeRelExp& node) {
 void TreeNodePrinter::visit(TreeNodeEqExp& node) {
     showDepth(depth);
     string op;
-    if(node.op == OP_EQ) op = "==";
-    else if(node.op == OP_NEQ) op = "!=";
-    else if(node.op == OP_LT) op = "<";
-    else if(node.op == OP_GT) op = ">";
-    else if(node.op == OP_LTE) op = "<=";
+    if(node.op == SYSY_EQ) op = "==";
+    else if(node.op == SYSY_NEQ) op = "!=";
+    else if(node.op == SYSY_LT) op = "<";
+    else if(node.op == SYSY_GT) op = ">";
+    else if(node.op == SYSY_LTE) op = "<=";
     else op = ">=";
     // test
     if(node.EqExp && node.RelExp)

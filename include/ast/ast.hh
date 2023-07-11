@@ -7,20 +7,20 @@
 
 using namespace std;
 
-// 智能指针宏定义
+
 #define S_PTR  shared_ptr  
 
 // +- 运算符
 enum addop {
-  OP_PLUS,
-  OP_MINUS
+  SYSY_PLUS,
+  SYSY_MINUS
 };
 
 // */% 运算符
 enum mulop {
-  OP_MUL,
-  OP_DIV,
-  OP_MOD
+  SYSY_MUL,
+  SYSY_DIV,
+  SYSY_MOD
 };
 
 // int viod 类型
@@ -30,28 +30,28 @@ enum typeFunc {
 };
 
 enum relop {
-  OP_EQ, // ==
-  OP_NEQ, // !=
-  OP_LT, // <
-  OP_GT, // >
-  OP_LTE, // <=
-  OP_GTE // >=
+  SYSY_EQ, // ==
+  SYSY_NEQ, // !=
+  SYSY_LT, // <
+  SYSY_GT, // >
+  SYSY_LTE, // <=
+  SYSY_GTE // >=
 };
 
 // 单目运算符
 enum unaryop {
-  OP_POS, // +
-  OP_NEG, // -
-  OP_NOT // !
+  SYSY_POS, // +
+  SYSY_NEG, // -
+  SYSY_NOT // !
 };
 
 // 逻辑运算份额
 enum logop {
-  OP_AND,  // &&
-  OP_OR  // ||
+  SYSY_AND,  // &&
+  SYSY_OR  // ||
 };
 
-// accept函数
+// accept函数 基础结构
 struct TreeNodeAcc;
 
 // 编译单元
@@ -130,7 +130,7 @@ private:
   S_PTR <TreeNodeTopLevel> root = nullptr;
 };
 
-// 遍历树visitor
+// visitor
 class TreeVisit {
   public:
   virtual void visit(TreeNodeConstExp &) = 0;
@@ -506,7 +506,7 @@ private:
   // 语法树当前层次
   int depth = 0;
 public:
-  // 语法树节点控制
+  // 各个结点的visit函数
   void visit(TreeNodeConstExp &) final;
   void visit(TreeNodeTopLevel &) final;
   void visit(TreeNodeConstDecl &) final;
@@ -536,7 +536,7 @@ public:
   void visit(TreeNodeLAndExp &) final;
   void visit(TreeNodeLOrExp &) final;
 
-  // 语法树层数控制
+
   void add_depth() { depth += 1; }
   void remove_depth() { depth -= 1; }
 };

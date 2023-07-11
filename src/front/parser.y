@@ -612,14 +612,14 @@ Number:tNUMBER{
 // Callee -> Ident '(' [FuncRParams] ')'
 UnaryExp:PrimaryExp{
     $$ = new TreeNodeUnaryExp();
-    $$->op = OP_POS;
+    $$->op = SYSY_POS;
     $$->PrimaryExp = shared_ptr<TreeNodePrimaryExp>($1);
     $$->Callee = nullptr;
     $$->UnaryExp = nullptr;
   }
 	| Callee{
     $$ = new TreeNodeUnaryExp();
-    $$->op = OP_POS;
+    $$->op = SYSY_POS;
     $$->PrimaryExp = nullptr;
     $$->Callee = shared_ptr<TreeNodeCallee>($1);
     $$->UnaryExp = nullptr;
@@ -646,9 +646,9 @@ Callee:tIDENT tLPAREN FuncRParams tRPAREN{
 	;
 
 //  UnaryOp -> '+' | '−' | '!'
-UnaryOp: tADD{$$ = OP_POS;}
-	| tSUB{$$ = OP_NEG;}
-	| tNOT{$$ = OP_NOT;}
+UnaryOp: tADD{$$ = SYSY_POS;}
+	| tSUB{$$ = SYSY_NEG;}
+	| tNOT{$$ = SYSY_NOT;}
 	;
 
 // FuncRParams -> Exp {','Exp}
@@ -673,19 +673,19 @@ MulExp:UnaryExp{
     $$ = new TreeNodeMulExp();
     $$->MulExp = shared_ptr<TreeNodeMulExp>($1);
     $$->UnaryExp = shared_ptr<TreeNodeUnaryExp>($3);
-    $$->op = OP_MUL;
+    $$->op = SYSY_MUL;
   }
 	| MulExp tDIV UnaryExp{
     $$ = new TreeNodeMulExp();
     $$->MulExp = shared_ptr<TreeNodeMulExp>($1);
     $$->UnaryExp = shared_ptr<TreeNodeUnaryExp>($3);
-    $$->op = OP_DIV;
+    $$->op = SYSY_DIV;
   }
 	| MulExp tMOD UnaryExp{
     $$ = new TreeNodeMulExp();
     $$->MulExp = shared_ptr<TreeNodeMulExp>($1);
     $$->UnaryExp = shared_ptr<TreeNodeUnaryExp>($3);
-    $$->op = OP_MOD;
+    $$->op = SYSY_MOD;
   }
 	;
 
@@ -700,13 +700,13 @@ AddExp:MulExp{
     $$ = new TreeNodeAddExp();
     $$->AddExp = shared_ptr<TreeNodeAddExp>($1);
     $$->MulExp = shared_ptr<TreeNodeMulExp>($3);
-    $$->op = OP_PLUS;
+    $$->op = SYSY_PLUS;
   }
 	| AddExp tSUB MulExp{
     $$ = new TreeNodeAddExp();
     $$->AddExp = shared_ptr<TreeNodeAddExp>($1);
     $$->MulExp = shared_ptr<TreeNodeMulExp>($3);
-    $$->op = OP_MINUS;
+    $$->op = SYSY_MINUS;
   }
 	;
 
@@ -721,25 +721,25 @@ RelExp:AddExp{
     $$ = new TreeNodeRelExp();
     $$->RelExp = shared_ptr<TreeNodeRelExp>($1);
     $$->AddExp = shared_ptr<TreeNodeAddExp>($3);
-    $$->op = OP_LT;
+    $$->op = SYSY_LT;
   }
 	| RelExp tGT AddExp{
     $$ = new TreeNodeRelExp();
     $$->RelExp = shared_ptr<TreeNodeRelExp>($1);
     $$->AddExp = shared_ptr<TreeNodeAddExp>($3);
-    $$->op = OP_GT;
+    $$->op = SYSY_GT;
   }
 	| RelExp tLTE AddExp{
     $$ = new TreeNodeRelExp();
     $$->RelExp = shared_ptr<TreeNodeRelExp>($1);
     $$->AddExp = shared_ptr<TreeNodeAddExp>($3);
-    $$->op = OP_LTE;
+    $$->op = SYSY_LTE;
   }
 	| RelExp tGTE AddExp{
     $$ = new TreeNodeRelExp();
     $$->RelExp = shared_ptr<TreeNodeRelExp>($1);
     $$->AddExp = shared_ptr<TreeNodeAddExp>($3);
-    $$->op = OP_GTE;
+    $$->op = SYSY_GTE;
   }
 	;
 
@@ -754,13 +754,13 @@ EqExp:RelExp{
     $$ = new TreeNodeEqExp();
     $$->EqExp = shared_ptr<TreeNodeEqExp>($1);
     $$->RelExp = shared_ptr<TreeNodeRelExp>($3);
-    $$->op = OP_EQ;
+    $$->op = SYSY_EQ;
   }
 	| EqExp tNEQ RelExp{
     $$ = new TreeNodeEqExp();
     $$->EqExp = shared_ptr<TreeNodeEqExp>($1);
     $$->RelExp = shared_ptr<TreeNodeRelExp>($3);
-    $$->op = OP_NEQ;
+    $$->op = SYSY_NEQ;
   }
 	;
 
@@ -774,7 +774,7 @@ LAndExp:EqExp {
     $$ = new TreeNodeLAndExp();
     $$->LAndExp = shared_ptr<TreeNodeLAndExp>($1);
     $$->EqExp = shared_ptr<TreeNodeEqExp>($3);
-    $$->op = OP_AND;
+    $$->op = SYSY_AND;
   }
 	;
 
@@ -788,7 +788,7 @@ LOrExp:LAndExp{
     $$ = new TreeNodeLOrExp();
     $$->LOrExp = shared_ptr<TreeNodeLOrExp>($1);
     $$->LAndExp = shared_ptr<TreeNodeLAndExp>($3);
-    $$->op = OP_OR;
+    $$->op = SYSY_OR;
   }
 	;
 
