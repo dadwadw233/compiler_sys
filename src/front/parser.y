@@ -92,7 +92,7 @@ class fdriver;
 %type <TreeNodeUnaryExp*>               UnaryExp
 %type <TreeNodeCallee*>                 Callee
 %type <unaryop>                         UnaryOp
-%type <TreeNodeExpList*>                ExpList
+%type <TreeNodeExpList*>                FuncRParams
 %type <TreeNodeMulExp*>                 MulExp
 %type <TreeNodeAddExp*>                 AddExp
 %type <TreeNodeRelExp*>                 RelExp
@@ -100,13 +100,13 @@ class fdriver;
 %type <TreeNodeLAndExp*>                LAndExp
 %type <TreeNodeLOrExp*>                 LOrExp
 %type <TreeNodeConstExp*>               ConstExp
-
+//开始f
 %start TopLevel 
 
 %%
 //  CompUnit -> [ CompUnit ] ( Decl | FuncDef )
 // DeclDef -> Decl | FuncDef
-// END 结束
+// END
 TopLevel:TopLevel DeclDef{
 		$1->DeclDefList.push_back(shared_ptr<TreeNodeDeclDef>($2));
 		$$ = $1;
@@ -122,7 +122,7 @@ TopLevel:TopLevel DeclDef{
   }
 	;
 
-// 声明 Decl -> ConstDecl | VarDecl
+//  Decl -> ConstDecl | VarDecl
 // DeclDef -> Decl | FuncDef | ConstDecl
 DeclDef:ConstDecl{
     $$ = new TreeNodeDeclDef();
@@ -147,7 +147,7 @@ DeclDef:ConstDecl{
   }
 	;
 
-// 常量声明 ConstDecl -> 'const' BType ConstDef { ',' ConstDef } ';'
+//  ConstDecl -> 'const' BType ConstDef { ',' ConstDef } ';'
 // ConstDefList -> ConstDef { ',' ConstDef }
 ConstDecl:tCONST DefType ConstDefList tSEMI{
     $$ = new TreeNodeConstDecl();
@@ -157,7 +157,7 @@ ConstDecl:tCONST DefType ConstDefList tSEMI{
   }
 	;
 
-// 常量列表 ConstDefList -> ConstDef { ',' ConstDef }
+//  ConstDefList -> ConstDef { ',' ConstDef }
 ConstDefList:ConstDefList tCOMMA ConstDef{
     $1->list.push_back(shared_ptr<TreeNodeConstDef>($3));
     $$ = $1;
@@ -168,7 +168,7 @@ ConstDefList:ConstDefList tCOMMA ConstDef{
   }
 	;
 
-// 常数定义 ConstDef -> Ident { '[' ConstExp ']' } '=' ConstInitVal
+// ConstDef -> Ident { '[' ConstExp ']' } '=' ConstInitVal
 // ArrayConstExpList -> { '[' ConstExp ']' }
 ConstDef:tIDENT ArrayConstExpList tASSIN ConstInitVal{
     $$ = new TreeNodeConstDef();
@@ -187,7 +187,7 @@ ArrayConstExpList:ArrayConstExpList tLBRACK ConstExp tRBRACK{
     $$ = new TreeNodeArrayConstExpList();
   };
 
-// 常量初值 ConstInitVal -> ConstExp 
+//  ConstInitVal -> ConstExp
 //         | '{' [ ConstInitVal { ',' ConstInitVal } ] '}'
 ConstInitVal:ConstExp{
     $$ = new TreeNodeConstInitVal();
@@ -204,7 +204,7 @@ ConstInitVal:ConstExp{
   }
 	;
 
-// 常量初值列表 ConstInitValList -> [ ConstInitVal { ',' ConstInitVal } ]
+//  ConstInitValList -> [ ConstInitVal { ',' ConstInitVal } ]
 ConstInitValList:ConstInitValList tCOMMA ConstInitVal{
     $1->list.push_back(shared_ptr<TreeNodeConstInitVal>($3));
     $$ = $1;
@@ -215,7 +215,7 @@ ConstInitValList:ConstInitValList tCOMMA ConstInitVal{
   }
 	;
 
-// 变量声明 VarDecl -> BType VarDef { ',' VarDef } ';'
+//  VarDecl -> BType VarDef { ',' VarDef } ';'
 // VarDefList -> VarDef { ',' VarDef }
 VarDecl:DefType VarDefList tSEMI{
     $$ = new TreeNodeVarDecl();
@@ -225,7 +225,7 @@ VarDecl:DefType VarDefList tSEMI{
   }
 	;
 
-// 变量列表 VarDefList -> VarDef { ',' VarDef }
+//  VarDefList -> VarDef { ',' VarDef }
 VarDefList:VarDefList tCOMMA VarDef{
     $1->list.push_back(shared_ptr<TreeNodeVarDef>($3));
     $$ = $1;
@@ -236,7 +236,7 @@ VarDefList:VarDefList tCOMMA VarDef{
   }
 	;
 
-// 变量定义 InitVal -> Exp | '{' [ InitVal { ',' InitVal } ] '}'
+//  InitVal -> Exp | '{' [ InitVal { ',' InitVal } ] '}'
 VarDef:tIDENT ArrayConstExpList{
     $$ = new TreeNodeVarDef();
     $$->id = $1;
@@ -251,7 +251,7 @@ VarDef:tIDENT ArrayConstExpList{
   }
 	;
 
-// 变量初值 InitVal -> Exp | '{' [ InitVal { ',' InitVal } ] '}'
+//  InitVal -> Exp | '{' [ InitVal { ',' InitVal } ] '}'
 // InitValList -> [ InitVal { ',' InitVal } ]
 InitVal:Exp{
     $$ = new TreeNodeInitVal();
@@ -268,7 +268,7 @@ InitVal:Exp{
   }
 	;
 
-// 变量初值列表 InitValList -> [ InitVal { ',' InitVal } ]
+//  InitValList -> [ InitVal { ',' InitVal } ]
 InitValList:InitValList tCOMMA InitVal{
     $1->list.push_back(shared_ptr<TreeNodeInitVal>($3));
     $$ = $1;
@@ -279,7 +279,7 @@ InitValList:InitValList tCOMMA InitVal{
   }
 	;
 
-// 函数定义 FuncDef -> FuncType Ident '(' [FuncFParams] ')' Block
+//  FuncDef -> FuncType Ident '(' [FuncFParams] ')' Block
 FuncDef:DefType tIDENT tLPAREN tRPAREN Block{
     $$ = new TreeNodeFuncDef();
     $$->type = $1;
@@ -297,12 +297,12 @@ FuncDef:DefType tIDENT tLPAREN tRPAREN Block{
   }
 	;
 
-// 函数类型 DefType -> 'void' | 'int'
+//  DefType -> 'void' | 'int'
 DefType:tVOID{$$ = TYPE_VOID;}
 	| tINT{$$ = TYPE_INT;}
 	;
 
-// 函数参数列表 FuncFParams -> FuncFParam { ',' FuncFParam }
+//  FuncFParams -> FuncFParam { ',' FuncFParam }
 FuncFParamList:FuncFParamList tCOMMA FuncFParam{
     $1->list.push_back(shared_ptr<TreeNodeFuncFParam>($3));
     $$ = $1;
@@ -313,7 +313,7 @@ FuncFParamList:FuncFParamList tCOMMA FuncFParam{
   }
 	;
 
-// 函数参数 FuncFParam -> BType Ident ['[' ']' { '[' Exp ']' }]
+//  FuncFParam -> BType Ident ['[' ']' { '[' Exp ']' }]
 FuncFParam:DefType tIDENT ParamArrayExpList{
     $$ = new TreeNodeFuncFParam();
     $$->type = TYPE_INT;
@@ -329,7 +329,7 @@ FuncFParam:DefType tIDENT ParamArrayExpList{
   }
 	;
 
-// 数组参数
+// ParamArrayExpList -> '[' ']' { '[' Exp ']' }
 ParamArrayExpList:ParamArrayExpList tLBRACK Exp tRBRACK{
     $1->list.push_back(shared_ptr<TreeNodeExp>($3));
     $$ = $1;
@@ -339,7 +339,7 @@ ParamArrayExpList:ParamArrayExpList tLBRACK Exp tRBRACK{
   }
 	;
 
-// 语句块 Block -> '{' { BlockItem } '}'
+//  Block -> '{' { BlockItem } '}'
 Block:tLBRACE BlockItemList tRBRACE{
     $$ = new TreeNodeBlock();
     $$->BlockItemList.swap($2->list);
@@ -347,7 +347,7 @@ Block:tLBRACE BlockItemList tRBRACE{
   }
 	;
 
-// 多语句列表 
+// BlockItemList ->  { BlockItem }
 BlockItemList:BlockItemList BlockItem{
     $1->list.push_back(shared_ptr<TreeNodeBlockItem>($2));
     $$ = $1;
@@ -357,7 +357,7 @@ BlockItemList:BlockItemList BlockItem{
   }
 	;
 
-// 语句块项 BlockItem -> Decl | Stmt
+//  BlockItem -> Decl | Stmt
 // Decl -> ConstDecl | VarDecl
 BlockItem:ConstDecl{
     $$ = new TreeNodeBlockItem();
@@ -379,9 +379,8 @@ BlockItem:ConstDecl{
   }
 	;
 
-// 语句 Stmt...
+//  Stmt...
 Stmt:AssignStmt{
-    // 赋值语句
     // AssignStmt -> LVal ‘=’ Exp ‘；’
     $$ = new TreeNodeStmt();
     $$->BreakStmt = nullptr;
@@ -427,7 +426,6 @@ Stmt:AssignStmt{
     $$->ReturnStmt = nullptr;
   }
 	| IfStmt{
-    // 选择语句
     // IfStmt -> 'if' '( Cond ')' Stmt [ 'else' Stmt ]
     $$ = new TreeNodeStmt();
     $$->BreakStmt = nullptr;
@@ -440,7 +438,6 @@ Stmt:AssignStmt{
     $$->ReturnStmt = nullptr;
   }
 	| WhileStmt{
-    // 循环语句
     // WhileStmt -> 'while' '(' Cond ')' Stmt
     $$ = new TreeNodeStmt();
     $$->BreakStmt = nullptr;
@@ -501,7 +498,7 @@ ContinueStmt:tCONTINUE tSEMI{
   }
 	;
 
-// 赋值表达式
+//
 AssignStmt:LVal tASSIN Exp tSEMI{
     $$ = new TreeNodeAssignStmt();
     $$->LVal = shared_ptr<TreeNodeLVal>($1);
@@ -548,7 +545,7 @@ ReturnStmt:tRETURN Exp tSEMI{
   }
 	;
 
-// 表达式 Exp -> AddExp
+//  Exp -> AddExp
 Exp:AddExp{
     $$ = new TreeNodeExp();
     $$->AddExp = shared_ptr<TreeNodeAddExp>($1);
@@ -556,14 +553,14 @@ Exp:AddExp{
   }
 	;
 
-// 条件表达式 Cond -> LOrExp
+//  Cond -> LOrExp
 Cond:LOrExp{
     $$ = new TreeNodeCond();
     $$->LOrExp = shared_ptr<TreeNodeLOrExp>($1);
   }
 	;
 
-// 左值表达式 LVal -> Ident {'[' Exp ']'}
+//  LVal -> Ident {'[' Exp ']'}
 LVal:tIDENT ArrayExpList{
     $$ = new TreeNodeLVal();
     $$->id = $1;
@@ -571,7 +568,7 @@ LVal:tIDENT ArrayExpList{
   }
 	;
 
-// 数组
+// ArrayExpList -> '[' Exp ']'
 ArrayExpList:ArrayExpList tLBRACK Exp tRBRACK{
     $1->list.push_back(shared_ptr<TreeNodeExp>($3));
     $$ = $1;
@@ -581,7 +578,7 @@ ArrayExpList:ArrayExpList tLBRACK Exp tRBRACK{
   }
 	;
 
-// 基本表达式 PrimaryExp -> '(' Exp ')' | LVal | Number
+//  PrimaryExp -> '(' Exp ')' | LVal | Number
 PrimaryExp:tLPAREN Exp tRPAREN{
     $$ = new TreeNodePrimaryExp();
     $$->Exp = shared_ptr<TreeNodeExp>($2);
@@ -602,7 +599,7 @@ PrimaryExp:tLPAREN Exp tRPAREN{
   }
 	;
 
-// 数值 Number -> IntConst
+//  Number -> IntConst
 Number:tNUMBER{
     $$ = new TreeNodeNumber();
     $$->num = $1;
@@ -610,7 +607,7 @@ Number:tNUMBER{
   }
 	;
 
-// 一元表达式 UnaryExp -> PrimaryExp | Ident '(' [FuncRParams] ')'
+//  UnaryExp -> PrimaryExp | Ident '(' [FuncRParams] ')'
 //                   | UnaryOp UnaryExp
 // Callee -> Ident '(' [FuncRParams] ')'
 UnaryExp:PrimaryExp{
@@ -637,7 +634,7 @@ UnaryExp:PrimaryExp{
 	;
 
 // Callee -> Ident '(' [FuncRParams] ')'
-Callee:tIDENT tLPAREN ExpList tRPAREN{
+Callee:tIDENT tLPAREN FuncRParams tRPAREN{
     $$ = new TreeNodeCallee();
     $$->id = $1;
     $$->ExpList.swap($3->list);
@@ -648,14 +645,14 @@ Callee:tIDENT tLPAREN ExpList tRPAREN{
   }
 	;
 
-// 单目运算符 UnaryOp -> '+' | '−' | '!'
+//  UnaryOp -> '+' | '−' | '!'
 UnaryOp: tADD{$$ = OP_POS;}
 	| tSUB{$$ = OP_NEG;}
 	| tNOT{$$ = OP_NOT;}
 	;
 
-// 表达式列表
-ExpList:ExpList tCOMMA Exp{
+// FuncRParams -> Exp {','Exp}
+FuncRParams:FuncRParams tCOMMA Exp{
     $1->list.push_back(shared_ptr<TreeNodeExp>($3));
     $$ = $1;
     }
@@ -665,7 +662,7 @@ ExpList:ExpList tCOMMA Exp{
   }
 	;
 
-// 乘除模表达式 MulExp -> UnaryExp 
+//  MulExp -> UnaryExp
 //                   | MulExp ('*' | '/' | '%') UnaryExp
 MulExp:UnaryExp{
     $$ = new TreeNodeMulExp();
@@ -692,7 +689,7 @@ MulExp:UnaryExp{
   }
 	;
 
-// 加减表达式 AddExp -> MulExp 
+//  AddExp -> MulExp
 //                 | AddExp ('+' | '−') MulExp
 AddExp:MulExp{
     $$ = new TreeNodeAddExp();
@@ -713,7 +710,7 @@ AddExp:MulExp{
   }
 	;
 
-// 关系表达式 RelExp -> AddExp 
+//  RelExp -> AddExp
 //                 | RelExp ('<' | '>' | '<=' | '>=') AddExp
 RelExp:AddExp{
     $$ = new TreeNodeRelExp();
@@ -746,7 +743,7 @@ RelExp:AddExp{
   }
 	;
 
-// 相等性表达式 EqExp -> RelExp 
+//  EqExp -> RelExp
 //                  | EqExp ('==' | '!=') RelExp
 EqExp:RelExp{
     $$ = new TreeNodeEqExp();
@@ -767,7 +764,7 @@ EqExp:RelExp{
   }
 	;
 
-// 逻辑与表达式 LAndExp -> EqExp | LAndExp '&&' EqExp
+//  LAndExp -> EqExp | LAndExp '&&' EqExp
 LAndExp:EqExp {
     $$ = new TreeNodeLAndExp();
     $$->LAndExp = nullptr;
@@ -781,7 +778,7 @@ LAndExp:EqExp {
   }
 	;
 
-// 逻辑或表达式 LOrExp -> LAndExp | LOrExp '||' LAndExp
+//  LOrExp -> LAndExp | LOrExp '||' LAndExp
 LOrExp:LAndExp{
     $$ = new TreeNodeLOrExp();
     $$->LOrExp = nullptr;
@@ -795,7 +792,7 @@ LOrExp:LAndExp{
   }
 	;
 
-// 常量表达式 ConstExp -> AddExp
+//  ConstExp -> AddExp
 ConstExp:AddExp{
     $$ = new TreeNodeConstExp();
     $$->AddExp = shared_ptr<TreeNodeAddExp>($1);

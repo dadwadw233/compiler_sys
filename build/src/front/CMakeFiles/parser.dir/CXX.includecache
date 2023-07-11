@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+../include/ast/ast.hh
+vector
+-
+memory
+-
+iostream
+-
+
 ../include/front/FlexLexer.h
 iostream
 -

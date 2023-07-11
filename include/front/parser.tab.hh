@@ -461,7 +461,7 @@ namespace yy {
       // Exp
       char dummy20[sizeof (TreeNodeExp*)];
 
-      // ExpList
+      // FuncRParams
       char dummy21[sizeof (TreeNodeExpList*)];
 
       // FuncDef
@@ -733,7 +733,7 @@ namespace yy {
         S_UnaryExp = 79,                         // UnaryExp
         S_Callee = 80,                           // Callee
         S_UnaryOp = 81,                          // UnaryOp
-        S_ExpList = 82,                          // ExpList
+        S_FuncRParams = 82,                      // FuncRParams
         S_MulExp = 83,                           // MulExp
         S_AddExp = 84,                           // AddExp
         S_RelExp = 85,                           // RelExp
@@ -857,7 +857,7 @@ namespace yy {
         value.move< TreeNodeExp* > (std::move (that.value));
         break;
 
-      case symbol_kind::S_ExpList: // ExpList
+      case symbol_kind::S_FuncRParams: // FuncRParams
         value.move< TreeNodeExpList* > (std::move (that.value));
         break;
 
@@ -1748,7 +1748,7 @@ switch (yykind)
         value.template destroy< TreeNodeExp* > ();
         break;
 
-      case symbol_kind::S_ExpList: // ExpList
+      case symbol_kind::S_FuncRParams: // FuncRParams
         value.template destroy< TreeNodeExpList* > ();
         break;
 
@@ -3164,7 +3164,7 @@ switch (yykind)
         value.copy< TreeNodeExp* > (YY_MOVE (that.value));
         break;
 
-      case symbol_kind::S_ExpList: // ExpList
+      case symbol_kind::S_FuncRParams: // FuncRParams
         value.copy< TreeNodeExpList* > (YY_MOVE (that.value));
         break;
 
@@ -3381,7 +3381,7 @@ switch (yykind)
         value.move< TreeNodeExp* > (YY_MOVE (s.value));
         break;
 
-      case symbol_kind::S_ExpList: // ExpList
+      case symbol_kind::S_FuncRParams: // FuncRParams
         value.move< TreeNodeExpList* > (YY_MOVE (s.value));
         break;
 

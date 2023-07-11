@@ -89,7 +89,7 @@ int main(int argc, char **argv) {
     string CPUStr = "";
     llvm::StringRef FeaturesStr;
 
-    llvm::CodeGenOpt::Level OLvl = llvm::CodeGenOpt::Aggressive;
+    llvm::CodeGenOpt::Level OLvl = llvm::CodeGenOpt::None;
     llvm::TargetOptions Options = llvm::TargetOptions();
 
     unique_ptr<llvm::TargetMachine> Target(TheTarget->createTargetMachine(

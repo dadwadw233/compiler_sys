@@ -21,20 +21,15 @@ extern fdriver driver;
 
 const bool checkScan = false;
 int Dec2Dec(char temp[]);
-int Oct2Dec(char temp[]);
-int Hex2Dec(char temp[]);
 %}
 %option noyywrap nounput batch debug noinput
 
 /*数字定义*/
 /*十进制*/
 decimal (0|[1-9][0-9]*)
-/*十六进制*/
-hexadecimal 0[xX][a-fA-F0-9]
-/*八进制*/
-octal 0[0-7]
+
 /*总表示*/
-Number {decimal}|{hexadecimal}|{octal}
+Number {decimal}
 
 /*关键字*/
 CONST const
@@ -151,7 +146,7 @@ ident		[a-zA-Z_][a-zA-Z0-9_]*
 }		
 [=] {
     if(checkScan) cout << yytext << "\t_" << endl;
-    return YYPAR ::make_tASSIGN(loc);
+    return YYPAR ::make_tASSIN(loc);
 }
 [;] {
     if(checkScan) cout << yytext << "\t_" << endl;
@@ -206,16 +201,6 @@ ident		[a-zA-Z_][a-zA-Z0-9_]*
 {decimal} {
     if(checkScan)
         cout << "INT10\t" << Dec2Dec(yytext) << endl;
-    return YYPAR ::make_tNUMBER(stoi(driver.lexer.YYText(),nullptr,0),loc);
-}
-{octal}   {
-    if(checkScan)
-        cout << "INT8\t" << Oct2Dec(yytext) << endl;
-    return YYPAR ::make_tNUMBER(stoi(driver.lexer.YYText(),nullptr,0),loc);
-}
-{hexadecimal} {
-    if(checkScan)
-        cout << "INT16\t" << Hex2Dec(yytext) << endl;
     return YYPAR ::make_tNUMBER(stoi(driver.lexer.YYText(),nullptr,0),loc);
 }
 <<EOF>> {
