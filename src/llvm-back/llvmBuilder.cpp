@@ -361,8 +361,6 @@ void LLVMBuilder::visit(TreeNodeVarDef &node) {
 
 void LLVMBuilder::visit(TreeNodeInitVal &node) {
 
-    // Prepare the Int64 type
-    auto *TyInt64 = llvm::Type::getInt64Ty(context);
 
     if (node.Exp != nullptr && node.bounds.empty()) {
         // If there is an Exp and no bounds, visit the Exp node to compute the value
@@ -453,7 +451,10 @@ void LLVMBuilder::visit(TreeNodeFuncDef &node) {
     cur_fun = fun;
 
     // Create the entry basic block and set the insertion point
-    auto funBB = llvm::BasicBlock::Create(context, "entry", fun);
+
+        auto funBB = llvm::BasicBlock::Create(context, node.id, fun);
+
+
     builder.SetInsertPoint(funBB);
 
     // Enter the function scope

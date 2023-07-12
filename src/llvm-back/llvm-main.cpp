@@ -30,9 +30,19 @@
 #include "llvm/IR/LegacyPassManager.h"
 #include "llvm/Transforms/Utils/PromoteMemToReg.h"
 #include "llvm/Transforms/Utils/SSAUpdater.h"
+#include "llvm/Transforms/Scalar/GVN.h"
+
+#include "llvm/Pass.h"
+#include "llvm/IR/Module.h"
+#include "llvm/IR/PassManager.h"
+#include "llvm/Support/CommandLine.h"
+#include "llvm/Support/InitLLVM.h"
+#include "llvm/Support/raw_ostream.h"
+#include "llvm/IR/IRPrintingPasses.h"
 
 using namespace std;
 using namespace std::literals::string_literals;
+
 
 
 int main(int argc, char **argv) {
@@ -124,7 +134,12 @@ int main(int argc, char **argv) {
     //PM.add(llvm::createLoopUnrollPass());
 
     //活跃变量分析
-    //todo 可以继承一个Pass去实现
+    //todo
+
+
+
+
+
 
     //常量传播
     //PM.add(llvm::createConstantPropagationPass());
@@ -152,40 +167,140 @@ int main(int argc, char **argv) {
     //代数化简与强度消减
     //todo
 
-    //常数复写
-    //todo
+    //常量合并（折叠）
 
-    //局部公共子表达式删除
-    llvm::DenseMap<llvm::Value*, llvm::Value*> valueTable;
+    for (auto &f:mod->getFunctionList()){
+        for(auto &BB:f){
+            for(auto &I:BB){
+                if (BinaryOperator* BinOp = dyn_cast<BinaryOperator>(&I)) {
+                    if (ConstantInt* LHS = dyn_cast<ConstantInt>(BinOp->getOperand(0))) {
+                        if (ConstantInt* RHS = dyn_cast<ConstantInt>(BinOp->getOperand(1))) {
+                            Constant *Result = ConstantExpr::get(BinOp->getOpcode(), LHS, RHS);
+                            BinOp->replaceAllUsesWith(Result);
 
-    for(auto &f : mod->getFunctionList()){
-        // 遍历函数的基本块和指令
-        for (llvm::BasicBlock& basicBlock : f) {
-            for (llvm::Instruction& instruction : basicBlock) {
-                // 判断指令是否为可计算的子表达式
-                if (llvm::Value* value = valueTable.lookup(&instruction)) {
-                    // 存在相同的子表达式，删除冗余的操作
-                    cout<<"ininin-------------------------------------------"<<endl;
-                    instruction.replaceAllUsesWith(value);
-                    instruction.eraseFromParent();
-                } else {
-                    // 将当前操作添加到值表中
-                    //cout<<"test-----------------------------"<<endl;
-                    valueTable[&instruction] = &instruction;
-                    cout<<instruction.getOpcodeName()<<endl;
+                        }
+                    }
                 }
             }
         }
     }
 
+    //复写传播
+    for (auto &f : mod->getFunctionList()){
+        for(auto &BB:f){
+            DenseMap<Value*, Value*> assignmentMap;
+            for (auto I = BB.begin(); I != BB.end();) {
+                if (StoreInst* Store = dyn_cast<StoreInst>(&*I)) {
+                    Value* LHS = Store->getPointerOperand();
+                    Value* RHS = Store->getValueOperand();
+                    errs() << "Left Value: " << *LHS<< "\n";
+                    errs() << "Right Value: " << *RHS << "\n";
+                    assignmentMap[LHS] = RHS;
+                    ++I;
+                } else if (LoadInst* Load = dyn_cast<LoadInst>(&*I)) {
+                    Value* Ptr = Load->getPointerOperand();
+                    errs() << "Load Value: " << *Ptr<< "\n";
+                    if (assignmentMap.count(Ptr) > 0 ) {
+                        errs()<<"found"<<"\n";
+                        Value* AssignedValue = assignmentMap[Ptr];
+                        Load->replaceAllUsesWith(AssignedValue);
+                        I = Load->eraseFromParent();
+                    } else {
+                        ++I;
+                    }
+                } else {
+                    ++I;
+                }
+            }
+
+        }
+    }
+/*
+    for (auto &f : mod->getFunctionList()){
+        std::map<Value*, Value*> valueMap;
+        for (auto &BB :f){
+            for(Instruction& I : BB){
+                auto op = I.getOpcode();
+                std::string expression;
+                expression+=llvm::Instruction::getOpcodeName(op);
+                if(expression != "store"){
+                    continue;
+                }else{
+                    auto lhs = getLoadStorePointerOperand(&I);
+                    auto rhs = I.getOperandList()->operator Value *();
 
 
+                    // 打印左值和右值
+                    //errs() << "Left Value: " << *lhs<< "\n";
+                    //errs() << "Right Value: " << *rhs << "\n";
 
-    PM.add(llvm::createGreedyRegisterAllocator());
+                    valueMap[lhs] = rhs;
+                };
+            }
+            for(Instruction& I : BB){
+                auto op = I.getOpcode();
+                std::string expression;
+                expression+=llvm::Instruction::getOpcodeName(op);
+                if(expression != "store"){
+                    continue;
+                }else{
+                    int cnt = 0;
+                    for(auto i = valueMap.begin();i!=valueMap.end();i++){
+                        cnt++;
+                        if(i->first==I.getOperandList()->operator Value *()){
+                            cout<<"niubi"<<endl;
+                        }else{
+                            errs()<<I.getOperandList()->operator Value *()<<" "<<i->first<<"\n";
+
+                        }
+                        if(cnt == 2){
+                            break;
+                        }
+                    }
+
+                };
+            }
+        }
+    }
+*/
+    //活跃bib
+    //局部公共子表达式删除(LCSE)
+    /*
+    std::unordered_map<std::string, llvm::Value*> expressionMap;
+
+    for(auto &f : mod->getFunctionList()){
+
+        for (llvm::BasicBlock& basicBlock : f) {
+            llvm::legacy::FunctionPassManager passManager(mod.get());
+            //passManager.add()
+            //passManager.add(llvm::createGVNPass());
+            //passManager.run(f);
+            // todo 手写
+            /*for (auto& I : basicBlock) {
+                errs() << I << "\n";
+            }*/
+            /*
+            for (llvm::Instruction& instruction : basicBlock) {
+                std::string expression = getExpressionAsString(&instruction);
+                if(expression == "Wrong") continue;
+                std::cout<<expression<<endl;
+                if (expressionMap.count(expression) > 0) {
+                    cout<<"erase"<<endl;
+                    llvm::Value* existingExpression = expressionMap[expression];
+                    instruction.replaceAllUsesWith(existingExpression);
+                    instruction.eraseFromParent();
+                } else {
+                    expressionMap[expression] = &instruction;
+                }
+            }*//*
+        }
+    }*/
+
     //建立支配树
     // 遍历支配树节点
     Function* entryFunction = mod->getFunction("main");
     DominatorTree DT(*entryFunction);
+
     // 遍历支配树节点
     for (Function::iterator it = entryFunction->begin(), end = entryFunction->end(); it != end; ++it) {
         BasicBlock* basicBlock = &*it;
@@ -230,7 +345,7 @@ int main(int argc, char **argv) {
     }
 
 
-
+    PM.add(llvm::createGreedyRegisterAllocator());
     bool isModuleValid = !llvm::verifyModule(*mod);
 
 
@@ -239,19 +354,20 @@ int main(int argc, char **argv) {
     } else {
         cout << "Module is invalid!\n";
     }
-
+    PM.run(*mod);
     if (showLLVM) {
         string target_llvm = target_path + ".ll";
         auto output_file = make_unique<llvm::ToolOutputFile>(
             target_llvm, error_msg, llvm::sys::fs::F_None
         );
         auto output_ostream = &output_file->os();
-        //PM.run(*mod);
+
         mod->print(*output_ostream, nullptr);
         output_file->keep();
 
 
     }
+
 
     if(showAsm){
         std::error_code ec;
