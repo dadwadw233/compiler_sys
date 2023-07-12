@@ -22,11 +22,11 @@ add_definitions(${LLVM_DEFINITIONS})
 
 include_directories(include/front)
 include_directories(include/ast)
-include_directories(include/llvm-builder)
+include_directories(include/llvm-back)
 
 add_subdirectory(src/front)
 add_subdirectory(src/ast)
-add_subdirectory(src/llvm-builder)
+add_subdirectory(src/llvm-back)
 
 
 

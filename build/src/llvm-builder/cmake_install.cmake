@@ -1,4 +1,4 @@
-# Install script for directory: /home/yyh/course/compilation/workplace/src/llvm-builder
+# Install script for directory: /home/yyh/course/compilation/workplace/src/llvm-back
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

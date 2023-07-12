@@ -7,7 +7,7 @@ import glob
 from tqdm import tqdm
 
 test_root = "./"
-compiler_root = "../build/src/llvm-builder"
+compiler_root = "../build/src/llvm-back"
 sy_file_list = [f for f in os.listdir('./') if f.endswith('.sy')]
 pass_cnt = 0
 visual = False
