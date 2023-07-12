@@ -17,6 +17,7 @@ add_executable(
 
 target_link_libraries(
         naive-compiler
+        PRIVATE m
         stdc++
         fdriver
         ast

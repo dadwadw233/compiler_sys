@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include <llvm/IR/Dominators.h>
 #include "llvmBuilder.hpp"
 #include "fdriver.hh"
@@ -39,7 +40,20 @@
 #include "llvm/Support/InitLLVM.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/IR/IRPrintingPasses.h"
+#include "llvm/IR/LLVMContext.h"
+#include "llvm/IR/IRBuilder.h"
+#include "llvm/IR/Module.h"
+#include "llvm/IR/Type.h"
+#include "llvm/IR/Instructions.h"
+#include "llvm/Support/raw_ostream.h"
 
+#include "llvm/IR/LLVMContext.h"
+#include "llvm/IR/Constants.h"
+#include "llvm/IR/Instructions.h"
+#include "llvm/IR/Type.h"
+#include "llvm/IR/Value.h"
+#include "llvm/IR/Intrinsics.h"
+#include "llvm/Support/raw_ostream.h"
 using namespace std;
 using namespace std::literals::string_literals;
 
@@ -140,7 +154,6 @@ int main(int argc, char **argv) {
 
 
 
-
     //常量传播
     //PM.add(llvm::createConstantPropagationPass());
 
@@ -164,11 +177,10 @@ int main(int argc, char **argv) {
     //全局值编号
 
 
-    //代数化简与强度消减
-    //todo
+
 
     //常量合并（折叠）
-
+    /*
     for (auto &f:mod->getFunctionList()){
         for(auto &BB:f){
             for(auto &I:BB){
@@ -183,9 +195,42 @@ int main(int argc, char **argv) {
                 }
             }
         }
-    }
+    }*/
+    //代数化简与强度消减（简单）
+    //
+    for (auto &f:mod->getFunctionList()){
+        for(auto &BB:f){
+            for (auto I = BB.begin(); I != BB.end(); ++I) {
+                if (BinaryOperator* BinOp = dyn_cast<BinaryOperator>(&*I)) {
+                    Value* LHS = BinOp->getOperand(0);
+                    Value* RHS = BinOp->getOperand(1);
 
-    //复写传播
+                    // 代数化简:
+                    if (isa<ConstantInt>(RHS) && cast<ConstantInt>(RHS)->isZero()) {
+                        BinOp->replaceAllUsesWith(LHS);
+                        I = BinOp->eraseFromParent();
+                        continue;
+                    }
+
+                    // 强度消减:
+                    std::string expression;
+                    expression+=llvm::Instruction::getOpcodeName(BinOp->getOpcode());
+
+                    if (isa<ConstantInt>(RHS) && cast<ConstantInt>(RHS)->isOne() && expression == "mul") {
+                        BinOp->replaceAllUsesWith(LHS);
+                        I = BinOp->eraseFromParent();
+                        continue;
+                    }else if (isa<ConstantInt>(RHS) && cast<ConstantInt>(RHS)->isZero() && expression == "mul") {
+                        BinOp->replaceAllUsesWith(0);
+                        I = BinOp->eraseFromParent();
+                        continue;
+                    }//对于乘法转移位的优化直接放在IR的生成中了
+                }
+            }
+        }
+    }
+    //复写传播+常量折叠
+    //todo 尝试用支配树实现
     for (auto &f : mod->getFunctionList()){
         for(auto &BB:f){
             DenseMap<Value*, Value*> assignmentMap;
@@ -193,8 +238,8 @@ int main(int argc, char **argv) {
                 if (StoreInst* Store = dyn_cast<StoreInst>(&*I)) {
                     Value* LHS = Store->getPointerOperand();
                     Value* RHS = Store->getValueOperand();
-                    errs() << "Left Value: " << *LHS<< "\n";
-                    errs() << "Right Value: " << *RHS << "\n";
+                    //errs() << "Left Value: " << *LHS<< "\n";
+                    //errs() << "Right Value: " << *RHS << "\n";
                     assignmentMap[LHS] = RHS;
                     ++I;
                 } else if (LoadInst* Load = dyn_cast<LoadInst>(&*I)) {
@@ -263,7 +308,7 @@ int main(int argc, char **argv) {
         }
     }
 */
-    //活跃bib
+
     //局部公共子表达式删除(LCSE)
     /*
     std::unordered_map<std::string, llvm::Value*> expressionMap;
@@ -311,9 +356,11 @@ int main(int argc, char **argv) {
             BasicBlock* dominatedBlock = childNode->getBlock();
             errs() << "  Dominated Block: " << dominatedBlock->getName() << "\n";
         }
-
     }
     cout<<"finish bb out"<<endl;
+
+
+
     if(showSSA){
         // 生成SSA形式的中间代码
         // 创建 DominatorTree
@@ -354,6 +401,28 @@ int main(int argc, char **argv) {
     } else {
         cout << "Module is invalid!\n";
     }
+
+    // 消除常量运算（常量传递之后）
+    for (auto &f:mod->getFunctionList()){
+        for(auto &BB:f){
+            for (auto I = BB.begin(); I != BB.end(); ++I) {
+                if (BinaryOperator* BinOp = dyn_cast<BinaryOperator>(&*I)) {
+                    Value* LHS = BinOp->getOperand(0);
+                    Value* RHS = BinOp->getOperand(1);
+
+                    if(isa<ConstantInt>(LHS)&& isa<ConstantInt>(RHS)){
+                        auto Result = builder.builder.CreateBinOp(BinOp->getOpcode(), LHS, RHS);
+
+                        BinOp->replaceAllUsesWith(Result);
+                        I = BinOp->eraseFromParent();
+                    }
+
+                }
+            }
+        }
+    }
+
+
     PM.run(*mod);
     if (showLLVM) {
         string target_llvm = target_path + ".ll";
@@ -367,6 +436,8 @@ int main(int argc, char **argv) {
 
 
     }
+
+
 
 
     if(showAsm){

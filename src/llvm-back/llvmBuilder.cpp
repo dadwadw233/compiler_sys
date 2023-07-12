@@ -830,9 +830,21 @@ void LLVMBuilder::visit(TreeNodeMulExp &node) {
     auto l_val = tmp_val;
     node.UnaryExp->accept(*this);
     auto r_val = tmp_val;
+    //优化乘法
+      if(node.op == SYSY_MUL && isa<llvm::ConstantInt>(r_val)){
+          auto num = dyn_cast<llvm::ConstantInt>(r_val)->getSExtValue();
+          if(num>0&&((num&(num-1)) == 0)&&num!=1){
+              int result = std::log(num)+1;
+              llvm::errs()<<result<<"+++++++++\n";
+              tmp_val = builder.CreateShl(l_val, result);
+          }else{
+              tmp_val = builder.CreateMul(l_val, r_val);
+          }
+      }else if(node.op == SYSY_MUL){
+          tmp_val = builder.CreateMul(l_val, r_val);
+      }
     switch (node.op) {
       case SYSY_MUL:
-        tmp_val = builder.CreateMul(l_val, r_val);
         break;
       case SYSY_DIV:
         tmp_val = builder.CreateSDiv(l_val, r_val);

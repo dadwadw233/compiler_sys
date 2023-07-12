@@ -1,9 +1,7 @@
 
 int main(){
-     int a = 1;
-     int y = a;
-     int x = y + 1;
-     y = 2;
-     x = y;
+     int x = getint();
+     x = x*8;
+     x = x+1;
      return x;
 }

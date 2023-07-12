@@ -73,7 +73,7 @@ public:
 class LLVMBuilder: public TreeVisit {
 private:
     // 全局状态的容器
-    llvm::LLVMContext context;
+
 
     // 变量检查
     Scope scope;
@@ -111,6 +111,7 @@ private:
 public:
     // 调用IRBuilder的API
     llvm::IRBuilder<> builder;
+    llvm::LLVMContext context;
     // 初始化添加库函数
     LLVMBuilder(): builder(context) {
         module = std::make_unique<llvm::Module>("sysyc", context);
