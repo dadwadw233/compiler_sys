@@ -795,12 +795,10 @@ void LLVMBuilder::visit(TreeNodeUnaryExp &node) {
 }
 
 void LLVMBuilder::visit(TreeNodeCallee &node) {
-  //("Callee");
   
   auto fun = scope.find(node.id);
   vector<llvm::Value *> args;
   for (int i=0; i < node.ExpList.size(); i++) {
-    //("Callee_1")
     auto arg = node.ExpList[i];
     // cout<<fun->getType()->getPointerElementType()->getTypeID()<<endl;
 
@@ -811,15 +809,12 @@ void LLVMBuilder::visit(TreeNodeCallee &node) {
     } else {
       require_address = true ;
     }
-    //("Callee_2")
     arg->accept(*this);  // 调用Exp
     require_address = false ;
     args.push_back(tmp_val);
   }
-  //("Callee_3")
 
   tmp_val = builder.CreateCall(fun, args);
-  //("Callee_end")
 }
 
 void LLVMBuilder::visit(TreeNodeMulExp &node) {
@@ -849,9 +844,7 @@ void LLVMBuilder::visit(TreeNodeMulExp &node) {
   //("MulExp_end");
 }
 
-void LLVMBuilder::visit(TreeNodeAddExp &node) {  
-  //("AddExp");
-  auto *TyInt64 = llvm::Type::getInt64Ty(context);
+void LLVMBuilder::visit(TreeNodeAddExp &node) {
   if (node.AddExp == nullptr) {
     node.MulExp->accept(*this);
   } else {
@@ -869,7 +862,6 @@ void LLVMBuilder::visit(TreeNodeAddExp &node) {
         break;
     }
   }
-  //("AddExp_end");
 }
 
 void LLVMBuilder::visit(TreeNodeRelExp &node) {
@@ -923,7 +915,6 @@ void LLVMBuilder::visit(TreeNodeEqExp &node) {
     }
     tmp_val = builder.CreateZExt(tmp_val, TYInt64);
   }
-  //("EqExp_end");
 }
 
 void LLVMBuilder::visit(TreeNodeLAndExp &node) {
@@ -934,41 +925,66 @@ void LLVMBuilder::visit(TreeNodeLAndExp &node) {
     tmp_val = builder.CreateICmpNE(tmp_val, CONST(0));
   } else {
     node.LAndExp->accept(*this);
-      if (llvm::ICmpInst *icmpInst = dyn_cast<llvm::ICmpInst>(tmp_val)) {
-          bool comparisonResult = icmpInst->isTrueWhenEqual();
-          if(comparisonResult){
-              cout<<"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
-              return;
-          }
-      }
-    auto lval = tmp_val;
-    //std::cout<<<<endl;
+      auto lval = tmp_val;
+      /*llvm::BasicBlock* trueBlock = llvm::BasicBlock::Create(context, "early_stop_and", cur_fun);
+      llvm::BasicBlock* falseBlock = llvm::BasicBlock::Create(context, "not_early_stop_and", cur_fun);
+      llvm::BasicBlock* mergeBlock = llvm::BasicBlock::Create(context, "merge", cur_fun);
+      builder.CreateCondBr(tmp_val, falseBlock, trueBlock);
+
+      builder.SetInsertPoint(falseBlock);
+*/
+
     node.EqExp->accept(*this);
     auto rval = builder.CreateICmpNE(tmp_val, CONST(0));
     // auto rval = builder.CreateICmpNE(tmp_val, CONST(0));
-    tmp_val = builder.CreateAnd(lval, rval);
+      tmp_val = builder.CreateAnd(lval, rval);
 
+      /*builder.CreateBr(mergeBlock);
+
+      builder.SetInsertPoint(trueBlock);
+      //lval = builder.CreateAnd(lval, CONST(1));
+      builder.CreateBr(mergeBlock);
+
+      builder.SetInsertPoint(mergeBlock);
+
+      llvm::PHINode* phiNode = builder.CreatePHI(lval->getType(), 2);
+      phiNode->addIncoming(lval, trueBlock);
+      phiNode->addIncoming(full_result, falseBlock);
+
+      tmp_val = phiNode;*/
   }
-  //("LAndExp_end");
-}//return int1;
+}
 
 void LLVMBuilder::visit(TreeNodeLOrExp &node) {
   //("LOrExp");
   if (node.LOrExp == nullptr) {
     node.LAndExp->accept(*this);
   } else {
+      llvm::BasicBlock* trueBlock = llvm::BasicBlock::Create(context, "early_stop_or", cur_fun);
+      llvm::BasicBlock* falseBlock = llvm::BasicBlock::Create(context, "not_early_stop_or", cur_fun);
+      llvm::BasicBlock* mergeBlock = llvm::BasicBlock::Create(context, "merge", cur_fun);
     node.LOrExp->accept(*this);
-    auto lval = tmp_val;
-      /*if (llvm::ICmpInst *icmpInst = dyn_cast<llvm::ICmpInst>(tmp_val)) {
-          bool comparisonResult = icmpInst->isTrueWhenEqual();
-          if(!comparisonResult){
-              cout<<"++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
-              return;
-          }
-      }*/
+      auto lval = tmp_val;
+      builder.CreateCondBr(tmp_val, trueBlock, falseBlock);
+
+      builder.SetInsertPoint(falseBlock);
+
     node.LAndExp->accept(*this);
     auto rval = tmp_val;
-    tmp_val = builder.CreateOr(lval, rval);
+      auto full_result = builder.CreateOr(lval, rval);
+      builder.CreateBr(mergeBlock);
+
+      builder.SetInsertPoint(trueBlock);
+      //tmp_val = builder.CreateOr(tmp_val, CONST(1));
+      builder.CreateBr(mergeBlock);
+
+      builder.SetInsertPoint(mergeBlock);
+
+      llvm::PHINode* phiNode = builder.CreatePHI(lval->getType(), 2);
+      phiNode->addIncoming(lval, trueBlock);
+      phiNode->addIncoming(full_result, falseBlock);
+
+      tmp_val = phiNode;
+
   }
-  //("LOrExp_end");
 }

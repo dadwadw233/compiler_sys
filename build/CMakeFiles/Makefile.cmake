@@ -13,7 +13,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.16.3/CMakeSystem.cmake"
   "../src/ast/CMakeLists.txt"
   "../src/front/CMakeLists.txt"
-  "../src/llvm-builder/CMakeLists.txt"
+  "../src/llvm-back/CMakeLists.txt"
   "/usr/lib/llvm-10/cmake/LLVMConfig.cmake"
   "/usr/lib/llvm-10/cmake/LLVMConfigVersion.cmake"
   "/usr/lib/llvm-10/lib/cmake/llvm/LLVM-Config.cmake"
@@ -53,7 +53,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/front/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/ast/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "src/llvm-builder/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/llvm-back/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -63,5 +63,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "src/front/CMakeFiles/scan.dir/DependInfo.cmake"
   "src/front/CMakeFiles/fdriver.dir/DependInfo.cmake"
   "src/ast/CMakeFiles/ast.dir/DependInfo.cmake"
-  "src/llvm-builder/CMakeFiles/naive-compiler.dir/DependInfo.cmake"
+  "src/llvm-back/CMakeFiles/naive-compiler.dir/DependInfo.cmake"
   )

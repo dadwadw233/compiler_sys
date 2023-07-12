@@ -32,6 +32,12 @@ entry:
   %8 = icmp slt i64 %7, 0
   %9 = zext i1 %8 to i64
   %10 = icmp ne i64 %9, 0
+  br i1 %10, label %early_stop_or, label %not_early_stop_or
+
+early_stop_or:                                    ; preds = %entry
+  br label %merge
+
+not_early_stop_or:                                ; preds = %entry
   %11 = load i64, i64* %0
   %12 = load i64, i64* %1
   %13 = sub i64 %11, %12
@@ -46,42 +52,56 @@ entry:
   %22 = icmp ne i64 %21, 0
   %23 = and i1 %16, %22
   %24 = or i1 %10, %23
-  br i1 %24, label %condition_true, label %condition_cont
+  br label %merge
 
-condition_true:                                   ; preds = %entry
-  %25 = load i64, i64* %4
-  call void @putint(i64 %25)
+merge:                                            ; preds = %early_stop_or, %not_early_stop_or
+  %25 = phi i1 [ %10, %early_stop_or ], [ %24, %not_early_stop_or ]
+  br i1 %25, label %condition_true, label %condition_cont
+
+condition_true:                                   ; preds = %merge
+  %26 = load i64, i64* %4
+  call void @putint(i64 %26)
   br label %condition_cont
 
-condition_cont:                                   ; preds = %condition_true, %entry
-  %26 = load i64, i64* %3
-  %27 = srem i64 %26, 2
-  %28 = add i64 %27, 67
-  %29 = icmp slt i64 %28, 0
-  %30 = zext i1 %29 to i64
-  %31 = icmp ne i64 %30, 0
-  %32 = load i64, i64* %0
-  %33 = load i64, i64* %1
-  %34 = sub i64 %32, %33
-  %35 = icmp ne i64 %34, 0
-  %36 = zext i1 %35 to i64
-  %37 = icmp ne i64 %36, 0
-  %38 = load i64, i64* %2
-  %39 = add i64 %38, 2
-  %40 = srem i64 %39, 2
-  %41 = icmp ne i64 %40, 0
-  %42 = zext i1 %41 to i64
-  %43 = icmp ne i64 %42, 0
-  %44 = and i1 %37, %43
-  %45 = or i1 %31, %44
-  br i1 %45, label %condition_true1, label %condition_cont2
+condition_cont:                                   ; preds = %condition_true, %merge
+  %27 = load i64, i64* %3
+  %28 = srem i64 %27, 2
+  %29 = add i64 %28, 67
+  %30 = icmp slt i64 %29, 0
+  %31 = zext i1 %30 to i64
+  %32 = icmp ne i64 %31, 0
+  br i1 %32, label %early_stop_or1, label %not_early_stop_or2
 
-condition_true1:                                  ; preds = %condition_cont
+early_stop_or1:                                   ; preds = %condition_cont
+  br label %merge3
+
+not_early_stop_or2:                               ; preds = %condition_cont
+  %33 = load i64, i64* %0
+  %34 = load i64, i64* %1
+  %35 = sub i64 %33, %34
+  %36 = icmp ne i64 %35, 0
+  %37 = zext i1 %36 to i64
+  %38 = icmp ne i64 %37, 0
+  %39 = load i64, i64* %2
+  %40 = add i64 %39, 2
+  %41 = srem i64 %40, 2
+  %42 = icmp ne i64 %41, 0
+  %43 = zext i1 %42 to i64
+  %44 = icmp ne i64 %43, 0
+  %45 = and i1 %38, %44
+  %46 = or i1 %32, %45
+  br label %merge3
+
+merge3:                                           ; preds = %early_stop_or1, %not_early_stop_or2
+  %47 = phi i1 [ %32, %early_stop_or1 ], [ %46, %not_early_stop_or2 ]
+  br i1 %47, label %condition_true4, label %condition_cont5
+
+condition_true4:                                  ; preds = %merge3
   store i64 4, i64* %4
-  %46 = load i64, i64* %4
-  call void @putint(i64 %46)
-  br label %condition_cont2
+  %48 = load i64, i64* %4
+  call void @putint(i64 %48)
+  br label %condition_cont5
 
-condition_cont2:                                  ; preds = %condition_true1, %condition_cont
+condition_cont5:                                  ; preds = %condition_true4, %merge3
   ret i64 0
 }

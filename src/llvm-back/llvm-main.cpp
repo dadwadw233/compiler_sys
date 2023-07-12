@@ -130,7 +130,24 @@ int main(int argc, char **argv) {
     //PM.add(llvm::createConstantPropagationPass());
 
     //常数合并
-    //todo
+    /*for (auto &f : mod->getFunctionList()){
+        for(auto &BB : f){
+            for(auto &instr:BB){
+                for (llvm::Use& operand : instr.operands()) {
+                    llvm::Value* value = operand.get();
+                    if(llvm::Constant * constant = llvm::dyn_cast<llvm::Constant>(value)){
+
+                    }
+                    // 进行常数合并
+                    //llvm::Value* foldedValue = constantFolding(value);
+                    // 更新操作数
+                    //operand.set(foldedValue);
+                }
+            }
+        }
+    }*/
+    //全局值编号
+
 
     //代数化简与强度消减
     //todo
@@ -138,7 +155,31 @@ int main(int argc, char **argv) {
     //常数复写
     //todo
 
-    //
+    //局部公共子表达式删除
+    llvm::DenseMap<llvm::Value*, llvm::Value*> valueTable;
+
+    for(auto &f : mod->getFunctionList()){
+        // 遍历函数的基本块和指令
+        for (llvm::BasicBlock& basicBlock : f) {
+            for (llvm::Instruction& instruction : basicBlock) {
+                // 判断指令是否为可计算的子表达式
+                if (llvm::Value* value = valueTable.lookup(&instruction)) {
+                    // 存在相同的子表达式，删除冗余的操作
+                    cout<<"ininin-------------------------------------------"<<endl;
+                    instruction.replaceAllUsesWith(value);
+                    instruction.eraseFromParent();
+                } else {
+                    // 将当前操作添加到值表中
+                    //cout<<"test-----------------------------"<<endl;
+                    valueTable[&instruction] = &instruction;
+                    cout<<instruction.getOpcodeName()<<endl;
+                }
+            }
+        }
+    }
+
+
+
 
     PM.add(llvm::createGreedyRegisterAllocator());
     //建立支配树

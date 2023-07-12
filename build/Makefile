@@ -231,7 +231,7 @@ naive-compiler: cmake_check_build_system
 
 # fast build rule for target.
 naive-compiler/fast:
-	$(MAKE) -f src/llvm-builder/CMakeFiles/naive-compiler.dir/build.make src/llvm-builder/CMakeFiles/naive-compiler.dir/build
+	$(MAKE) -f src/llvm-back/CMakeFiles/naive-compiler.dir/build.make src/llvm-back/CMakeFiles/naive-compiler.dir/build
 .PHONY : naive-compiler/fast
 
 # Help Target

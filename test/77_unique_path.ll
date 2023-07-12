@@ -24,131 +24,141 @@ entry:
   %5 = icmp eq i64 %4, 1
   %6 = zext i1 %5 to i64
   %7 = icmp ne i64 %6, 0
+  br i1 %7, label %early_stop_or, label %not_early_stop_or
+
+early_stop_or:                                    ; preds = %entry
+  br label %merge
+
+not_early_stop_or:                                ; preds = %entry
   %8 = load i64, i64* %3
   %9 = icmp eq i64 %8, 1
   %10 = zext i1 %9 to i64
   %11 = icmp ne i64 %10, 0
   %12 = or i1 %7, %11
-  br i1 %12, label %condition_true, label %condition_cont
+  br label %merge
 
-condition_true:                                   ; preds = %entry
+merge:                                            ; preds = %early_stop_or, %not_early_stop_or
+  %13 = phi i1 [ %7, %early_stop_or ], [ %12, %not_early_stop_or ]
+  br i1 %13, label %condition_true, label %condition_cont
+
+condition_true:                                   ; preds = %merge
   ret i64 1
 
-condition_cont:                                   ; preds = %entry
-  %13 = alloca [9 x i64]
-  %14 = alloca i64
+condition_cont:                                   ; preds = %merge
+  %14 = alloca [9 x i64]
   %15 = alloca i64
-  store i64 0, i64* %14
+  %16 = alloca i64
+  store i64 0, i64* %15
   br label %loop_expression
 
 loop_expression:                                  ; preds = %loop_true, %condition_cont
-  %16 = load i64, i64* %14
-  %17 = load i64, i64* %2
-  %18 = icmp slt i64 %16, %17
-  %19 = zext i1 %18 to i64
-  %20 = icmp ne i64 %19, 0
-  br i1 %20, label %loop_true, label %loop_cont
+  %17 = load i64, i64* %15
+  %18 = load i64, i64* %2
+  %19 = icmp slt i64 %17, %18
+  %20 = zext i1 %19 to i64
+  %21 = icmp ne i64 %20, 0
+  br i1 %21, label %loop_true, label %loop_cont
 
 loop_true:                                        ; preds = %loop_expression
-  %21 = load i64, i64* %14
-  %22 = mul i64 %21, 3
-  %23 = load i64, i64* %3
-  %24 = add i64 %22, %23
-  %25 = sub i64 %24, 1
-  %26 = getelementptr [9 x i64], [9 x i64]* %13, i64 0, i64 %25
-  store i64 1, i64* %26
-  %27 = load i64, i64* %14
-  %28 = add i64 %27, 1
-  store i64 %28, i64* %14
+  %22 = load i64, i64* %15
+  %23 = mul i64 %22, 3
+  %24 = load i64, i64* %3
+  %25 = add i64 %23, %24
+  %26 = sub i64 %25, 1
+  %27 = getelementptr [9 x i64], [9 x i64]* %14, i64 0, i64 %26
+  store i64 1, i64* %27
+  %28 = load i64, i64* %15
+  %29 = add i64 %28, 1
+  store i64 %29, i64* %15
   br label %loop_expression
 
 loop_cont:                                        ; preds = %loop_expression
-  store i64 0, i64* %14
+  store i64 0, i64* %15
   br label %loop_expression1
 
 loop_expression1:                                 ; preds = %loop_true2, %loop_cont
-  %29 = load i64, i64* %14
-  %30 = load i64, i64* %3
-  %31 = icmp slt i64 %29, %30
-  %32 = zext i1 %31 to i64
-  %33 = icmp ne i64 %32, 0
-  br i1 %33, label %loop_true2, label %loop_cont3
+  %30 = load i64, i64* %15
+  %31 = load i64, i64* %3
+  %32 = icmp slt i64 %30, %31
+  %33 = zext i1 %32 to i64
+  %34 = icmp ne i64 %33, 0
+  br i1 %34, label %loop_true2, label %loop_cont3
 
 loop_true2:                                       ; preds = %loop_expression1
-  %34 = load i64, i64* %2
-  %35 = sub i64 %34, 1
-  %36 = mul i64 %35, 3
-  %37 = load i64, i64* %14
-  %38 = add i64 %36, %37
-  %39 = getelementptr [9 x i64], [9 x i64]* %13, i64 0, i64 %38
-  store i64 1, i64* %39
-  %40 = load i64, i64* %14
-  %41 = add i64 %40, 1
-  store i64 %41, i64* %14
+  %35 = load i64, i64* %2
+  %36 = sub i64 %35, 1
+  %37 = mul i64 %36, 3
+  %38 = load i64, i64* %15
+  %39 = add i64 %37, %38
+  %40 = getelementptr [9 x i64], [9 x i64]* %14, i64 0, i64 %39
+  store i64 1, i64* %40
+  %41 = load i64, i64* %15
+  %42 = add i64 %41, 1
+  store i64 %42, i64* %15
   br label %loop_expression1
 
 loop_cont3:                                       ; preds = %loop_expression1
-  %42 = load i64, i64* %2
-  %43 = sub i64 %42, 2
-  store i64 %43, i64* %14
+  %43 = load i64, i64* %2
+  %44 = sub i64 %43, 2
+  store i64 %44, i64* %15
   br label %loop_expression4
 
 loop_expression4:                                 ; preds = %loop_cont9, %loop_cont3
-  %44 = load i64, i64* %14
-  %45 = icmp sgt i64 %44, -1
-  %46 = zext i1 %45 to i64
-  %47 = icmp ne i64 %46, 0
-  br i1 %47, label %loop_true5, label %loop_cont6
+  %45 = load i64, i64* %15
+  %46 = icmp sgt i64 %45, -1
+  %47 = zext i1 %46 to i64
+  %48 = icmp ne i64 %47, 0
+  br i1 %48, label %loop_true5, label %loop_cont6
 
 loop_true5:                                       ; preds = %loop_expression4
-  %48 = load i64, i64* %3
-  %49 = sub i64 %48, 2
-  store i64 %49, i64* %15
+  %49 = load i64, i64* %3
+  %50 = sub i64 %49, 2
+  store i64 %50, i64* %16
   br label %loop_expression7
 
 loop_cont6:                                       ; preds = %loop_expression4
-  %50 = getelementptr [9 x i64], [9 x i64]* %13, i64 0, i64 0
-  %51 = load i64, i64* %50
-  ret i64 %51
+  %51 = getelementptr [9 x i64], [9 x i64]* %14, i64 0, i64 0
+  %52 = load i64, i64* %51
+  ret i64 %52
 
 loop_expression7:                                 ; preds = %loop_true8, %loop_true5
-  %52 = load i64, i64* %15
-  %53 = icmp sgt i64 %52, -1
-  %54 = zext i1 %53 to i64
-  %55 = icmp ne i64 %54, 0
-  br i1 %55, label %loop_true8, label %loop_cont9
+  %53 = load i64, i64* %16
+  %54 = icmp sgt i64 %53, -1
+  %55 = zext i1 %54 to i64
+  %56 = icmp ne i64 %55, 0
+  br i1 %56, label %loop_true8, label %loop_cont9
 
 loop_true8:                                       ; preds = %loop_expression7
-  %56 = load i64, i64* %14
-  %57 = mul i64 %56, 3
-  %58 = load i64, i64* %15
-  %59 = add i64 %57, %58
-  %60 = getelementptr [9 x i64], [9 x i64]* %13, i64 0, i64 %59
-  %61 = load i64, i64* %14
-  %62 = add i64 %61, 1
-  %63 = mul i64 %62, 3
-  %64 = load i64, i64* %15
-  %65 = add i64 %63, %64
-  %66 = getelementptr [9 x i64], [9 x i64]* %13, i64 0, i64 %65
-  %67 = load i64, i64* %66
-  %68 = load i64, i64* %14
-  %69 = mul i64 %68, 3
-  %70 = load i64, i64* %15
-  %71 = add i64 %69, %70
-  %72 = add i64 %71, 1
-  %73 = getelementptr [9 x i64], [9 x i64]* %13, i64 0, i64 %72
-  %74 = load i64, i64* %73
-  %75 = add i64 %67, %74
-  store i64 %75, i64* %60
-  %76 = load i64, i64* %15
-  %77 = sub i64 %76, 1
-  store i64 %77, i64* %15
+  %57 = load i64, i64* %15
+  %58 = mul i64 %57, 3
+  %59 = load i64, i64* %16
+  %60 = add i64 %58, %59
+  %61 = getelementptr [9 x i64], [9 x i64]* %14, i64 0, i64 %60
+  %62 = load i64, i64* %15
+  %63 = add i64 %62, 1
+  %64 = mul i64 %63, 3
+  %65 = load i64, i64* %16
+  %66 = add i64 %64, %65
+  %67 = getelementptr [9 x i64], [9 x i64]* %14, i64 0, i64 %66
+  %68 = load i64, i64* %67
+  %69 = load i64, i64* %15
+  %70 = mul i64 %69, 3
+  %71 = load i64, i64* %16
+  %72 = add i64 %70, %71
+  %73 = add i64 %72, 1
+  %74 = getelementptr [9 x i64], [9 x i64]* %14, i64 0, i64 %73
+  %75 = load i64, i64* %74
+  %76 = add i64 %68, %75
+  store i64 %76, i64* %61
+  %77 = load i64, i64* %16
+  %78 = sub i64 %77, 1
+  store i64 %78, i64* %16
   br label %loop_expression7
 
 loop_cont9:                                       ; preds = %loop_expression7
-  %78 = load i64, i64* %14
-  %79 = sub i64 %78, 1
-  store i64 %79, i64* %14
+  %79 = load i64, i64* %15
+  %80 = sub i64 %79, 1
+  store i64 %80, i64* %15
   br label %loop_expression4
 }
 

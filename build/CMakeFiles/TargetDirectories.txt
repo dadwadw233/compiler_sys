@@ -21,10 +21,10 @@
 /home/yyh/course/compilation/workplace/build/src/ast/CMakeFiles/rebuild_cache.dir
 /home/yyh/course/compilation/workplace/build/src/ast/CMakeFiles/edit_cache.dir
 /home/yyh/course/compilation/workplace/build/src/ast/CMakeFiles/ast.dir
-/home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/install/strip.dir
-/home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/install/local.dir
-/home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/install.dir
-/home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/list_install_components.dir
-/home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/rebuild_cache.dir
-/home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/edit_cache.dir
-/home/yyh/course/compilation/workplace/build/src/llvm-builder/CMakeFiles/naive-compiler.dir
+/home/yyh/course/compilation/workplace/build/src/llvm-back/CMakeFiles/install/strip.dir
+/home/yyh/course/compilation/workplace/build/src/llvm-back/CMakeFiles/install/local.dir
+/home/yyh/course/compilation/workplace/build/src/llvm-back/CMakeFiles/install.dir
+/home/yyh/course/compilation/workplace/build/src/llvm-back/CMakeFiles/list_install_components.dir
+/home/yyh/course/compilation/workplace/build/src/llvm-back/CMakeFiles/rebuild_cache.dir
+/home/yyh/course/compilation/workplace/build/src/llvm-back/CMakeFiles/edit_cache.dir
+/home/yyh/course/compilation/workplace/build/src/llvm-back/CMakeFiles/naive-compiler.dir

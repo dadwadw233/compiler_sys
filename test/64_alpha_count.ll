@@ -44,32 +44,42 @@ loop_true:                                        ; preds = %loop_expression
   %15 = zext i1 %14 to i64
   %16 = icmp ne i64 %15, 0
   %17 = and i1 %12, %16
-  %18 = load i64, i64* %1
-  %19 = icmp sgt i64 %18, 96
-  %20 = zext i1 %19 to i64
-  %21 = icmp ne i64 %20, 0
-  %22 = load i64, i64* %1
-  %23 = icmp slt i64 %22, 123
-  %24 = zext i1 %23 to i64
-  %25 = icmp ne i64 %24, 0
-  %26 = and i1 %21, %25
-  %27 = or i1 %17, %26
-  br i1 %27, label %condition_true, label %condition_cont
+  br i1 %17, label %early_stop_or, label %not_early_stop_or
 
 loop_cont:                                        ; preds = %loop_expression
-  %28 = load i64, i64* %3
-  call void @putint(i64 %28)
+  %18 = load i64, i64* %3
+  call void @putint(i64 %18)
   ret i64 0
 
-condition_true:                                   ; preds = %loop_true
-  %29 = load i64, i64* %3
-  %30 = add i64 %29, 1
-  store i64 %30, i64* %3
+early_stop_or:                                    ; preds = %loop_true
+  br label %merge
+
+not_early_stop_or:                                ; preds = %loop_true
+  %19 = load i64, i64* %1
+  %20 = icmp sgt i64 %19, 96
+  %21 = zext i1 %20 to i64
+  %22 = icmp ne i64 %21, 0
+  %23 = load i64, i64* %1
+  %24 = icmp slt i64 %23, 123
+  %25 = zext i1 %24 to i64
+  %26 = icmp ne i64 %25, 0
+  %27 = and i1 %22, %26
+  %28 = or i1 %17, %27
+  br label %merge
+
+merge:                                            ; preds = %early_stop_or, %not_early_stop_or
+  %29 = phi i1 [ %17, %early_stop_or ], [ %28, %not_early_stop_or ]
+  br i1 %29, label %condition_true, label %condition_cont
+
+condition_true:                                   ; preds = %merge
+  %30 = load i64, i64* %3
+  %31 = add i64 %30, 1
+  store i64 %31, i64* %3
   br label %condition_cont
 
-condition_cont:                                   ; preds = %condition_true, %loop_true
-  %31 = load i64, i64* %2
-  %32 = add i64 %31, 1
-  store i64 %32, i64* %2
+condition_cont:                                   ; preds = %condition_true, %merge
+  %32 = load i64, i64* %2
+  %33 = add i64 %32, 1
+  store i64 %33, i64* %2
   br label %loop_expression
 }

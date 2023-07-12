@@ -49,7 +49,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/yyh/course/compilation/workplace/build/src/llvm-builder/cmake_install.cmake")
+  include("/home/yyh/course/compilation/workplace/build/src/llvm-back/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)

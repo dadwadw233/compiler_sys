@@ -55,14 +55,14 @@ CMAKE_BINARY_DIR = /home/yyh/course/compilation/workplace/build
 # The main recursive "all" target.
 all: src/front/all
 all: src/ast/all
-all: src/llvm-builder/all
+all: src/llvm-back/all
 
 .PHONY : all
 
 # The main recursive "preinstall" target.
 preinstall: src/front/preinstall
 preinstall: src/ast/preinstall
-preinstall: src/llvm-builder/preinstall
+preinstall: src/llvm-back/preinstall
 
 .PHONY : preinstall
 
@@ -70,7 +70,7 @@ preinstall: src/llvm-builder/preinstall
 clean: CMakeFiles/intrinsics_gen.dir/clean
 clean: src/front/clean
 clean: src/ast/clean
-clean: src/llvm-builder/clean
+clean: src/llvm-back/clean
 
 .PHONY : clean
 
@@ -115,22 +115,22 @@ src/front/clean: src/front/CMakeFiles/fdriver.dir/clean
 .PHONY : src/front/clean
 
 #=============================================================================
-# Directory level rules for directory src/llvm-builder
+# Directory level rules for directory src/llvm-back
 
 # Recursive "all" directory target.
-src/llvm-builder/all: src/llvm-builder/CMakeFiles/naive-compiler.dir/all
+src/llvm-back/all: src/llvm-back/CMakeFiles/naive-compiler.dir/all
 
-.PHONY : src/llvm-builder/all
+.PHONY : src/llvm-back/all
 
 # Recursive "preinstall" directory target.
-src/llvm-builder/preinstall:
+src/llvm-back/preinstall:
 
-.PHONY : src/llvm-builder/preinstall
+.PHONY : src/llvm-back/preinstall
 
 # Recursive "clean" directory target.
-src/llvm-builder/clean: src/llvm-builder/CMakeFiles/naive-compiler.dir/clean
+src/llvm-back/clean: src/llvm-back/CMakeFiles/naive-compiler.dir/clean
 
-.PHONY : src/llvm-builder/clean
+.PHONY : src/llvm-back/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/intrinsics_gen.dir
@@ -270,34 +270,34 @@ src/ast/CMakeFiles/ast.dir/clean:
 .PHONY : src/ast/CMakeFiles/ast.dir/clean
 
 #=============================================================================
-# Target rules for target src/llvm-builder/CMakeFiles/naive-compiler.dir
+# Target rules for target src/llvm-back/CMakeFiles/naive-compiler.dir
 
 # All Build rule for target.
-src/llvm-builder/CMakeFiles/naive-compiler.dir/all: src/front/CMakeFiles/parser.dir/all
-src/llvm-builder/CMakeFiles/naive-compiler.dir/all: src/front/CMakeFiles/scan.dir/all
-src/llvm-builder/CMakeFiles/naive-compiler.dir/all: src/front/CMakeFiles/fdriver.dir/all
-src/llvm-builder/CMakeFiles/naive-compiler.dir/all: src/ast/CMakeFiles/ast.dir/all
-	$(MAKE) -f src/llvm-builder/CMakeFiles/naive-compiler.dir/build.make src/llvm-builder/CMakeFiles/naive-compiler.dir/depend
-	$(MAKE) -f src/llvm-builder/CMakeFiles/naive-compiler.dir/build.make src/llvm-builder/CMakeFiles/naive-compiler.dir/build
+src/llvm-back/CMakeFiles/naive-compiler.dir/all: src/front/CMakeFiles/parser.dir/all
+src/llvm-back/CMakeFiles/naive-compiler.dir/all: src/front/CMakeFiles/scan.dir/all
+src/llvm-back/CMakeFiles/naive-compiler.dir/all: src/front/CMakeFiles/fdriver.dir/all
+src/llvm-back/CMakeFiles/naive-compiler.dir/all: src/ast/CMakeFiles/ast.dir/all
+	$(MAKE) -f src/llvm-back/CMakeFiles/naive-compiler.dir/build.make src/llvm-back/CMakeFiles/naive-compiler.dir/depend
+	$(MAKE) -f src/llvm-back/CMakeFiles/naive-compiler.dir/build.make src/llvm-back/CMakeFiles/naive-compiler.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yyh/course/compilation/workplace/build/CMakeFiles --progress-num=5,6,7 "Built target naive-compiler"
-.PHONY : src/llvm-builder/CMakeFiles/naive-compiler.dir/all
+.PHONY : src/llvm-back/CMakeFiles/naive-compiler.dir/all
 
 # Build rule for subdir invocation for target.
-src/llvm-builder/CMakeFiles/naive-compiler.dir/rule: cmake_check_build_system
+src/llvm-back/CMakeFiles/naive-compiler.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/yyh/course/compilation/workplace/build/CMakeFiles 11
-	$(MAKE) -f CMakeFiles/Makefile2 src/llvm-builder/CMakeFiles/naive-compiler.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 src/llvm-back/CMakeFiles/naive-compiler.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/yyh/course/compilation/workplace/build/CMakeFiles 0
-.PHONY : src/llvm-builder/CMakeFiles/naive-compiler.dir/rule
+.PHONY : src/llvm-back/CMakeFiles/naive-compiler.dir/rule
 
 # Convenience name for target.
-naive-compiler: src/llvm-builder/CMakeFiles/naive-compiler.dir/rule
+naive-compiler: src/llvm-back/CMakeFiles/naive-compiler.dir/rule
 
 .PHONY : naive-compiler
 
 # clean rule for target.
-src/llvm-builder/CMakeFiles/naive-compiler.dir/clean:
-	$(MAKE) -f src/llvm-builder/CMakeFiles/naive-compiler.dir/build.make src/llvm-builder/CMakeFiles/naive-compiler.dir/clean
-.PHONY : src/llvm-builder/CMakeFiles/naive-compiler.dir/clean
+src/llvm-back/CMakeFiles/naive-compiler.dir/clean:
+	$(MAKE) -f src/llvm-back/CMakeFiles/naive-compiler.dir/build.make src/llvm-back/CMakeFiles/naive-compiler.dir/clean
+.PHONY : src/llvm-back/CMakeFiles/naive-compiler.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

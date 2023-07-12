@@ -13,7 +13,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/lib/llvm-10/include"
   "../include/front"
   "../include/ast"
-  "../include/llvm-builder"
+  "../include/llvm-back"
   )
 
 # Targets to which this target links.
