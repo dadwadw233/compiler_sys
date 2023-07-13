@@ -54,6 +54,8 @@
 #include "llvm/IR/Value.h"
 #include "llvm/IR/Intrinsics.h"
 #include "llvm/Support/raw_ostream.h"
+
+#include "llvm/CodeGen/LiveVariables.h"
 using namespace std;
 using namespace std::literals::string_literals;
 
@@ -66,7 +68,7 @@ int main(int argc, char **argv) {
     bool showAst = false;
     bool showSSA = false;
     bool showLLVM = true;
-    bool showAsm = false;
+    bool showAsm = true;
     bool showFinal = true;
 
     TreeNodeTopLevel *root;
@@ -152,8 +154,6 @@ int main(int argc, char **argv) {
 
 
 
-
-
     //常量传播
     //PM.add(llvm::createConstantPropagationPass());
 
@@ -196,6 +196,35 @@ int main(int argc, char **argv) {
             }
         }
     }*/
+    // 死代码消除
+    // 消除未使用的语句
+
+    for(auto &BB:*mod->getFunction("main")){
+        std::vector<Value*>def_list;
+
+        for (auto I = BB.begin(); I != BB.end(); ) {
+            if (AllocaInst* alloca = dyn_cast<AllocaInst>(&*I)) {
+                errs()<<*I<<alloca->getNumUses()<<"\n";
+                if(alloca->getNumUses() == 0){
+                    I = alloca->eraseFromParent();
+                    continue;
+                }
+                else if(alloca->hasNUses(1)){
+                    auto next = I->getNextNode();
+                    if(StoreInst* inst = dyn_cast<StoreInst>(&*next)){
+                        I = alloca->eraseFromParent();
+                        I = I->eraseFromParent();
+                        errs()<<*I<<"\n";
+                        continue;
+                    }
+                }
+                ++I;
+
+            }else{
+                ++I;
+            }
+        }
+    }
     //代数化简与强度消减（简单）
     //
     for (auto &f:mod->getFunctionList()){
@@ -392,7 +421,7 @@ int main(int argc, char **argv) {
     }
 
 
-    PM.add(llvm::createGreedyRegisterAllocator());
+    PM.add(llvm::createFastRegisterAllocator());
     bool isModuleValid = !llvm::verifyModule(*mod);
 
 
@@ -405,7 +434,7 @@ int main(int argc, char **argv) {
     // 消除常量运算（常量传递之后）
     for (auto &f:mod->getFunctionList()){
         for(auto &BB:f){
-            for (auto I = BB.begin(); I != BB.end(); ++I) {
+            for (auto I = BB.begin(); I != BB.end(); ) {
                 if (BinaryOperator* BinOp = dyn_cast<BinaryOperator>(&*I)) {
                     Value* LHS = BinOp->getOperand(0);
                     Value* RHS = BinOp->getOperand(1);
@@ -416,11 +445,17 @@ int main(int argc, char **argv) {
                         BinOp->replaceAllUsesWith(Result);
                         I = BinOp->eraseFromParent();
                     }
+                    ++I;
 
+                }else{
+                    ++I;
                 }
             }
         }
     }
+
+
+
 
 
     PM.run(*mod);
